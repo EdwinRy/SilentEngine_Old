@@ -17,6 +17,8 @@ namespace Silent.Graphics
         private int     m_updateFrameRate           = 60;
         private int     m_renderFrameRate           = 60;
         private string  m_title                     = "Silent Game Engine";
+        private bool    m_resizable                 = false;
+        private bool    m_hiddenBorder              = false;
         private bool    m_usePresetUpdateFrequency  = false;
         private bool    m_usePresetRenderFrequency  = false;
 
@@ -29,11 +31,12 @@ namespace Silent.Graphics
         {
 
             return new Display(
-                width                       :m_width,
-                height                      :m_height,
-                updateFrameRate             :m_updateFrameRate,
-                renderFrameRate             :m_renderFrameRate,
-                title                       :m_title,
+                width                       : m_width,
+                height                      : m_height,
+                updateFrameRate             : m_updateFrameRate,
+                renderFrameRate             : m_renderFrameRate,
+                title                       : m_title,
+                resizable                   : m_resizable,
                 usePresetUpdateFrequency    :m_usePresetUpdateFrequency,
                 usePresetRenderFrequency    :m_usePresetRenderFrequency);
         }
@@ -70,6 +73,12 @@ namespace Silent.Graphics
             return m_title;
         }
 
+        //Get resizability of the display
+        public bool getDisplayResizable()
+        {
+            return m_resizable;
+        }
+
 
 
 
@@ -82,9 +91,9 @@ namespace Silent.Graphics
         }
 
         //Set height of the display
-        public void setDisplayHeight(int width)
+        public void setDisplayHeight(int height)
         {
-            m_width = width;
+            m_height = height;
         }
 
         //Set update frequency of the display
@@ -103,6 +112,12 @@ namespace Silent.Graphics
         public void setDisplayTitle(string title)
         {
             m_title = title;
+        }
+
+        //Set resizability of the display
+        public void setDisplayResizable(bool resizable)
+        {
+            m_resizable = resizable;
         }
 
     }

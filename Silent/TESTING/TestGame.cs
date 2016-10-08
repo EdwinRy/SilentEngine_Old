@@ -16,9 +16,9 @@ namespace TESTING
             Game game = new Game();
             Display display;
             DisplayManager displayManager = new DisplayManager();
+            
 
             display = displayManager.CreateDisplay();
-
             game.addDisplay(display);
             game.MainGameLoop();
 
