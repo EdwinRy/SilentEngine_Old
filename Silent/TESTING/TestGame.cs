@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Silent.GameSystem;
 using Silent.Graphics;
+using static Silent.Graphics.DisplayManager;
 
 namespace TESTING
 {
@@ -16,9 +17,11 @@ namespace TESTING
             Game game = new Game();
             Display display;
             DisplayManager displayManager = new DisplayManager();
-            
+
+            displayManager.setBorder(DisplayBorder.Hidden);
 
             display = displayManager.CreateDisplay();
+
             game.addDisplay(display);
             game.MainGameLoop();
 

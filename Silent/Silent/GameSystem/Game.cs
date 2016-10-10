@@ -45,14 +45,11 @@ namespace Silent.GameSystem
         public void addDisplay(Display display)
         {
 
-            gameDisplay = display;
-            gameDisplay.Load += OnLoadGame;
-            gameDisplay.UpdateFrame += OnUpdateGame;
-            gameDisplay.RenderFrame += OnRenderGame;
-            gameDisplay.Closing += OnClosingGame;
-
-            if (!gameDisplay.getResizable())
-                gameDisplay.WindowBorder = WindowBorder.Hidden;
+            gameDisplay                 = display;
+            gameDisplay.Load            += OnLoadGame;
+            gameDisplay.UpdateFrame     += OnUpdateGame;
+            gameDisplay.RenderFrame     += OnRenderGame;
+            gameDisplay.Closing         += OnClosingGame;
 
         }
 
