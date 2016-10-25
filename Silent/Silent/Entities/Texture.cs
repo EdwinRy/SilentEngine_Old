@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 
 namespace Silent.Entities
 {
-    public class Entity
+    public class Texture
     {
 
-        private Model m_model;
+        private int m_textureID;
 
-        public Entity(Model model)
+        public Texture(int textureID)
         {
-            m_model = model;
+            m_textureID = textureID;
         }
 
-        public Model getModel()
+        public int getTextureID()
         {
-            return m_model;
+            return m_textureID;
         }
-
-
     }
 }

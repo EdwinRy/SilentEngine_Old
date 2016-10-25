@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,11 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Camera.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\Model.cs" />
+    <Compile Include="Entities\Texture.cs" />
+    <Compile Include="Tools\GLModelLoader.cs" />
+    <Compile Include="Tools\OBJLoader.cs" />
+    <Compile Include="Entities\Vertex.cs" />
     <Compile Include="GameSystem\Game.cs" />
     <Compile Include="GameSystem\Level.cs" />
     <Compile Include="Graphics\Display\Display.cs" />
     <Compile Include="Graphics\Display\DisplayManager.cs" />
+    <Compile Include="Graphics\RenderEngine\GLRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

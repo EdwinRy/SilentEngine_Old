@@ -18,7 +18,7 @@ namespace TESTING
             Display display;
             DisplayManager displayManager = new DisplayManager();
 
-            displayManager.setBorder(DisplayBorder.Hidden);
+            displayManager.setBorder(DisplayBorder.Hidden); 
 
             display = displayManager.CreateDisplay();
 

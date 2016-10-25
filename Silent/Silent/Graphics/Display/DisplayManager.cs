@@ -12,9 +12,6 @@ namespace Silent.Graphics
     
     public class DisplayManager
     {
-
-        Display display;
-
         DisplayBorder   m_border                    = DisplayBorder.Fixed;
         private int     m_width                     = 600;
         private int     m_height                    = 400;
@@ -40,9 +37,9 @@ namespace Silent.Graphics
 
         public enum DisplayBorder
         {
-            Resizable = 0,
-            Fixed = 1,
-            Hidden = 2
+            Resizable,
+            Fixed,
+            Hidden
         }
 
         //GETTERS
