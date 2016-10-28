@@ -6,15 +6,25 @@ using System.Threading.Tasks;
 using Silent.GameSystem;
 using Silent.Graphics;
 using static Silent.Graphics.DisplayManager;
+using Silent.Entities;
+using Silent.Tools;
 
 namespace TESTING
 {
-    class TestGame
+    class TestApplication
     {
         
         public static void Main()
         {
-            Game game = new Game();
+            Game game = new TestGame();
+            Level lvl1 = new TestLevel();
+
+            lvl1.setLevelName("swagLVL");
+
+            game.loadLevel(lvl1);
+
+            game.setCurrentLevel("swagLVL");
+
             Display display;
             DisplayManager displayManager = new DisplayManager();
 
@@ -27,5 +37,17 @@ namespace TESTING
 
         }
 
+    }
+
+    class TestGame : Game
+    { }
+        
+
+    class TestLevel : Level
+    {
+        public override void OnUpdate()
+        {
+            Console.WriteLine("swag");
+        }
     }
 }

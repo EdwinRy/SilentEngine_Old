@@ -57,9 +57,9 @@ namespace Silent.Graphics
             if (m_border == DisplayBorder.Hidden)
                 this.WindowBorder = WindowBorder.Hidden;
 
-            this.Width = m_width;
-            this.Height = m_height;
-            this.Title = m_title;
+            this.Width      = m_width;
+            this.Height     = m_height;
+            this.Title      = m_title;
 
 
 

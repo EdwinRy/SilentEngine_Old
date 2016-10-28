@@ -9,8 +9,13 @@ namespace Silent.Entities
     public class Vertex
     {
 
+        //ID of the VAO used for rendering
         private int m_vaoID;
+
+        //The number of vertices needed for rendering
         private int m_vertexCount;
+
+        //The number of elements in the VAO simplifying enabling/disabling elements in rendering
         private int m_vaoLength;
 
         public Vertex(int vaoID,int vertexCount, int vaoLength)
@@ -20,16 +25,19 @@ namespace Silent.Entities
             m_vaoLength     = vaoLength;
         }
 
+        //Return VAO ID for rendering
         public int getVAOID()
         {
             return m_vaoID;
         }
 
+        //Return the number of vertices for rendering
         public int getVertexCount()
         {
             return m_vertexCount;
         }
 
+        //Return the number of VAO attributes
         public int getVAOLength()
         {
             return m_vaoLength;

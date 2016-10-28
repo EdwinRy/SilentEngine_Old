@@ -9,13 +9,17 @@ namespace Silent.Entities
     public class Texture
     {
 
+        //ID of the texture needed for rendering
         private int m_textureID;
 
+
+        //constructor takes in the texture ID
         public Texture(int textureID)
         {
             m_textureID = textureID;
         }
 
+        //Return texture for rendering
         public int getTextureID()
         {
             return m_textureID;
