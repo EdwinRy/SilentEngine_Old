@@ -9,7 +9,7 @@ namespace Silent.GameSystem
 {
     public class Level
     {
-
+        public Level(string name = "SampleText") { m_LevelName = name; }
         private string m_LevelName = null;
 
         List<Entity> entities = new List<Entity>();
@@ -59,5 +59,9 @@ namespace Silent.GameSystem
             m_LevelName = newLevelName;
         }
 
+        public void addEntity(Entity entity)
+        {
+            entities.Add(Entity)
+        }
     }
 }

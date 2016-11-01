@@ -41,6 +41,11 @@ namespace Silent.GameSystem
         //Runs whenever the Game's loop is started
         private void OnLoadGame(object sender, EventArgs e)
         {
+            foreach(Level level in levels)
+            {
+                level.OnLoad();
+                level.OnLoadLevel();
+            }
             GL.ClearColor(0.25f, 0f, 0.5f, 0f);
 
             OnLoad();
@@ -69,7 +74,7 @@ namespace Silent.GameSystem
             }
             else
             {
-                Console.WriteLine("Current Level has to be declared");
+                Console.WriteLine("Current level has to be declared");
             }
             OnRender();
             gameDisplay.SwapBuffers();
@@ -78,14 +83,28 @@ namespace Silent.GameSystem
         //Execute when the game is about to close
         private void OnClosingGame(object sender, EventArgs e)
         {
-
+            if (!(m_currentLevel == null))
+            {
+                levels[levelNames.IndexOf(m_currentLevel)].OnClosing();
+            }
+            else
+            {
+                Console.WriteLine("Current level has to be declared");
+            }
             OnClosing();
         }
 
         //Execute when the game has closed
         private void OnClosedGame(object sender, EventArgs e)
         {
-
+            if (!(m_currentLevel == null))
+            {
+                levels[levelNames.IndexOf(m_currentLevel)].OnClosed();
+            }
+            else
+            {
+                Console.WriteLine("Current level has to be declared");
+            }
             OnClosed();
         }
 
