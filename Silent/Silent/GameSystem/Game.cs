@@ -2,6 +2,7 @@
 using OpenTK.Graphics.OpenGL4;
 using Silent.Graphics;
 using Silent.Graphics.RenderEngine;
+using Silent.Graphics.Shaders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace Silent.GameSystem
         //For checks if the game is already running
         private bool m_gameRunning = false;
 
+        private bool m_firstLevelLoaded = false;
 
         //Override functions enabling inserting additional code into the game loop
         public virtual void OnLoad() { }
@@ -41,10 +43,16 @@ namespace Silent.GameSystem
         //Runs whenever the Game's loop is started
         private void OnLoadGame(object sender, EventArgs e)
         {
+
             foreach(Level level in levels)
             {
-                level.OnLoad();
-                level.OnLoadLevel();
+                level.OnPreLoad();
+                level.OnPreLoadLevel();
+                if (!m_firstLevelLoaded)
+                {
+                    level.OnLoadLevel();
+                    m_firstLevelLoaded = true;
+                }
             }
             GL.ClearColor(0.25f, 0f, 0.5f, 0f);
 
@@ -56,7 +64,7 @@ namespace Silent.GameSystem
         {
             if (!(m_currentLevel == null))
             {
-                levels[levelNames.IndexOf(m_currentLevel)].OnUpdate();
+                levels[levelNames.IndexOf(m_currentLevel)].OnUpdateLevel();
             }else{
                 Console.WriteLine("Current Level has to be declared");
             }
@@ -70,7 +78,7 @@ namespace Silent.GameSystem
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
             if (!(m_currentLevel == null))
             {
-                levels[levelNames.IndexOf(m_currentLevel)].OnRender();
+                levels[levelNames.IndexOf(m_currentLevel)].OnRenderLevel();
             }
             else
             {
@@ -85,7 +93,7 @@ namespace Silent.GameSystem
         {
             if (!(m_currentLevel == null))
             {
-                levels[levelNames.IndexOf(m_currentLevel)].OnClosing();
+                levels[levelNames.IndexOf(m_currentLevel)].OnClosingLevel();
             }
             else
             {
@@ -99,7 +107,7 @@ namespace Silent.GameSystem
         {
             if (!(m_currentLevel == null))
             {
-                levels[levelNames.IndexOf(m_currentLevel)].OnClosed();
+                levels[levelNames.IndexOf(m_currentLevel)].OnClosedLevel();
             }
             else
             {
@@ -141,7 +149,9 @@ namespace Silent.GameSystem
         public void setCurrentLevel(string newLevel)
         {
             m_currentLevel = newLevel;
-            levels[levelNames.IndexOf(m_currentLevel)].OnLoad();
+            if (m_currentLevel != null) { levels[levelNames.IndexOf(m_currentLevel)].OnUnloadLevel(); }
+            if (m_firstLevelLoaded) { levels[levelNames.IndexOf(m_currentLevel)].OnLoadLevel(); }
+            
         }
 
         //Get the name of the current level running

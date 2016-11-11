@@ -49,6 +49,8 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Model.cs" />
     <Compile Include="Entities\Texture.cs" />
+    <Compile Include="Graphics\Shaders\ShaderProgram.cs" />
+    <Compile Include="Graphics\Shaders\StaticShader.cs" />
     <Compile Include="Tools\GLModelLoader.cs" />
     <Compile Include="Tools\OBJLoader.cs" />
     <Compile Include="Entities\Vertex.cs" />
@@ -60,11 +62,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EngineAssets\SampleCube.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Shaders\FragmentShader.txt" />
+    <Content Include="Graphics\Shaders\VertexShader.txt" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="EngineAssets\" />
+    <Content Include="EngineAssets\SampleTexture.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

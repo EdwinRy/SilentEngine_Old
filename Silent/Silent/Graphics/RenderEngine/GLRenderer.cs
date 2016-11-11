@@ -19,6 +19,7 @@ namespace Silent.Graphics.RenderEngine
 
         public void render(Entity entity)
         {
+            //TODO: Fix null pointer
             GL.BindVertexArray(entity.getModel().getVertex().getVAOID());
 
             for(int i = 0; i < entity.getModel().getVertex().getVAOLength(); i++)

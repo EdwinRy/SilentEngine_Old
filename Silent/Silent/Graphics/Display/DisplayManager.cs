@@ -23,16 +23,15 @@ namespace Silent.Graphics
 
         public Display CreateDisplay()
         {
-
             return new Display(
-                border                      : m_border,
-                width                       : m_width,
-                height                      : m_height,
-                updateFrameRate             : m_updateFrameRate,
-                renderFrameRate             : m_renderFrameRate,
-                title                       : m_title,
-                usePresetUpdateFrequency    : m_usePresetUpdateFrequency,
-                usePresetRenderFrequency    : m_usePresetRenderFrequency);
+                border: m_border,
+                width: m_width,
+                height: m_height,
+                updateFrameRate: m_updateFrameRate,
+                renderFrameRate: m_renderFrameRate,
+                title: m_title,
+                usePresetUpdateFrequency: m_usePresetUpdateFrequency,
+                usePresetRenderFrequency: m_usePresetRenderFrequency);
         }
 
         public enum DisplayBorder

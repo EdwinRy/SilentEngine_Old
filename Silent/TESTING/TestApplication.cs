@@ -19,35 +19,59 @@ namespace TESTING
             Game game = new TestGame();
             Level lvl1 = new TestLevel();
 
-            lvl1.setLevelName("swagLVL");
-
-            game.loadLevel(lvl1);
-
-            game.setCurrentLevel("swagLVL");
-
             Display display;
             DisplayManager displayManager = new DisplayManager();
 
-            displayManager.setBorder(DisplayBorder.Hidden); 
+            lvl1.setLevelName("swagLVL");
+
+            game.loadLevel(lvl1);
+            game.setCurrentLevel("swagLVL");
+
+            displayManager.setBorder(DisplayBorder.Fixed); 
 
             display = displayManager.CreateDisplay();
 
             game.addDisplay(display);
             game.MainGameLoop();
+            
+            
 
         }
 
     }
 
     class TestGame : Game
-    { }
+    {
+
+
+    }
         
 
     class TestLevel : Level
     {
+        public override void OnLoad()
+        {
+            Entity sampleEntity = new SampleEntity();
+            this.addEntity(sampleEntity);
+            
+        }
+
         public override void OnUpdate()
         {
-            Console.WriteLine("swag");
+
+        }
+
+        public override void OnRender()
+        {
+            
+        }
+
+    }
+
+    class SampleEntity : Entity
+    {
+        public override void OnLoad()
+        {
         }
     }
 }

@@ -9,18 +9,21 @@ using System.Threading.Tasks;
 using OpenTK;
 
 
-namespace Silent.Entities
+namespace Silent.Tools
 {
-    class OBJLoader
+    public class OBJLoader
     {
 
-        public static void loadObjModel(string fileName,GLModelLoader loader,string texturePath, out Model model)
+        public Model loadObjModel(string filePath = "EngineAssets/SampleCube.obj", string texturePath = "EngineAssets/SampleTexture.png")
         {
-            string[] lines = System.IO.File.ReadAllLines(fileName);
+
+            string[] lines = System.IO.File.ReadAllLines(filePath);
             float[] vertices = null;
             float[] textures = null;
             float[] normals = null;
             int[] indices = null;
+
+            
 
             List<Vector3d> temp_vertices = new List<Vector3d>();
             List<Vector2d> temp_textures = new List<Vector2d>();
@@ -29,26 +32,40 @@ namespace Silent.Entities
 
             bool texturesNormals_initialized = false;
 
+            GLModelLoader loader = new GLModelLoader();
+
+            
+
             foreach (string line in lines)
             {
                 //Vertices
-                if (line.StartsWith("v"))
+                if (line.StartsWith("v "))
                 {
                     string[] currentLine = line.Split(' ');
-                    Console.WriteLine(currentLine);
+                    //Console.WriteLine("Split line:", currentLine[1]);
+
+                    foreach(string element in currentLine)
+                    {
+                        Console.WriteLine(element);
+                    }
+
                     temp_vertices.Add(
                         new Vector3d(
                             float.Parse(currentLine[1]), 
-                            float.Parse(currentLine[2]),
-                            float.Parse(currentLine[3])));
+                            double.Parse(currentLine[2]),
+                            float.Parse(currentLine[3])
+                            ));
 
                 }
 
                 //Textures
-                if (line.StartsWith("vt"))
+                if (line.StartsWith("vt "))
                 {
                     string[] currentLine = line.Split(' ');
-                    Console.WriteLine(currentLine);
+                    foreach (string element in currentLine)
+                    {
+                        Console.WriteLine(element);
+                    }
                     temp_textures.Add(
                         new Vector2d(
                             float.Parse(currentLine[1]),
@@ -56,11 +73,14 @@ namespace Silent.Entities
                 }
 
                 //Normals
-                if (line.StartsWith("vn"))
+                if (line.StartsWith("vn "))
                 {
 
                     string[] currentLine = line.Split(' ');
-                    Console.WriteLine(currentLine);
+                    foreach (string element in currentLine)
+                    {
+                        Console.WriteLine(element);
+                    }
                     temp_normals.Add(
                         new Vector3d(
                             float.Parse(currentLine[1]),
@@ -70,12 +90,12 @@ namespace Silent.Entities
                 }
 
                 //Triangles
-                if (line.StartsWith("f"))
+                if (line.StartsWith("f "))
                 {
                     if (!texturesNormals_initialized)
                     {
-                        textures = new float[vertices.Length * 2];
-                        normals = new float[vertices.Length * 3];
+                        textures = new float[temp_vertices.Count * 2];
+                        normals = new float[temp_vertices.Count * 3];
 
                         texturesNormals_initialized = true;
                     }
@@ -113,7 +133,7 @@ namespace Silent.Entities
             vertex = loader.load(vertices, indices, textures, normals);
             texture = loader.loadTexture(texturePath);
 
-            model = new Model(vertex, texture);
+            return new Model(vertex, texture);
 
 
         }
