@@ -70,7 +70,12 @@
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Silent_Core\Silent_Core.vcxproj">
+      <Project>{f272017d-14d4-43f2-a01d-e19182351ad0}</Project>
+      <Name>Silent_Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="EngineAssets\SampleTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
