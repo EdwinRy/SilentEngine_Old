@@ -15,11 +15,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,8 +50,10 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Model.cs" />
     <Compile Include="Entities\Texture.cs" />
+    <Compile Include="GameSystem\Wrapper.cs" />
     <Compile Include="Graphics\Shaders\ShaderProgram.cs" />
     <Compile Include="Graphics\Shaders\StaticShader.cs" />
+    <Compile Include="Graphics_Wrapper\GL_Wrapper.cs" />
     <Compile Include="Tools\GLModelLoader.cs" />
     <Compile Include="Tools\OBJLoader.cs" />
     <Compile Include="Entities\Vertex.cs" />
@@ -69,12 +72,6 @@
     <Content Include="Graphics\Shaders\VertexShader.txt" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Silent_Core\Silent_Core.vcxproj">
-      <Project>{f272017d-14d4-43f2-a01d-e19182351ad0}</Project>
-      <Name>Silent_Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="EngineAssets\SampleTexture.png">

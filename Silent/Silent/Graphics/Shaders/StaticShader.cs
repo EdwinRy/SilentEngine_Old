@@ -16,5 +16,10 @@ namespace Silent.Graphics.Shaders
         {
             bindAttribute(0, "position");
         }
+
+        protected override void getAllUniformLocations()
+        {
+            
+        }
     }
 }

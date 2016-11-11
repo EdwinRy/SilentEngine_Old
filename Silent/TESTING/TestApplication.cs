@@ -8,14 +8,17 @@ using Silent.Graphics;
 using static Silent.Graphics.DisplayManager;
 using Silent.Entities;
 using Silent.Tools;
+using System.Runtime.InteropServices;
 
 namespace TESTING
 {
     class TestApplication
     {
-        
         public static void Main()
         {
+            Wrapper wrapper = new Wrapper();
+            Console.WriteLine(wrapper.swag());
+           
             Game game = new TestGame();
             Level lvl1 = new TestLevel();
 
