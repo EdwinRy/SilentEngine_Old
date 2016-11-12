@@ -100,7 +100,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -164,6 +164,8 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\sdl2.redist.2.0.3\build\native\sdl2.redist.targets" Condition="Exists('..\packages\sdl2.redist.2.0.3\build\native\sdl2.redist.targets')" />
     <Import Project="..\packages\sdl2.2.0.3\build\native\sdl2.targets" Condition="Exists('..\packages\sdl2.2.0.3\build\native\sdl2.targets')" />
+    <Import Project="..\packages\glew.redist.1.9.0.1\build\native\glew.redist.targets" Condition="Exists('..\packages\glew.redist.1.9.0.1\build\native\glew.redist.targets')" />
+    <Import Project="..\packages\glew.1.9.0.1\build\native\glew.targets" Condition="Exists('..\packages\glew.1.9.0.1\build\native\glew.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -171,5 +173,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\sdl2.redist.2.0.3\build\native\sdl2.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.redist.2.0.3\build\native\sdl2.redist.targets'))" />
     <Error Condition="!Exists('..\packages\sdl2.2.0.3\build\native\sdl2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.2.0.3\build\native\sdl2.targets'))" />
+    <Error Condition="!Exists('..\packages\glew.redist.1.9.0.1\build\native\glew.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glew.redist.1.9.0.1\build\native\glew.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\glew.1.9.0.1\build\native\glew.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glew.1.9.0.1\build\native\glew.targets'))" />
   </Target>
 </Project>
