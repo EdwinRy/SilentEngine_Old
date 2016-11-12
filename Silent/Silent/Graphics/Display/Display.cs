@@ -10,7 +10,6 @@ namespace Silent.Graphics
 {
     public class Display : GameWindow
     {
-
         //Pre-set Display values with defaults
         DisplayBorder   m_border                    = DisplayBorder.Fixed;
         private int     m_width                     = 600;

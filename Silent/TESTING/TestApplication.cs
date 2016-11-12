@@ -8,7 +8,7 @@ using Silent.Graphics;
 using static Silent.Graphics.DisplayManager;
 using Silent.Entities;
 using Silent.Tools;
-using System.Runtime.InteropServices;
+
 
 namespace TESTING
 {
@@ -16,27 +16,6 @@ namespace TESTING
     {
         public static void Main()
         {
-            Wrapper wrapper = new Wrapper();
-            Console.WriteLine(wrapper.swag());
-           
-            Game game = new TestGame();
-            Level lvl1 = new TestLevel();
-
-            Display display;
-            DisplayManager displayManager = new DisplayManager();
-
-            lvl1.setLevelName("swagLVL");
-
-            game.loadLevel(lvl1);
-            game.setCurrentLevel("swagLVL");
-
-            displayManager.setBorder(DisplayBorder.Fixed); 
-
-            display = displayManager.CreateDisplay();
-
-            game.addDisplay(display);
-            game.MainGameLoop();
-            
             
 
         }
