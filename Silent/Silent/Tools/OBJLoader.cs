@@ -14,10 +14,10 @@ namespace Silent.Tools
     public class OBJLoader
     {
 
-        public Model loadObjModel(string filePath = "EngineAssets/SampleCube.obj", string texturePath = "EngineAssets/SampleTexture.png")
+        public Model loadObjModel(string filePath = "C:/Users/Edwin/Source/Repos/SilentEngine/Silent/Silent/EngineAssets/SampleCube.obj", string texturePath = "C:/Users/Edwin/Source/Repos/SilentEngine/Silent/Silent/EngineAssets/SampleTexture.png")
         {
 
-            string[] lines = System.IO.File.ReadAllLines(filePath);
+            string[] lines = System.IO.File.ReadAllLines("C:/Users/Edwin/Source/Repos/SilentEngine/Silent/Silent/EngineAssets/SampleCube.obj");
             float[] vertices = null;
             float[] textures = null;
             float[] normals = null;

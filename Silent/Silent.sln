@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silent", "Silent\Silent.csproj", "{FF07061E-35FF-426F-81B7-D7D7E5365E65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilentCS", "Silent\SilentCS.csproj", "{FF07061E-35FF-426F-81B7-D7D7E5365E65}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TESTING", "TESTING\TESTING.csproj", "{92A2E477-2230-4248-979A-85016FB76D6A}"
 EndProject

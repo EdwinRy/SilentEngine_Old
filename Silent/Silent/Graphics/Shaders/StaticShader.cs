@@ -15,6 +15,7 @@ namespace Silent.Graphics.Shaders
         protected override void bindAttributes()
         {
             bindAttribute(0, "position");
+            bindAttribute(1, "textureCoords");
         }
 
         protected override void getAllUniformLocations()

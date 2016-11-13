@@ -14,7 +14,7 @@ namespace Silent.Graphics.Shaders
         private int m_vertexShaderID;
         private int m_fragmentShaderID;
 
-        public ShaderProgram(string vertexShaderFile = "VertexShader.txt", string fragmentShaderFile = "FragmentShader.txt")
+        public ShaderProgram(string vertexShaderFile = "C:/Users/Edwin/Source/Repos/SilentEngine/Silent/Silent/Graphics/Shaders/VertexShader.txt", string fragmentShaderFile = "C:/Users/Edwin/Source/Repos/SilentEngine/Silent/Silent/Graphics/Shaders/VertexShader.txt")
         {
             m_vertexShaderID = loadShader(vertexShaderFile, ShaderType.VertexShader);
             m_fragmentShaderID = loadShader(fragmentShaderFile, ShaderType.FragmentShader);
@@ -62,20 +62,25 @@ namespace Silent.Graphics.Shaders
         }
 
         private static int loadShader(string file, ShaderType type) {
+            /*
             StringBuilder shaderSource = new StringBuilder();
             try {
+                
+                
                 StreamReader reader = new StreamReader(file);
                 string line;
                 while ((line = reader.ReadLine()) != null) {
                     shaderSource.Append(line).Append("//\n");
                 }
                 reader.Close();
+                
             }catch (IOException e) {
                 Console.WriteLine(e.StackTrace);
             }
-
+            */
+            string[] lines = System.IO.File.ReadAllLines(file.ToString());
             int shaderID = GL.CreateShader(type);
-            GL.ShaderSource(shaderID, shaderSource.ToString());
+            GL.ShaderSource(shaderID, lines.ToString());
             GL.CompileShader(shaderID);
             Console.WriteLine(GL.GetError());
             return shaderID;

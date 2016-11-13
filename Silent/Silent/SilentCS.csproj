@@ -67,18 +67,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EngineAssets\SampleCube.obj">
+    <Resource Include="EngineAssets\SampleCube.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
     <Content Include="Graphics\Shaders\FragmentShader.txt" />
     <Content Include="Graphics\Shaders\VertexShader.txt" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EngineAssets\SampleTexture.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="EngineAssets\SampleTexture.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

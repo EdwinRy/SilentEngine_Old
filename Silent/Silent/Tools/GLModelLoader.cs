@@ -30,7 +30,7 @@ namespace Silent.Tools
 
         public Texture loadTexture(string texturePath)
         {
-            Bitmap bmp = new Bitmap(texturePath);
+            Bitmap bmp = new Bitmap("C:/Users/Edwin/Source/Repos/SilentEngine/Silent/Silent/EngineAssets/SampleTexture.png");
             int texID = GL.GenTexture();
 
             GL.ClearColor(Color.MidnightBlue);

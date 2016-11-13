@@ -41,10 +41,6 @@ Silent_Core::GameSystem::GL_Game::GL_Game()
 
 	SDL_GL_SetSwapInterval(1);
 
-#ifndef __APPLE__
-	glewExperimental = GL_TRUE;
-	glewInit();
-#endif
 
 	OnLoad();
 

@@ -51,9 +51,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Silent\Silent.csproj">
-      <Project>{ff07061e-35ff-426f-81b7-d7d7e5365e65}</Project>
-      <Name>Silent</Name>
+    <ProjectReference Include="..\Silent_Core\Silent_Core.vcxproj">
+      <Project>{68c2395d-e176-49eb-8fa0-281bb75efb82}</Project>
+      <Name>SilentGameEngine</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
