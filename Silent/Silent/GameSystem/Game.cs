@@ -12,12 +12,30 @@ using System.Threading.Tasks;
 namespace Silent.GameSystem
 {
 
-    public class Game 
+    public class Game //Use this class to extend your own classess with overriden virtual methods instead of calling this one directly
     {
-        //Use this class to extend your own classess with overriden virtual methods instead of calling this one directly
+
+        //WINDOW PROPERTIES:
+
+        public enum DisplayBorder
+        {
+            Resizable,
+            Fixed,
+            Hidden
+        }
+
+        public DisplayBorder    windowBorder                    = DisplayBorder.Fixed;
+        public int              windowWidth                     = 600;
+        public int              windowHeight                    = 400;
+        public int              windowUpdateFrameRate           = 60;
+        public int              windowRenderFrameRate           = 60;
+        public string           windowTitle                     = "Silent Game Engine";
+        public bool             usePresetWindowUpdateFrequency  = false;
+        public bool             usePresetWindowRenderFrequency  = false;
+
 
         //The display the Game is using
-        Display gameDisplay;
+        GameWindow m_gameDisplay;
 
         //List of levels that have been loaded to the game
         List<Level> levels = new List<Level>();
@@ -39,6 +57,16 @@ namespace Silent.GameSystem
         public virtual void OnRender() { }
         public virtual void OnClosing() { }
         public virtual void OnClosed() { }
+
+        public Game()
+        {
+            m_gameDisplay = new GameWindow();
+            m_gameDisplay.Load += OnLoadGame;
+            m_gameDisplay.UpdateFrame += OnUpdateGame;
+            m_gameDisplay.RenderFrame += OnRenderGame;
+            m_gameDisplay.Closing += OnClosingGame;
+            m_gameDisplay.Closed += OnClosedGame;
+        }
 
         //Runs whenever the Game's loop is started
         private void OnLoadGame(object sender, EventArgs e)
@@ -85,7 +113,7 @@ namespace Silent.GameSystem
                 Console.WriteLine("Current level has to be declared");
             }
             OnRender();
-            gameDisplay.SwapBuffers();
+            m_gameDisplay.SwapBuffers();
         }
 
         //Execute when the game is about to close
@@ -160,28 +188,47 @@ namespace Silent.GameSystem
             return m_currentLevel;
         }
 
-        //Add Display for the game to use
-        public void addDisplay(Display display)
-        {
-
-            gameDisplay                 = display;
-            gameDisplay.Load            += OnLoadGame;
-            gameDisplay.UpdateFrame     += OnUpdateGame;
-            gameDisplay.RenderFrame     += OnRenderGame;
-            gameDisplay.Closing         += OnClosingGame;
-            gameDisplay.Closed          += OnClosedGame;
-
-        }
-
         //The main loop
         public void MainGameLoop()
         {
             if (!m_gameRunning)
             {
-                gameDisplay.EnterMainLoop();
-            }else
-            {
-                Console.WriteLine("Game is already running");
+                if (m_windowBorder == DisplayBorder.Resizable)
+                    m_gameDisplay.WindowBorder = WindowBorder.Resizable;
+
+                if (m_windowBorder == DisplayBorder.Fixed)
+                    m_gameDisplay.WindowBorder = WindowBorder.Fixed;
+
+                if (m_windowBorder == DisplayBorder.Hidden)
+                    m_gameDisplay.WindowBorder = WindowBorder.Hidden;
+
+                m_gameDisplay.Width = windowWidth;
+                m_gameDisplay.Height = windowHeight;
+                m_gameDisplay.Title = windowTitle;
+
+
+
+                if (usePresetWindowUpdateFrequency)
+                {
+
+                    if (usePresetWindowRenderFrequency)
+                    {
+                        m_gameDisplay.Run(windowUpdateFrameRate, windowRenderFrameRate);
+                    }
+
+                    else
+                    {
+                        m_gameDisplay.Run(windowUpdateFrameRate);
+                    }
+                }
+                else
+                    m_gameDisplay.Run();
+
+                if (!usePresetWindowUpdateFrequency && usePresetWindowRenderFrequency)
+                {
+                    Console.WriteLine("Update frequency required in order to change render frequency");
+                    m_gameDisplay.Run();
+                }
             }
         }
 

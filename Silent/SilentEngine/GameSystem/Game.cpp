@@ -1,12 +1,15 @@
-#include "GL_Game.h"
+#include "Game.h"
 
 
-Silent_Core::GameSystem::GL_Game::GL_Game()
+Silent_Core::GameSystem::Game::Game()
 {
+
+	
 
 	// initialize SDL
 	SDL_Init(SDL_INIT_VIDEO);
 
+	
 	if (m_windowType == "Borderless") {
 		m_borderType = SDL_WINDOW_BORDERLESS;
 	}
@@ -35,7 +38,13 @@ Silent_Core::GameSystem::GL_Game::GL_Game()
 		m_windowHeight,
 		SDL_WINDOW_OPENGL | m_borderType);
 
-	m_glContext = SDL_GL_CreateContext(m_screen);
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+	SDL_GL_CreateContext(m_screen);
 
 	setUpOpenGL();
 
@@ -55,7 +64,7 @@ Silent_Core::GameSystem::GL_Game::GL_Game()
 	OnClosed();
 }
 
-void Silent_Core::GameSystem::GL_Game::setUpOpenGL()
+void Silent_Core::GameSystem::Game::setUpOpenGL()
 {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
@@ -66,30 +75,30 @@ void Silent_Core::GameSystem::GL_Game::setUpOpenGL()
 
 }
 
-void Silent_Core::GameSystem::GL_Game::OnLoad()
+void Silent_Core::GameSystem::Game::OnLoad()
 {
-	
+	glClearColor(0, 0, 0, 1);
 	OnLoadGame();
 }
 
-void Silent_Core::GameSystem::GL_Game::OnUpdate()
+void Silent_Core::GameSystem::Game::OnUpdate()
 {
 	OnUpdateGame();
 }
 
-void Silent_Core::GameSystem::GL_Game::OnRender()
+void Silent_Core::GameSystem::Game::OnRender()
 {
 	
 	OnRenderGame();
 }
 
-void Silent_Core::GameSystem::GL_Game::OnClosing()
+void Silent_Core::GameSystem::Game::OnClosing()
 {
 	
 	OnClosingGame();
 }
 
-void Silent_Core::GameSystem::GL_Game::OnClosed()
+void Silent_Core::GameSystem::Game::OnClosed()
 {
 	
 	OnClosedGame();

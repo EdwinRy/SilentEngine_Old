@@ -23,6 +23,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,9 +53,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Silent_Core\Silent_Core.vcxproj">
-      <Project>{68c2395d-e176-49eb-8fa0-281bb75efb82}</Project>
-      <Name>SilentGameEngine</Name>
+    <ProjectReference Include="..\Silent\Silent.csproj">
+      <Project>{FF07061E-35FF-426F-81B7-D7D7E5365E65}</Project>
+      <Name>Silent</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

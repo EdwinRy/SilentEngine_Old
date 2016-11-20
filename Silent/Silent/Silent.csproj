@@ -24,6 +24,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -55,14 +56,11 @@
     <Compile Include="Entities\Texture.cs" />
     <Compile Include="Graphics\Shaders\ShaderProgram.cs" />
     <Compile Include="Graphics\Shaders\StaticShader.cs" />
-    <Compile Include="Graphics_Wrapper\GL_Wrapper.cs" />
     <Compile Include="Tools\GLModelLoader.cs" />
     <Compile Include="Tools\OBJLoader.cs" />
     <Compile Include="Entities\Vertex.cs" />
     <Compile Include="GameSystem\Game.cs" />
     <Compile Include="GameSystem\Level.cs" />
-    <Compile Include="Graphics\Display\Display.cs" />
-    <Compile Include="Graphics\Display\DisplayManager.cs" />
     <Compile Include="Graphics\RenderEngine\GLRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -82,12 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Silent_Core\Silent_Core.vcxproj">
-      <Project>{68c2395d-e176-49eb-8fa0-281bb75efb82}</Project>
-      <Name>Silent_Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
