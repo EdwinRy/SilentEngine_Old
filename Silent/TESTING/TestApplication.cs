@@ -1,4 +1,5 @@
-﻿using Silent.GameSystem;
+﻿using Silent.Entities;
+using Silent.GameSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,17 @@ namespace TESTING
         {
             Game sampleGame = new SampleGame();
             Level lvl1 = new SampleLevel();
+            Entity sampleEntity = new SampleEntity();
+            sampleEntity.setEntityName("sampleEntity");
             lvl1.setLevelName("lvl1");
+
+            lvl1.addEntity(sampleEntity);
+
+
 
             sampleGame.loadLevel(lvl1);
             sampleGame.setCurrentLevel("lvl1");
+            sampleGame.windowBorder = Game.DisplayBorder.Resizable;
 
             sampleGame.MainGameLoop();
            
@@ -30,6 +38,11 @@ namespace TESTING
     }
 
     class SampleLevel : Level
+    {
+
+    }
+
+    class SampleEntity: Entity
     {
 
     }

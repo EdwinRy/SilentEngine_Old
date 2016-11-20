@@ -11,12 +11,12 @@ namespace Silent.Graphics.RenderEngine
 {
     class GLRenderer
     {
-        /*
+        
         public void prepareToRender()
         {
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
         }
-        */
+        
 
         public void render(Entity entity)
         {

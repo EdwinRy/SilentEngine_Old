@@ -30,7 +30,7 @@ namespace Silent.Tools
 
         public Texture loadTexture(string texturePath)
         {
-            Bitmap bmp = new Bitmap("C:/Users/Edwin/Source/Repos/SilentEngine/Silent/Silent/EngineAssets/SampleTexture.png");
+            Bitmap bmp = new Bitmap(texturePath);
             int texID = GL.GenTexture();
 
             GL.ClearColor(Color.MidnightBlue);
@@ -50,6 +50,7 @@ namespace Silent.Tools
                 OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
 
             bmp.UnlockBits(data);
+
             /*
             int texID = GL.GenTexture();
 
@@ -89,12 +90,11 @@ namespace Silent.Tools
 
             storeDataInVBO(3, vertex_data);
             storeDataInVBO(2, texture_data);
-            storeDataInVBO(3, normals);
+            //storeDataInVBO(3, normals);
 
 
             unbindVAO();
-
-            return new Vertex(vao, vertex_data.Length, vaoLength); 
+            return new Vertex(vao, vertex_data.Length , vaoLength); 
 
         }
 
@@ -127,6 +127,8 @@ namespace Silent.Tools
             //create new vbo
             int vbo = createVBO();
 
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+
             //store the data into vbo
             GL.BufferData(BufferTarget.ArrayBuffer, data.Length * sizeof(float), data, BufferUsageHint.StaticDraw);
 
@@ -141,10 +143,8 @@ namespace Silent.Tools
 
         private int createVBO()
         {
-
             int vboID = GL.GenBuffer();
             vbos.Add(vboID);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vboID);
             return vboID;
 
         }
@@ -159,13 +159,14 @@ namespace Silent.Tools
             //generate new VBO
             int vboID = GL.GenBuffer();
 
-            //add the VBO into the list of VBOs
-            vbos.Add(vboID);
-
             //Bind the VBO ot be used
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, vboID);
 
-            GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length, indices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(int), indices, BufferUsageHint.StaticDraw);
+
+            //add the VBO into the list of VBOs
+            vbos.Add(vboID);
+
         }
 
         public void cleanUp()

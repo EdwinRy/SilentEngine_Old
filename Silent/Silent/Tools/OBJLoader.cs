@@ -14,10 +14,10 @@ namespace Silent.Tools
     public class OBJLoader
     {
 
-        public Model loadObjModel(string filePath = "C:/Users/Edwin/Source/Repos/SilentEngine/Silent/Silent/EngineAssets/SampleCube.obj", string texturePath = "C:/Users/Edwin/Source/Repos/SilentEngine/Silent/Silent/EngineAssets/SampleTexture.png")
+        public Model loadObjModel(string filePath = "EngineAssets//SampleCube.obj", string texturePath = "EngineAssets//SampleTexture.png")
         {
 
-            string[] lines = System.IO.File.ReadAllLines("C:/Users/Edwin/Source/Repos/SilentEngine/Silent/Silent/EngineAssets/SampleCube.obj");
+            string[] lines = System.IO.File.ReadAllLines(filePath);
             float[] vertices = null;
             float[] textures = null;
             float[] normals = null;
@@ -46,7 +46,7 @@ namespace Silent.Tools
 
                     foreach(string element in currentLine)
                     {
-                        Console.WriteLine(element);
+                        //Console.WriteLine(element);
                     }
 
                     temp_vertices.Add(
@@ -64,7 +64,7 @@ namespace Silent.Tools
                     string[] currentLine = line.Split(' ');
                     foreach (string element in currentLine)
                     {
-                        Console.WriteLine(element);
+                        //Console.WriteLine(element);
                     }
                     temp_textures.Add(
                         new Vector2d(
@@ -79,7 +79,7 @@ namespace Silent.Tools
                     string[] currentLine = line.Split(' ');
                     foreach (string element in currentLine)
                     {
-                        Console.WriteLine(element);
+                        //Console.WriteLine(element);
                     }
                     temp_normals.Add(
                         new Vector3d(
@@ -130,7 +130,17 @@ namespace Silent.Tools
             Vertex vertex;
             Texture texture;
 
-            vertex = loader.load(vertices, indices, textures, normals);
+            float[] randVert = {-0.5f, 0.5f, 0f,-0.5f, -0.5f, 0f,0.5f, -0.5f, 0f,0.5f, 0.5f, 0f };
+            int[] randIndices = { 0, 1, 3, 3, 1, 2 };
+            float[] texCoord = {
+                0,0,
+                0,1,
+                1,1,
+                1,0
+            };
+
+            //vertex = loader.load(vertices, indices, textures, normals);
+            vertex = loader.load(randVert, randIndices, texCoord, normals);
             texture = loader.loadTexture(texturePath);
 
             return new Model(vertex, texture);

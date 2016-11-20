@@ -26,7 +26,7 @@ namespace Silent.Entities
         private OBJLoader m_loader = new OBJLoader();
 
         //The constructor takes in the model
-        public Entity(string name = "SampleText", string modelPath = "EngineAssets/SampleCube.obj", string texturePath = "EngineAssets/SampleTexture.png", bool active = true)
+        public Entity(string name = "SampleText", string modelPath = "EngineAssets/untitled.obj", string texturePath = "EngineAssets/SampleTexture.png", bool active = true)
         {
             m_EntityName = name;
             m_modelPath = modelPath;
@@ -103,6 +103,13 @@ namespace Silent.Entities
             m_active = active;
 
             if (active) { OnLoadEntity(); }
+
+        }
+
+        public void setEntityName(string name)
+        {
+
+            m_EntityName = name;
 
         }
 

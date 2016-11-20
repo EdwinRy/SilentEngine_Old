@@ -22,7 +22,6 @@ namespace Silent.GameSystem
 
         StaticShader shader;
 
-        public virtual void OnPreLoad() { }
         public virtual void OnLoad() { }
         public virtual void OnUpdate() { }
         public virtual void OnRender() { }
@@ -30,19 +29,11 @@ namespace Silent.GameSystem
         public virtual void OnClosed() { }
         public virtual void OnUnload() { }
 
-        public void OnPreLoadLevel()
-        {
 
-            Console.WriteLine("Preload");
-            OnPreLoad();
-
-        }
         public void OnLoadLevel()
         {
             shader = new StaticShader();
-            Console.WriteLine("Load start");
             OnLoad();
-            Console.WriteLine("Load continue");
             foreach (Entity entity in m_entities)
             {
                 Console.WriteLine(entity.getActive());
@@ -52,8 +43,6 @@ namespace Silent.GameSystem
                     entity.OnLoadEntity();
                 }
             }
-            
-
         }
 
         public void OnUpdateLevel()
@@ -80,6 +69,7 @@ namespace Silent.GameSystem
                 if (entity.getActive())
                 {
                     shader.startShader();
+                    renderer.prepareToRender();
                     renderer.render(entity);
                     entity.OnRenderEntity();
                     shader.stopShader();

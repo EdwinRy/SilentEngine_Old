@@ -74,8 +74,6 @@ namespace Silent.GameSystem
 
             foreach(Level level in levels)
             {
-                level.OnPreLoad();
-                level.OnPreLoadLevel();
                 if (!m_firstLevelLoaded)
                 {
                     level.OnLoadLevel();
@@ -103,7 +101,6 @@ namespace Silent.GameSystem
         private void OnRenderGame(object sender, FrameEventArgs e)
         {           
             GL.Flush();
-            GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
             if (!(m_currentLevel == null))
             {
                 levels[levelNames.IndexOf(m_currentLevel)].OnRenderLevel();
@@ -193,13 +190,13 @@ namespace Silent.GameSystem
         {
             if (!m_gameRunning)
             {
-                if (m_windowBorder == DisplayBorder.Resizable)
+                if (windowBorder == DisplayBorder.Resizable)
                     m_gameDisplay.WindowBorder = WindowBorder.Resizable;
 
-                if (m_windowBorder == DisplayBorder.Fixed)
+                if (windowBorder == DisplayBorder.Fixed)
                     m_gameDisplay.WindowBorder = WindowBorder.Fixed;
 
-                if (m_windowBorder == DisplayBorder.Hidden)
+                if (windowBorder == DisplayBorder.Hidden)
                     m_gameDisplay.WindowBorder = WindowBorder.Hidden;
 
                 m_gameDisplay.Width = windowWidth;

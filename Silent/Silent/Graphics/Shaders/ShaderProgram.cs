@@ -62,27 +62,11 @@ namespace Silent.Graphics.Shaders
         }
 
         private static int loadShader(string file, ShaderType type) {
-            /*
-            StringBuilder shaderSource = new StringBuilder();
-            try {
-                
-                
-                StreamReader reader = new StreamReader(file);
-                string line;
-                while ((line = reader.ReadLine()) != null) {
-                    shaderSource.Append(line).Append("//\n");
-                }
-                reader.Close();
-                
-            }catch (IOException e) {
-                Console.WriteLine(e.StackTrace);
-            }
-            */
-            string[] lines = System.IO.File.ReadAllLines(file.ToString());
+            //string[] lines = System.IO.File.ReadAllLines(file);
+            string lines = File.ReadAllText(file);
             int shaderID = GL.CreateShader(type);
-            GL.ShaderSource(shaderID, lines.ToString());
+            GL.ShaderSource(shaderID, lines);
             GL.CompileShader(shaderID);
-            Console.WriteLine(GL.GetError());
             return shaderID;
         }
     }
