@@ -1,4 +1,5 @@
 ﻿using Silent.Graphics.RenderEngine;
+using Silent.Maths;
 using Silent.Tools;
 using System;
 using System.Collections.Generic;
@@ -20,13 +21,31 @@ namespace Silent.Entities
 
         private string m_texturePath;
 
+        private float positionX;
+        private float positionY;
+        private float positionZ;
+
+        private float rotationX;
+        private float rotationY;
+        private float rotationZ;
+
+        private float scale;
+
         //Every entity has to have a model consisting of Vertex and Texture
         private Model m_model;
 
         private OBJLoader m_loader = new OBJLoader();
 
         //The constructor takes in the model
-        public Entity(string name = "SampleText", string modelPath = "EngineAssets/untitled.obj", string texturePath = "EngineAssets/SampleTexture.png", bool active = true)
+        public Entity(
+            Vector3f translation,
+            Vector3f rotation,
+            string name = "SampleText",
+            string modelPath = "EngineAssets/untitled.obj",
+            string texturePath = "EngineAssets/SampleTexture.png",
+            bool active = true,
+            float scale = 1
+            )
         {
             m_EntityName = name;
             m_modelPath = modelPath;

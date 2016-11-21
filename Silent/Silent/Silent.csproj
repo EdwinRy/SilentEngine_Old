@@ -56,7 +56,9 @@
     <Compile Include="Entities\Texture.cs" />
     <Compile Include="Graphics\Shaders\ShaderProgram.cs" />
     <Compile Include="Graphics\Shaders\StaticShader.cs" />
+    <Compile Include="Maths\Vector3f.cs" />
     <Compile Include="Tools\GLModelLoader.cs" />
+    <Compile Include="Maths\MatrixMaths.cs" />
     <Compile Include="Tools\OBJLoader.cs" />
     <Compile Include="Entities\Vertex.cs" />
     <Compile Include="GameSystem\Game.cs" />

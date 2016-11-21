@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL;
+using OpenTK;
 
 namespace Silent.Graphics.Shaders
 {
@@ -25,6 +26,21 @@ namespace Silent.Graphics.Shaders
             GL.LinkProgram(m_shaderID);
             GL.ValidateProgram(m_shaderID);
             getAllUniformLocations();
+        }
+
+        public void loadToFloat(int location, float value)
+        {
+            GL.Uniform1(location, value);
+        }
+
+        public void loadToVector3(int location, Vector3 value)
+        {
+            GL.Uniform3(location, value);
+        }
+
+        public void loadToMatrix(int location, Matrix4 value)
+        {
+            GL.UniformMatrix4(location, false, ref value);
         }
 
         protected abstract void getAllUniformLocations();

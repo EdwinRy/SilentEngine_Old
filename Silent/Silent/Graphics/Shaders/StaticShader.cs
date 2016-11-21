@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace Silent.Graphics.Shaders
         private const string M_VERTEXSHADER = "Graphics/Shaders/VertexShader.txt";
         private const string M_FRAGMENTSHADER = "Graphics/Shaders/FragmentShader.txt";
 
+        private int transformationMatrix;
+
         public StaticShader() : base(M_VERTEXSHADER, M_FRAGMENTSHADER)
         {
             ;
@@ -24,7 +27,12 @@ namespace Silent.Graphics.Shaders
 
         protected override void getAllUniformLocations()
         {
-            
+            transformationMatrix = base.getUniformLocation("transformationMatrix");
+        }
+
+        public void loadToTransformationMatrix(Matrix4 matrix)
+        {
+            base.loadToMatrix(transformationMatrix, matrix);
         }
     }
 }
