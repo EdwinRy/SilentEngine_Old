@@ -14,7 +14,7 @@ namespace Silent.Tools
     public class OBJLoader
     {
 
-        public Model loadObjModel(string filePath = "EngineAssets//SampleCube.obj", string texturePath = "EngineAssets//SampleTexture.png")
+        public Model loadObjModel(string filePath = "EngineAssets/SampleCube.obj", string texturePath = "EngineAssets/SampleTexture.png")
         {
 
             string[] lines = System.IO.File.ReadAllLines(filePath);

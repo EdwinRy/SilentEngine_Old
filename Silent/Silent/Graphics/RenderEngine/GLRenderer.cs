@@ -28,9 +28,9 @@ namespace Silent.Graphics.RenderEngine
                 GL.EnableVertexAttribArray(i);
             }
 
-            //GL.ActiveTexture(TextureUnit.Texture0);
+            GL.ActiveTexture(TextureUnit.Texture0);
 
-            //GL.BindTexture(TextureTarget.Texture2D, entity.getModel().getTexture().getTextureID());
+            GL.BindTexture(TextureTarget.Texture2D, entity.getModel().getTexture().getTextureID());
 
             GL.DrawElements(PrimitiveType.Triangles, entity.getModel().getVertex().getVertexCount(), DrawElementsType.UnsignedInt, 0);
 

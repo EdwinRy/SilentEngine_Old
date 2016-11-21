@@ -14,7 +14,7 @@ namespace Silent.Graphics.Shaders
         private int m_vertexShaderID;
         private int m_fragmentShaderID;
 
-        public ShaderProgram(string vertexShaderFile = "C:/Users/Edwin/Source/Repos/SilentEngine/Silent/Silent/Graphics/Shaders/VertexShader.txt", string fragmentShaderFile = "C:/Users/Edwin/Source/Repos/SilentEngine/Silent/Silent/Graphics/Shaders/VertexShader.txt")
+        public ShaderProgram(string vertexShaderFile = "Graphics/Shaders/VertexShader.txt", string fragmentShaderFile = "Graphics/Shaders/FragmentShader.txt")
         {
             m_vertexShaderID = loadShader(vertexShaderFile, ShaderType.VertexShader);
             m_fragmentShaderID = loadShader(fragmentShaderFile, ShaderType.FragmentShader);

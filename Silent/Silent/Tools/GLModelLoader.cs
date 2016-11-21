@@ -90,7 +90,7 @@ namespace Silent.Tools
 
             storeDataInVBO(3, vertex_data);
             storeDataInVBO(2, texture_data);
-            //storeDataInVBO(3, normals);
+            storeDataInVBO(3, normals);
 
 
             unbindVAO();
@@ -131,6 +131,8 @@ namespace Silent.Tools
 
             //store the data into vbo
             GL.BufferData(BufferTarget.ArrayBuffer, data.Length * sizeof(float), data, BufferUsageHint.StaticDraw);
+
+            GL.EnableVertexAttribArray(vaoLength);
 
             //Put the VBO into a VAO
             GL.VertexAttribPointer(vaoLength, dataSize, VertexAttribPointerType.Float, false, 0, 0);
