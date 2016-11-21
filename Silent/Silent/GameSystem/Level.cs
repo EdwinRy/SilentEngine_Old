@@ -68,8 +68,8 @@ namespace Silent.GameSystem
             {
                 if (entity.getActive())
                 {
-                    shader.startShader();
                     renderer.prepareToRender();
+                    shader.startShader();                    
                     renderer.render(entity);
                     entity.OnRenderEntity();
                     shader.stopShader();
