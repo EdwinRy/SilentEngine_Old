@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Silent.Maths;
 
 namespace TESTING
 {
@@ -15,7 +15,7 @@ namespace TESTING
         {
             Game sampleGame = new SampleGame();
             Level lvl1 = new SampleLevel();
-            Entity sampleEntity = new SampleEntity();
+            Entity sampleEntity = new SampleEntity(new Vector3f(0,0,0), new Vector3f(0,0,0));
             sampleEntity.setEntityName("sampleEntity");
             lvl1.setLevelName("lvl1");
 
@@ -42,9 +42,11 @@ namespace TESTING
 
     }
 
-    class SampleEntity: Entity
+    class SampleEntity : Entity
     {
-
+        public SampleEntity(Vector3f translation, Vector3f rotation, string name = "SampleText", string modelPath = "EngineAssets/untitled.obj", string texturePath = "EngineAssets/SampleTexture.png", bool active = true, float scale = 1) : base(translation, rotation, name, modelPath, texturePath, active, scale)
+        {
+        }
     }
 
 }
