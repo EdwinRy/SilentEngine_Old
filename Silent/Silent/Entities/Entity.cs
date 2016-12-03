@@ -21,15 +21,11 @@ namespace Silent.Entities
 
         private string m_texturePath;
 
-        private float positionX;
-        private float positionY;
-        private float positionZ;
+        private Vector3f m_position;
 
-        private float rotationX;
-        private float rotationY;
-        private float rotationZ;
+        private Vector3f m_rotation;
 
-        private float scale;
+        private float m_scale;
 
         //Every entity has to have a model consisting of Vertex and Texture
         private Model m_model;
@@ -38,8 +34,8 @@ namespace Silent.Entities
 
         //The constructor takes in the model
         public Entity(
-            Vector3f translation,
-            Vector3f rotation,
+            Vector3f position = new Vector3f(),
+            Vector3f rotation = new Vector3f(),
             string name = "SampleText",
             string modelPath = "EngineAssets/untitled.obj",
             string texturePath = "EngineAssets/SampleTexture.png",
@@ -51,6 +47,8 @@ namespace Silent.Entities
             m_modelPath = modelPath;
             m_texturePath = texturePath;
             m_active = active;
+            m_position = position;
+            m_rotation = rotation;
         }
 
         public virtual void OnLoad() { }

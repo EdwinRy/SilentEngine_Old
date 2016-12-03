@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Silent.Maths
 {
-    public class Vector3f
+    public struct Vector3f
     {
 
         public float X;

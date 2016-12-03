@@ -24,6 +24,12 @@ namespace Silent.GameSystem
             Hidden
         }
 
+        public enum GameAPI
+        {
+            OpenGL,
+            Vulkan
+        }
+
         public DisplayBorder    windowBorder                    = DisplayBorder.Fixed;
         public int              windowWidth                     = 600;
         public int              windowHeight                    = 400;
@@ -32,16 +38,17 @@ namespace Silent.GameSystem
         public string           windowTitle                     = "Silent Game Engine";
         public bool             usePresetWindowUpdateFrequency  = false;
         public bool             usePresetWindowRenderFrequency  = false;
+        public GameAPI          UseGameAPI                      = GameAPI.OpenGL;
 
 
         //The display the Game is using
-        GameWindow m_gameDisplay;
+        private GameWindow      m_gameDisplay;
 
         //List of levels that have been loaded to the game
-        List<Level> levels = new List<Level>();
+        private List<Level>     levels = new List<Level>();
 
         //List of names Of the levels with index corresponding to the levels in levels list
-        List<string> levelNames = new List<string>();
+        private List<string>    levelNames = new List<string>();
 
         //Current level in execution
         private string m_currentLevel = null;
@@ -60,12 +67,7 @@ namespace Silent.GameSystem
 
         public Game()
         {
-            m_gameDisplay = new GameWindow();
-            m_gameDisplay.Load += OnLoadGame;
-            m_gameDisplay.UpdateFrame += OnUpdateGame;
-            m_gameDisplay.RenderFrame += OnRenderGame;
-            m_gameDisplay.Closing += OnClosingGame;
-            m_gameDisplay.Closed += OnClosedGame;
+
         }
 
         //Runs whenever the Game's loop is started
@@ -188,45 +190,57 @@ namespace Silent.GameSystem
         //The main loop
         public void MainGameLoop()
         {
-            if (!m_gameRunning)
+            if (UseGameAPI == GameAPI.OpenGL)
             {
-                if (windowBorder == DisplayBorder.Resizable)
-                    m_gameDisplay.WindowBorder = WindowBorder.Resizable;
+                m_gameDisplay = new GameWindow();
+                m_gameDisplay.Load += OnLoadGame;
+                m_gameDisplay.UpdateFrame += OnUpdateGame;
+                m_gameDisplay.RenderFrame += OnRenderGame;
+                m_gameDisplay.Closing += OnClosingGame;
+                m_gameDisplay.Closed += OnClosedGame;
 
-                if (windowBorder == DisplayBorder.Fixed)
-                    m_gameDisplay.WindowBorder = WindowBorder.Fixed;
-
-                if (windowBorder == DisplayBorder.Hidden)
-                    m_gameDisplay.WindowBorder = WindowBorder.Hidden;
-
-                m_gameDisplay.Width = windowWidth;
-                m_gameDisplay.Height = windowHeight;
-                m_gameDisplay.Title = windowTitle;
-
-
-
-                if (usePresetWindowUpdateFrequency)
+                if (!m_gameRunning)
                 {
+                    if (windowBorder == DisplayBorder.Resizable)
+                        m_gameDisplay.WindowBorder = WindowBorder.Resizable;
 
-                    if (usePresetWindowRenderFrequency)
+                    if (windowBorder == DisplayBorder.Fixed)
+                        m_gameDisplay.WindowBorder = WindowBorder.Fixed;
+
+                    if (windowBorder == DisplayBorder.Hidden)
+                        m_gameDisplay.WindowBorder = WindowBorder.Hidden;
+
+                    m_gameDisplay.Width = windowWidth;
+                    m_gameDisplay.Height = windowHeight;
+                    m_gameDisplay.Title = windowTitle;
+
+
+
+                    if (usePresetWindowUpdateFrequency)
                     {
-                        m_gameDisplay.Run(windowUpdateFrameRate, windowRenderFrameRate);
-                    }
 
+                        if (usePresetWindowRenderFrequency)
+                        {
+                            m_gameDisplay.Run(windowUpdateFrameRate, windowRenderFrameRate);
+                        }
+
+                        else
+                        {
+                            m_gameDisplay.Run(windowUpdateFrameRate);
+                        }
+                    }
                     else
-                    {
-                        m_gameDisplay.Run(windowUpdateFrameRate);
-                    }
-                }
-                else
-                    m_gameDisplay.Run();
+                        m_gameDisplay.Run();
 
-                if (!usePresetWindowUpdateFrequency && usePresetWindowRenderFrequency)
-                {
-                    Console.WriteLine("Update frequency required in order to change render frequency");
-                    m_gameDisplay.Run();
+                    if (!usePresetWindowUpdateFrequency && usePresetWindowRenderFrequency)
+                    {
+                        Console.WriteLine("Update frequency required in order to change render frequency");
+                        m_gameDisplay.Run();
+                    }
                 }
             }
+
+
         }
 
     }
