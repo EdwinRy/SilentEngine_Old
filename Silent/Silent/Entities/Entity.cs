@@ -11,21 +11,23 @@ namespace Silent.Entities
 {
     public class Entity
     {
+        public static int NumberOfEntities = 0;
+
         //Is Entity active
-        private bool m_active;
+        public bool Active = true;
 
         //Name of the entity
-        private string m_EntityName;
+        public string EntityName = "SampleEntity"+NumberOfEntities.ToString();
 
-        private string m_modelPath;
+        public string modelPath = "EngineAssets/untitled.obj";
 
-        private string m_texturePath;
+        public string texturePath = "EngineAssets/SampleTexture.png";
 
-        private Vector3f m_position;
+        public Vector3f position = new Vector3f();
 
-        private Vector3f m_rotation;
+        public Vector3f rotation = new Vector3f();
 
-        private float m_scale;
+        public float scale = 1;
 
         //Every entity has to have a model consisting of Vertex and Texture
         private Model m_model;
@@ -33,22 +35,9 @@ namespace Silent.Entities
         private OBJLoader m_loader = new OBJLoader();
 
         //The constructor takes in the model
-        public Entity(
-            Vector3f position = new Vector3f(),
-            Vector3f rotation = new Vector3f(),
-            string name = "SampleText",
-            string modelPath = "EngineAssets/untitled.obj",
-            string texturePath = "EngineAssets/SampleTexture.png",
-            bool active = true,
-            float scale = 1
-            )
+        public Entity()
         {
-            m_EntityName = name;
-            m_modelPath = modelPath;
-            m_texturePath = texturePath;
-            m_active = active;
-            m_position = position;
-            m_rotation = rotation;
+            NumberOfEntities += 1;
         }
 
         public virtual void OnLoad() { }
@@ -62,7 +51,7 @@ namespace Silent.Entities
         {
             //TODO: add a model on load
 
-            m_model = m_loader.loadObjModel(m_modelPath, m_texturePath);
+            m_model = m_loader.loadObjModel(modelPath, texturePath);
 
             OnLoad();
         }
@@ -100,34 +89,6 @@ namespace Silent.Entities
         public Model getModel()
         {
             return m_model;
-        }
-
-        //Return name of the entity
-        public string getEntityName()
-        {
-            return m_EntityName;
-        }
-
-        //Return whether the entity is active or not
-        public bool getActive()
-        {
-            return m_active;
-        }
-
-        //Set the activity of the entity
-        public void setActive(bool active)
-        {
-            m_active = active;
-
-            if (active) { OnLoadEntity(); }
-
-        }
-
-        public void setEntityName(string name)
-        {
-
-            m_EntityName = name;
-
         }
 
         public void DeleteEntity(Entity entity)
