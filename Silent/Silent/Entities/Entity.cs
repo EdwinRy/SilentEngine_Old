@@ -22,12 +22,12 @@ namespace Silent.Entities
         //Name of the entity
         public string EntityName = "SampleEntity"+NumberOfEntities.ToString();
 
-        public string modelPath = "EngineAssets/SampleCub.obj";
+        public string modelPath = "EngineAssets/SampleCube.obj";
         
 
         public string texturePath = "EngineAssets/SampleTexture.png";
 
-        public Vector3f position = new Vector3f(5f,-1.25f,-10f);
+        public Vector3f position = new Vector3f(5f,-25,-100f);
 
         public Vector3f rotation = new Vector3f();
 
@@ -102,9 +102,14 @@ namespace Silent.Entities
             entity.OnDeleteEntity();
         }
 
-        public void Translate(Vector3f translation)
+        public void Translate(Vector3f applyTranslation)
         {
+            transformationMatrix *= Matrix4.CreateTranslation(applyTranslation.X, applyTranslation.Y, applyTranslation.Z);
+        }
 
+        public void Rotate(Vector3f rotationAxis, float rotation)
+        {
+            transformationMatrix *= Matrix4.CreateFromAxisAngle(new Vector3(rotationAxis.X, rotationAxis.Y, rotationAxis.Z), rotation);
         }
 
 

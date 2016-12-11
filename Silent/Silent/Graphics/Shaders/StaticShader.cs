@@ -15,6 +15,7 @@ namespace Silent.Graphics.Shaders
 
         private int transformationMatrix;
         private int projectionMatrix;
+        private int viewMatrix;
 
         public StaticShader() : base(M_VERTEXSHADER, M_FRAGMENTSHADER)
         {
@@ -30,6 +31,7 @@ namespace Silent.Graphics.Shaders
         {
             transformationMatrix = base.getUniformLocation("transformationMatrix");
             projectionMatrix = base.getUniformLocation("projectionMatrix");
+            viewMatrix = base.getUniformLocation("viewMatrix");
         }
         
         public void loadToTransformationMatrix(Matrix4 matrix)
@@ -40,6 +42,11 @@ namespace Silent.Graphics.Shaders
         public void loadToProjectionMatrix(Matrix4 matrix)
         {
             base.loadToMatrix(projectionMatrix, matrix);
+        }
+
+        public void loadToViewMatrix(Matrix4 matrix)
+        {
+            base.loadToMatrix(viewMatrix, matrix);
         }
     }
 }

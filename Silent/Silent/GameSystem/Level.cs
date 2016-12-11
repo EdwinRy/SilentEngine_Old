@@ -24,15 +24,8 @@ namespace Silent.GameSystem
         List<Entity> m_entities = new List<Entity>();
 
         StaticShader shader;
-
-
-        //IN TESTING ----------------------------
-
-        private static Matrix4 projection = Matrix4.Perspective((float)Math.PI / 180 * fov, (Game.windowWidth / Game.windowHeight), nearPlane, farPlane);
-
         private GLRenderer renderer = new GLRenderer(); 
 
-        //--------------------------------------
 
         public virtual void OnLoad() { }
         public virtual void OnUpdate() { }
@@ -56,7 +49,7 @@ namespace Silent.GameSystem
                 }
             }
 
-            renderer.GLRenderer1(shader);
+            renderer.SetProjection(shader,fov,nearPlane,farPlane);
         }
 
         public void OnUpdateLevel()

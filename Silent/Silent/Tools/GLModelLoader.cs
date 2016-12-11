@@ -51,34 +51,6 @@ namespace Silent.Tools
 
             bmp.UnlockBits(data);
 
-            /*
-            int texID = GL.GenTexture();
-
-            GL.BindTexture(TextureTarget.Texture2D, texID);
-
-            Bitmap bmp = new Bitmap(texturePath);
-            //bmp.Save(texturePath);
-
-            BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height),
-                ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba,
-                bmp.Width, bmp.Height, 0, OpenTK.Graphics.OpenGL4.PixelFormat.Bgra,
-                PixelType.UnsignedByte, bmpData.Scan0);
-
-            GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-            bmp.UnlockBits(bmpData);
-
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
-
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
-
-
-
-            GL.BindTexture(TextureTarget.Texture2D, 0);
-            */
             return new Texture(texID);
         }
 
@@ -94,7 +66,7 @@ namespace Silent.Tools
 
 
             unbindVAO();
-            return new Vertex(vao, vertex_data.Length * 2 , vaoLength); 
+            return new Vertex(vao, indices.Length , vaoLength); 
 
         }
 
