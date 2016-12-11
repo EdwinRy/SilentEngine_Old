@@ -1,4 +1,5 @@
-﻿using Silent.Graphics.RenderEngine;
+﻿using OpenTK;
+using Silent.Graphics.RenderEngine;
 using Silent.Maths;
 using Silent.Tools;
 using System;
@@ -11,6 +12,8 @@ namespace Silent.Entities
 {
     public class Entity
     {
+        public Matrix4 transformationMatrix = Matrix4.Identity;   
+
         public static int NumberOfEntities = 0;
 
         //Is Entity active
@@ -19,11 +22,12 @@ namespace Silent.Entities
         //Name of the entity
         public string EntityName = "SampleEntity"+NumberOfEntities.ToString();
 
-        public string modelPath = "EngineAssets/untitled.obj";
+        public string modelPath = "EngineAssets/SampleCub.obj";
+        
 
         public string texturePath = "EngineAssets/SampleTexture.png";
 
-        public Vector3f position = new Vector3f();
+        public Vector3f position = new Vector3f(5f,-1.25f,-10f);
 
         public Vector3f rotation = new Vector3f();
 
@@ -38,6 +42,7 @@ namespace Silent.Entities
         public Entity()
         {
             NumberOfEntities += 1;
+            
         }
 
         public virtual void OnLoad() { }
@@ -50,6 +55,7 @@ namespace Silent.Entities
         public void OnLoadEntity()
         {
             //TODO: add a model on load
+            transformationMatrix *= MatrixMaths.CreateTransformationMatrix(position, rotation.X, rotation.Y, rotation.Z, scale);
 
             m_model = m_loader.loadObjModel(modelPath, texturePath);
 
@@ -95,6 +101,12 @@ namespace Silent.Entities
         {
             entity.OnDeleteEntity();
         }
+
+        public void Translate(Vector3f translation)
+        {
+
+        }
+
 
     }
 }

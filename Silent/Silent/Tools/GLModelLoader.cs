@@ -94,7 +94,7 @@ namespace Silent.Tools
 
 
             unbindVAO();
-            return new Vertex(vao, vertex_data.Length , vaoLength); 
+            return new Vertex(vao, vertex_data.Length * 2 , vaoLength); 
 
         }
 

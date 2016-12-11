@@ -1,4 +1,5 @@
-﻿using Silent.Entities;
+﻿using OpenTK;
+using Silent.Entities;
 using Silent.Graphics.RenderEngine;
 using Silent.Graphics.Shaders;
 using Silent.Tools;
@@ -16,11 +17,22 @@ namespace Silent.GameSystem
 
         public Level(string name = "SampleText") { m_LevelName = name; }
 
-        private GLRenderer renderer = new GLRenderer();
+        public static float fov = 90;
+        public static float nearPlane = 0.01f;
+        public static float farPlane = 10000;
 
         List<Entity> m_entities = new List<Entity>();
 
         StaticShader shader;
+
+
+        //IN TESTING ----------------------------
+
+        private static Matrix4 projection = Matrix4.Perspective((float)Math.PI / 180 * fov, (Game.windowWidth / Game.windowHeight), nearPlane, farPlane);
+
+        private GLRenderer renderer = new GLRenderer(); 
+
+        //--------------------------------------
 
         public virtual void OnLoad() { }
         public virtual void OnUpdate() { }
@@ -32,17 +44,19 @@ namespace Silent.GameSystem
 
         public void OnLoadLevel()
         {
+
             shader = new StaticShader();
             OnLoad();
             foreach (Entity entity in m_entities)
             {
-                Console.WriteLine(entity.getActive());
-                if (entity.getActive())
+                if (entity.Active)
                 {
-                    Console.WriteLine("Loading Entity: ", entity.getEntityName());
+                    Console.WriteLine("Loading Entity: ", entity.EntityName);
                     entity.OnLoadEntity();
                 }
             }
+
+            renderer.GLRenderer1(shader);
         }
 
         public void OnUpdateLevel()
@@ -51,7 +65,7 @@ namespace Silent.GameSystem
 
             foreach (Entity entity in m_entities)
             {
-                if (entity.getActive())
+                if (entity.Active)
                 {
                     entity.OnUpdateEntity();
                 }
@@ -66,11 +80,11 @@ namespace Silent.GameSystem
             //TODO: fix the way entities are added
             foreach (Entity entity in m_entities)
             {
-                if (entity.getActive())
+                if (entity.Active)
                 {
                     renderer.prepareToRender();
                     shader.startShader();                    
-                    renderer.render(entity);
+                    renderer.render(entity,shader);
                     entity.OnRenderEntity();
                     shader.stopShader();
                 }
@@ -84,7 +98,7 @@ namespace Silent.GameSystem
 
             foreach (Entity entity in m_entities)
             {
-                if (entity.getActive())
+                if (entity.Active)
                 {
                     entity.OnClosingEntity();
                 }
@@ -98,7 +112,7 @@ namespace Silent.GameSystem
 
             foreach (Entity entity in m_entities)
             {
-                if (entity.getActive())
+                if (entity.Active)
                 {
                     entity.OnClosedEntity();
                 }
@@ -112,7 +126,7 @@ namespace Silent.GameSystem
 
             foreach (Entity entity in m_entities)
             {
-                if (entity.getActive())
+                if (entity.Active)
                 {
                     entity.OnDeleteEntity();
                 }

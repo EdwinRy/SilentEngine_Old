@@ -14,6 +14,7 @@ namespace Silent.Graphics.Shaders
         private const string M_FRAGMENTSHADER = "Graphics/Shaders/FragmentShader.txt";
 
         private int transformationMatrix;
+        private int projectionMatrix;
 
         public StaticShader() : base(M_VERTEXSHADER, M_FRAGMENTSHADER)
         {
@@ -28,11 +29,17 @@ namespace Silent.Graphics.Shaders
         protected override void getAllUniformLocations()
         {
             transformationMatrix = base.getUniformLocation("transformationMatrix");
+            projectionMatrix = base.getUniformLocation("projectionMatrix");
         }
-
+        
         public void loadToTransformationMatrix(Matrix4 matrix)
         {
             base.loadToMatrix(transformationMatrix, matrix);
+        }
+
+        public void loadToProjectionMatrix(Matrix4 matrix)
+        {
+            base.loadToMatrix(projectionMatrix, matrix);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Silent.Tools
     public class OBJLoader
     {
 
-        public Model loadObjModel(string filePath = "EngineAssets/SampleCube.obj", string texturePath = "EngineAssets/SampleTexture.png")
+        public Model loadObjModel(string filePath = "EngineAssets/SampleCub.obj", string texturePath = "EngineAssets/SampleTexture.png")
         {
 
             string[] lines = System.IO.File.ReadAllLines(filePath);
@@ -126,26 +126,28 @@ namespace Silent.Tools
                 indices[i] = temp_indices[i];
             }
 
-
             Vertex vertex;
             Texture texture;
 
-            float[] randVert = {-0.5f, 0.5f, 0f,-0.5f, -0.5f, 0f,0.5f, -0.5f, 0f,0.5f, 0.5f, 0f };
-            int[] randIndices = { 0, 1, 3, 3, 1, 2 };
-            float[] texCoord = {
-                0,0,
-                0,1,
-                1,1,
-                1,0
-            };
-
-            //vertex = loader.load(vertices, indices, textures, normals);
-            vertex = loader.load(randVert, randIndices, texCoord, normals);
+            vertex = loader.load(vertices, indices, textures, normals);
             texture = loader.loadTexture(texturePath);
 
             return new Model(vertex, texture);
 
 
+        }
+
+        public Model loadObjModel(float[] vertices, int[] indices, float[] textureCoords, float[] normals, string texturePath)
+        {
+            GLModelLoader loader = new GLModelLoader();
+
+            Vertex vertex;
+            Texture texture;
+
+            vertex = loader.load(vertices, indices, textureCoords, normals);
+            texture = loader.loadTexture(texturePath);
+
+            return new Model(vertex, texture);
         }
 
         private static void processVertices(string[] vertexData, List<int> temp_indices, List<Vector2d> temp_textures,

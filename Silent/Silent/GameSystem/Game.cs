@@ -27,12 +27,14 @@ namespace Silent.GameSystem
         public enum GameAPI
         {
             OpenGL,
+            OpenGLES,
+            WebGL,
             Vulkan
         }
 
         public DisplayBorder    windowBorder                    = DisplayBorder.Fixed;
-        public int              windowWidth                     = 600;
-        public int              windowHeight                    = 400;
+        public static int       windowWidth                     = 600;
+        public static int       windowHeight                    = 400;
         public int              windowUpdateFrameRate           = 60;
         public int              windowRenderFrameRate           = 60;
         public string           windowTitle                     = "Silent Game Engine";
@@ -102,7 +104,7 @@ namespace Silent.GameSystem
         //Drawing of the scene
         private void OnRenderGame(object sender, FrameEventArgs e)
         {           
-            GL.Flush();
+            //GL.Flush();
             if (!(m_currentLevel == null))
             {
                 levels[levelNames.IndexOf(m_currentLevel)].OnRenderLevel();
