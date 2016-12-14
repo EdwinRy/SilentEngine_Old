@@ -64,7 +64,7 @@ namespace Silent.Entities
         public void OnLoadEntity()
         {
             Console.WriteLine(transformationMatrix);
-            transformationMatrix *= MatrixMaths.CreateTransformationMatrix(position, rotation.X, rotation.Y, rotation.Z, scale);
+            transformationMatrix *= MatrixMaths.CreateTransformationMatrix(position, rotationAxis.X, rotationAxis.Y, rotationAxis.Z, scale);
 
             m_model = m_loader.loadObjModel(modelPath, texturePath);
 
@@ -105,7 +105,7 @@ namespace Silent.Entities
         }
 
         //The entity returns the model to enable rendering the model
-        public Model getModel()
+        public Model GetModel()
         {
             return m_model;
         }

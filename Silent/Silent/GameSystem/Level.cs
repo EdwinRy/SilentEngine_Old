@@ -17,6 +17,8 @@ namespace Silent.GameSystem
 
         public Level(string name = "SampleText") { m_LevelName = name; }
 
+        public Camera currentCamera = new Camera();
+
         List<Entity> m_entities = new List<Entity>();
 
         public StaticShader shader;
@@ -70,11 +72,12 @@ namespace Silent.GameSystem
             {
                 if (entity.Visible)
                 {
-                    renderer.prepareToRender();
-                    shader.startShader();                    
-                    renderer.render(entity,shader);
+                    renderer.PrepareToRender();
+                    shader.StartShader();
+                    shader.LoadToViewMatrix(currentCamera.view);                  
+                    renderer.Render(entity,shader);
                     entity.OnRenderEntity();
-                    shader.stopShader();
+                    shader.StopShader();
                 }
             }
 
@@ -122,7 +125,7 @@ namespace Silent.GameSystem
 
         }
 
-        public string getLevelName()
+        public string GetLevelName()
         {
             if (m_LevelName == null)
             {
@@ -131,14 +134,15 @@ namespace Silent.GameSystem
             return m_LevelName;
         }
 
-        public void setLevelName(string newLevelName)
+        public void SetLevelName(string newLevelName)
         {
             m_LevelName = newLevelName;
         }
 
-        public void addEntity(Entity entity)
+        public void AddEntity(Entity entity)
         {
             m_entities.Add(entity);
         }
+
     }
 }

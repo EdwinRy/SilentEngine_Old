@@ -21,32 +21,33 @@ namespace Silent.Graphics.Shaders
         {
             ;
         }
-        protected override void bindAttributes()
+        protected override void BindAttributes()
         {
-            base.bindAttribute(0, "position");
-            base.bindAttribute(1, "textureCoords");
+            base.BindAttribute(0, "position");
+            base.BindAttribute(1, "textureCoords");
+            base.BindAttribute(2, "normals");
         }
 
-        protected override void getAllUniformLocations()
+        protected override void GetAllUniformLocations()
         {
-            transformationMatrix = base.getUniformLocation("transformationMatrix");
-            projectionMatrix = base.getUniformLocation("projectionMatrix");
-            viewMatrix = base.getUniformLocation("viewMatrix");
+            transformationMatrix = base.GetUniformLocation("transformationMatrix");
+            projectionMatrix = base.GetUniformLocation("projectionMatrix");
+            viewMatrix = base.GetUniformLocation("viewMatrix");
         }
         
-        public void loadToTransformationMatrix(Matrix4 matrix)
+        public void LoadToTransformationMatrix(Matrix4 matrix)
         {
-            base.loadToMatrix(transformationMatrix, matrix);
+            base.LoadToMatrix(transformationMatrix, matrix);
         }
 
-        public void loadToProjectionMatrix(Matrix4 matrix)
+        public void LoadToProjectionMatrix(Matrix4 matrix)
         {
-            base.loadToMatrix(projectionMatrix, matrix);
+            base.LoadToMatrix(projectionMatrix, matrix);
         }
 
-        public void loadToViewMatrix(Matrix4 matrix)
+        public void LoadToViewMatrix(Matrix4 matrix)
         {
-            base.loadToMatrix(viewMatrix, matrix);
+            base.LoadToMatrix(viewMatrix, matrix);
         }
     }
 }

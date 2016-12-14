@@ -17,59 +17,59 @@ namespace Silent.Graphics.Shaders
 
         public ShaderProgram(string vertexShaderFile = "Graphics/Shaders/VertexShader.txt", string fragmentShaderFile = "Graphics/Shaders/FragmentShader.txt")
         {
-            m_vertexShaderID = loadShader(vertexShaderFile, ShaderType.VertexShader);
-            m_fragmentShaderID = loadShader(fragmentShaderFile, ShaderType.FragmentShader);
+            m_vertexShaderID = LoadShader(vertexShaderFile, ShaderType.VertexShader);
+            m_fragmentShaderID = LoadShader(fragmentShaderFile, ShaderType.FragmentShader);
             m_shaderID = GL.CreateProgram();
             GL.AttachShader(m_shaderID, m_vertexShaderID);
             GL.AttachShader(m_shaderID, m_fragmentShaderID);
-            bindAttributes();
+            BindAttributes();
             GL.LinkProgram(m_shaderID);
             GL.ValidateProgram(m_shaderID);
-            getAllUniformLocations();
+            GetAllUniformLocations();
         }
 
-        public void loadToFloat(int location, float value)
+        public void LoadToFloat(int location, float value)
         {
             GL.Uniform1(location, value);
         }
 
-        public void loadToVector3(int location, Vector3 value)
+        public void LoadToVector3(int location, Vector3 value)
         {
             GL.Uniform3(location, value);
         }
 
-        public void loadToMatrix(int location, Matrix4 value)
+        public void LoadToMatrix(int location, Matrix4 value)
         {
             GL.UniformMatrix4(location, false, ref value);
         }
 
-        protected abstract void getAllUniformLocations();
+        protected abstract void GetAllUniformLocations();
 
-        protected int getUniformLocation(string uniformName)
+        protected int GetUniformLocation(string uniformName)
         {
             return GL.GetUniformLocation(m_shaderID, uniformName);
         }
 
-        protected abstract void bindAttributes();
+        protected abstract void BindAttributes();
 
-        protected void bindAttribute(int attribute, string variableName)
+        protected void BindAttribute(int attribute, string variableName)
         {
             GL.BindAttribLocation(m_shaderID, attribute, variableName);
         }
 
-        public void startShader()
+        public void StartShader()
         {
             GL.UseProgram(m_shaderID);
         }
 
-        public void stopShader()
+        public void StopShader()
         {
             GL.UseProgram(0);
         }
 
-        public void cleanUpShader()
+        public void CleanUpShader()
         {
-            stopShader();
+            StopShader();
             GL.DetachShader(m_shaderID, m_vertexShaderID);
             GL.DetachShader(m_shaderID, m_fragmentShaderID);
             GL.DeleteShader(m_vertexShaderID);
@@ -77,7 +77,7 @@ namespace Silent.Graphics.Shaders
             GL.DeleteProgram(m_shaderID);
         }
 
-        private static int loadShader(string file, ShaderType type) {
+        private static int LoadShader(string file, ShaderType type) {
             //string[] lines = System.IO.File.ReadAllLines(file);
             string lines = File.ReadAllText(file);
             int shaderID = GL.CreateShader(type);

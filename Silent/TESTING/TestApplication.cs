@@ -13,16 +13,18 @@ namespace TESTING
     {
         public static void Main()
         {
-            Game sampleGame = new SampleGame();
-            sampleGame.windowWidth = 600;
-            sampleGame.windowHeight = 400;
-            
+            Game sampleGame = new SampleGame()
+            {
+                windowWidth = 600,
+                windowHeight = 400
+            };
+
             Level lvl1 = new SampleLevel();
             Entity sampleEntity = new SampleEntity();           
-            lvl1.setLevelName("lvl1");
-            lvl1.addEntity(sampleEntity);
-            sampleGame.loadLevel(lvl1);
-            sampleGame.setCurrentLevel("lvl1");
+            lvl1.SetLevelName("lvl1");
+            lvl1.AddEntity(sampleEntity);
+            sampleGame.LoadLevel(lvl1);
+            sampleGame.SetCurrentLevel("lvl1");
             sampleGame.windowBorder = Game.DisplayBorder.Resizable;
 
             sampleGame.MainGameLoop();          
@@ -41,10 +43,13 @@ namespace TESTING
         public override void OnLoad()
         {
 
-            Camera camera = new Camera();
-            camera.SetCameraProjectionMatrix(shader, 600, 400);
-            camera.SetCameraViewMatrix(shader);
+           
             
+        }
+
+        public override void OnUpdate()
+        {
+
         }
 
     }
@@ -66,11 +71,16 @@ namespace TESTING
         public override void OnUpdate()
         {
 
+            
+        }
+
+        public void Cycle()
+        {
             if (goR == true)
             {
                 base.Translate(new Vector3f(0.1f, 0, 0));
-                
-                if(position.X >= 10)
+
+                if (position.X >= 10)
                 {
                     goR = false;
                     goL = true;
@@ -79,7 +89,7 @@ namespace TESTING
             if (goL == true)
             {
                 base.Translate(new Vector3f(-0.1f, 0, 0));
-                if(position.X <= -10)
+                if (position.X <= -10)
                 {
                     goL = false;
                     goR = true;

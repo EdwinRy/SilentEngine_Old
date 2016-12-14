@@ -148,36 +148,36 @@ namespace Silent.GameSystem
         }
 
         //Load a single level to the game
-        public void loadLevel(Level levelToLoad)
+        public void LoadLevel(Level levelToLoad)
         {
-            if(levelToLoad.getLevelName() == null)
+            if(levelToLoad.GetLevelName() == null)
             {
                 Console.WriteLine("Couldn't load level due to the lack of name of the level");
             }
 
             levels.Add(levelToLoad);
-            levelNames.Add(levelToLoad.getLevelName());
+            levelNames.Add(levelToLoad.GetLevelName());
 
         }
 
         //Load multiple levels to the game at once
-        public void loadLevels(Level[] levelsToLoad)
+        public void LoadLevels(Level[] levelsToLoad)
         {
 
             foreach(Level level in levelsToLoad)
             {
-                if (level.getLevelName() == null)
+                if (level.GetLevelName() == null)
                 {
                     Console.WriteLine("Couldn't load level due to the lack of name of the level");
                 }
 
                 levels.Add(level);
-                levelNames.Add(level.getLevelName());
+                levelNames.Add(level.GetLevelName());
             }
         }
 
         //Set the level currently in execution
-        public void setCurrentLevel(string newLevel)
+        public void SetCurrentLevel(string newLevel)
         {
             m_currentLevel = newLevel;
             if (m_currentLevel != null) { levels[levelNames.IndexOf(m_currentLevel)].OnUnloadLevel(); }
@@ -186,7 +186,7 @@ namespace Silent.GameSystem
         }
 
         //Get the name of the current level running
-        public string getCurrentLevel()
+        public string GetCurrentLevel()
         {
             return m_currentLevel;
         }

@@ -15,7 +15,7 @@ namespace Silent.Graphics.RenderEngine
     class GLRenderer
     {
 
-        public void prepareToRender()
+        public void PrepareToRender()
         {
             GL.Enable(EnableCap.DepthTest);
             GL.DepthFunc(DepthFunction.Less);
@@ -23,13 +23,13 @@ namespace Silent.Graphics.RenderEngine
         }
         
 
-        public void render(Entity entity, StaticShader shader)
+        public void Render(Entity entity, StaticShader shader)
         {
 
             //TODO: Fix null pointer
-            GL.BindVertexArray(entity.getModel().getVertex().getVAOID());
+            GL.BindVertexArray(entity.GetModel().getVertex().getVAOID());
 
-            for(int i = 0; i < entity.getModel().getVertex().getVAOLength(); i++)
+            for(int i = 0; i < entity.GetModel().getVertex().getVAOLength(); i++)
             {
                 GL.EnableVertexAttribArray(i);
             }
@@ -41,16 +41,16 @@ namespace Silent.Graphics.RenderEngine
 
             //entity.transformationMatrix = Matrix4.CreateTranslation(0.75f,0,-2);
 
-            shader.loadToTransformationMatrix(entity.transformationMatrix);
+            shader.LoadToTransformationMatrix(entity.transformationMatrix);
 
             GL.ActiveTexture(TextureUnit.Texture0);
 
-            GL.BindTexture(TextureTarget.Texture2D, entity.getModel().getTexture().getTextureID());
+            GL.BindTexture(TextureTarget.Texture2D, entity.GetModel().getTexture().getTextureID());
 
-            GL.DrawElements(PrimitiveType.Triangles, entity.getModel().getVertex().getVertexCount(), DrawElementsType.UnsignedInt, 0);
+            GL.DrawElements(PrimitiveType.Triangles, entity.GetModel().getVertex().getVertexCount(), DrawElementsType.UnsignedInt, 0);
 
 
-            for (int i = 0; i < entity.getModel().getVertex().getVAOLength(); i++)
+            for (int i = 0; i < entity.GetModel().getVertex().getVAOLength(); i++)
             {
                 GL.DisableVertexAttribArray(i);
             }
