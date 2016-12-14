@@ -17,13 +17,9 @@ namespace Silent.GameSystem
 
         public Level(string name = "SampleText") { m_LevelName = name; }
 
-        public static float fov = 90;
-        public static float nearPlane = 0.01f;
-        public static float farPlane = 10000;
-
         List<Entity> m_entities = new List<Entity>();
 
-        StaticShader shader;
+        public StaticShader shader;
         private GLRenderer renderer = new GLRenderer(); 
 
 
@@ -49,7 +45,6 @@ namespace Silent.GameSystem
                 }
             }
 
-            renderer.SetProjection(shader,fov,nearPlane,farPlane);
         }
 
         public void OnUpdateLevel()
@@ -73,7 +68,7 @@ namespace Silent.GameSystem
             //TODO: fix the way entities are added
             foreach (Entity entity in m_entities)
             {
-                if (entity.Active)
+                if (entity.Visible)
                 {
                     renderer.prepareToRender();
                     shader.startShader();                    

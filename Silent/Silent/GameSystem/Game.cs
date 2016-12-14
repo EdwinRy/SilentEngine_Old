@@ -33,8 +33,10 @@ namespace Silent.GameSystem
         }
 
         public DisplayBorder    windowBorder                    = DisplayBorder.Fixed;
-        public static int       windowWidth                     = 600;
-        public static int       windowHeight                    = 400;
+
+        public int              windowWidth                    = 600;
+        public int              windowHeight                   = 400;
+
         public int              windowUpdateFrameRate           = 60;
         public int              windowRenderFrameRate           = 60;
         public string           windowTitle                     = "Silent Game Engine";

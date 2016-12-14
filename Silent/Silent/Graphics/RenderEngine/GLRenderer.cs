@@ -15,17 +15,6 @@ namespace Silent.Graphics.RenderEngine
     class GLRenderer
     {
 
-
-        public void SetProjection(StaticShader shader, float FOV, float nearPlane, float farPlane)
-        {
-            Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 180 * 70, (Game.windowWidth / Game.windowHeight), 0.01f, 10000f);
-            shader.startShader();
-            shader.loadToProjectionMatrix(projection);
-            shader.stopShader();
-
-            
-        }
-
         public void prepareToRender()
         {
             GL.Enable(EnableCap.DepthTest);

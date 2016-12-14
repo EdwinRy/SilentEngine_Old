@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Silent.Graphics.Shaders
 {
-    class StaticShader : ShaderProgram
+    public class StaticShader : ShaderProgram
     {
 
         private const string M_VERTEXSHADER = "Graphics/Shaders/VertexShader.txt";

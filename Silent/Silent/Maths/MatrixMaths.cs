@@ -23,7 +23,11 @@ namespace Silent.Tools
             return matrix;
         }
 
+        public static float ToRadiants(int value)
+        {
 
+            return (float)(Math.PI / 180) * value;
+        }
         
     }
 }
