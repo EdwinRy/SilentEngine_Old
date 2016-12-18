@@ -19,7 +19,8 @@ namespace Silent.GameSystem
 
         public Camera currentCamera = new Camera();
 
-        List<Entity> m_entities = new List<Entity>();
+        public List<Entity> entities = new List<Entity>();
+        public List<Light> lights = new List<Light>();
 
         public StaticShader shader;
         private GLRenderer renderer = new GLRenderer(); 
@@ -38,7 +39,7 @@ namespace Silent.GameSystem
 
             shader = new StaticShader();
             OnLoad();
-            foreach (Entity entity in m_entities)
+            foreach (Entity entity in entities)
             {
                 if (entity.Active)
                 {
@@ -53,7 +54,7 @@ namespace Silent.GameSystem
         {
             OnUpdate();
 
-            foreach (Entity entity in m_entities)
+            foreach (Entity entity in entities)
             {
                 if (entity.Active)
                 {
@@ -68,13 +69,14 @@ namespace Silent.GameSystem
             OnRender();
 
             //TODO: fix the way entities are added
-            foreach (Entity entity in m_entities)
+            foreach (Entity entity in entities)
             {
                 if (entity.Visible)
                 {
                     renderer.PrepareToRender();
                     shader.StartShader();
-                    shader.LoadToViewMatrix(currentCamera.view);                  
+                    shader.LoadLight(lights[0]);
+                    shader.LoadToViewMatrix(currentCamera.view);
                     renderer.Render(entity,shader);
                     entity.OnRenderEntity();
                     shader.StopShader();
@@ -87,7 +89,7 @@ namespace Silent.GameSystem
         {
             OnClosing();
 
-            foreach (Entity entity in m_entities)
+            foreach (Entity entity in entities)
             {
                 if (entity.Active)
                 {
@@ -101,7 +103,7 @@ namespace Silent.GameSystem
         {
             OnClosed();
 
-            foreach (Entity entity in m_entities)
+            foreach (Entity entity in entities)
             {
                 if (entity.Active)
                 {
@@ -115,7 +117,7 @@ namespace Silent.GameSystem
         {
             OnUnload();
 
-            foreach (Entity entity in m_entities)
+            foreach (Entity entity in entities)
             {
                 if (entity.Active)
                 {
@@ -141,7 +143,12 @@ namespace Silent.GameSystem
 
         public void AddEntity(Entity entity)
         {
-            m_entities.Add(entity);
+            entities.Add(entity);
+        }
+
+        public void AddLight(Light light)
+        {
+            lights.Add(light);
         }
 
     }

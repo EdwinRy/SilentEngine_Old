@@ -21,7 +21,7 @@ namespace Silent.Entities
         }
 
         //View Matrix
-        public Matrix4 view;
+        public Matrix4 view = Matrix4.Identity;
         public Vector3f position = new Vector3f();
         public Vector3f rotationAxis = new Vector3f();
         public float rotationAngle = 0;
@@ -32,7 +32,7 @@ namespace Silent.Entities
         //Projection Matrix
         Matrix4 projection;
         public static float fov = 70;
-        public static float nearPlane = 0.01f;
+        public static float nearPlane = 0.1f;
         public static float farPlane = 10000;
         //------------------------------------------------
 
@@ -46,8 +46,9 @@ namespace Silent.Entities
         
         public void SetCameraViewMatrix(StaticShader shader)
         {
-            view = Matrix4.Identity;
+            //view = Matrix4.Identity;
             shader.StartShader();
+            view = Matrix4.Identity;
             shader.LoadToViewMatrix(view);
             shader.StopShader();
         }
@@ -59,6 +60,7 @@ namespace Silent.Entities
             position.X -= applyTranslation.X;
             position.Y -= applyTranslation.Y;
             position.Z -= applyTranslation.Z;
+
             view *= Matrix4.CreateTranslation(-applyTranslation.X, -applyTranslation.Y, -applyTranslation.Z);
         }
 

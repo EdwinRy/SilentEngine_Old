@@ -40,16 +40,53 @@ namespace TESTING
 
     class SampleLevel : Level
     {
+        Camera camera;
+        Light light;
+        bool goR = true;
+        bool goL = false;
         public override void OnLoad()
         {
+            camera = new Camera();
+            camera.SetCameraProjectionMatrix(shader, 600, 400);
+            camera.SetCameraViewMatrix(shader);
+            currentCamera = camera;
 
-           
+            light = new Light();
+            light.Translate(0, 0, -20);
+            AddLight(light);
             
         }
 
         public override void OnUpdate()
         {
+            //light.Translate(0, 0, -0.25f);
+            CycleLight(light);
+            Console.WriteLine(light.position.X+","+ light.position.Y + "," + light.position.Z);
+            //currentCamera.Rotate(0, 0, 0, 0);
+            //currentCamera.Translate(0, 0, 0.001f);
+        }
 
+        public void CycleLight(Light light)
+        {
+            if (goR == true)
+            {
+                light.Translate(new Vector3f(0, 0, -0.25f));
+                if (light.position.Z <= -200)
+                {
+                    
+                    goR = false;
+                    goL = true;
+                }
+            }
+            if (goL == true)
+            {
+                light.Translate(new Vector3f(0, 0, 0.25f));
+                if (light.position.Z >= 0)
+                {
+                    goL = false;
+                    goR = true;
+                }
+            }
         }
 
     }
@@ -70,7 +107,7 @@ namespace TESTING
 
         public override void OnUpdate()
         {
-
+            Cycle();
             
         }
 
@@ -96,6 +133,8 @@ namespace TESTING
                 }
             }
         }
+
+        
     }
 
 }

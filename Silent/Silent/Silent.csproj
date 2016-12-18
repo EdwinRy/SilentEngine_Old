@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Entities\Camera.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\Light.cs" />
     <Compile Include="Entities\Model.cs" />
     <Compile Include="Entities\Texture.cs" />
     <Compile Include="Graphics\Shaders\ShaderProgram.cs" />

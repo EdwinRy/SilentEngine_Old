@@ -63,7 +63,6 @@ namespace Silent.Entities
         //Call when the level is loading the entity
         public void OnLoadEntity()
         {
-            Console.WriteLine(transformationMatrix);
             transformationMatrix *= MatrixMaths.CreateTransformationMatrix(position, rotationAxis.X, rotationAxis.Y, rotationAxis.Z, scale);
 
             m_model = m_loader.loadObjModel(modelPath, texturePath);

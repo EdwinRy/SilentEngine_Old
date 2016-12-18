@@ -19,6 +19,8 @@ namespace Silent.Graphics.RenderEngine
         {
             GL.Enable(EnableCap.DepthTest);
             GL.DepthFunc(DepthFunction.Less);
+            GL.Enable(EnableCap.CullFace);
+            GL.CullFace(CullFaceMode.Back);
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
         }
         
@@ -34,13 +36,6 @@ namespace Silent.Graphics.RenderEngine
                 GL.EnableVertexAttribArray(i);
             }
 
-
-
-            //entity.transformationMatrix *= Matrix4.CreateRotationZ((float)Math.PI / 180 * 2);
-            //entity.transformationMatrix *= Matrix4.Rotate(new Vector3(entity.position.X, entity.position.Y, entity.position.Z), (float)Math.PI / 180 * 2);
-
-            //entity.transformationMatrix = Matrix4.CreateTranslation(0.75f,0,-2);
-
             shader.LoadToTransformationMatrix(entity.transformationMatrix);
 
             GL.ActiveTexture(TextureUnit.Texture0);
@@ -48,7 +43,6 @@ namespace Silent.Graphics.RenderEngine
             GL.BindTexture(TextureTarget.Texture2D, entity.GetModel().getTexture().getTextureID());
 
             GL.DrawElements(PrimitiveType.Triangles, entity.GetModel().getVertex().getVertexCount(), DrawElementsType.UnsignedInt, 0);
-
 
             for (int i = 0; i < entity.GetModel().getVertex().getVAOLength(); i++)
             {
