@@ -51,21 +51,18 @@ namespace Silent.GameSystem
         private static List<Keys> m_keysPressed = new List<Keys>();
         private static Dictionary<List<Keys>, Action> KeyBinds = new Dictionary<List<Keys>, Action>();
 
-        Keys previousKey;
+        //Keys previousKey;
 
         public void KeyDown(Key key)
         {
-            if ((Keys)key != previousKey)
-            {
+            if (!m_keysPressed.Contains((Keys)key)) { 
                 m_keysPressed.Add((Keys)key);
-                previousKey = (Keys)key;
             }
         }
 
         public void KeyUp(Key key)
         {
             m_keysPressed.Remove((Keys)key);
-            previousKey = Keys.Unknown;
         }
 
         public void KeyPress(char keychar)
@@ -77,8 +74,8 @@ namespace Silent.GameSystem
         {
             foreach(List<Keys> keys in KeyBinds.Keys)
             {
-                if(m_keysPressed.SequenceEqual(keys)) {KeyBinds[keys].Invoke(); }
-            }
+                if(m_keysPressed.SequenceEqual(keys)) { KeyBinds[keys].Invoke(); }
+            }           
         }
 
         public void Bind(List<Keys> keyboardState, Action ToRun)

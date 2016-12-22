@@ -26,26 +26,21 @@ namespace TESTING
 
     class SampleGame : Silent_Game
     {
-        public void getbinded()
-        {
-            Console.WriteLine("swag");
-        }
 
-        Silent_Input inputman = new Silent_Input();
-        List<Silent_Input.Keys> inputs = new List<Silent_Input.Keys>();
+        Silent_Input inputman = new Silent_Input(); 
 
         public override void OnPreloadGame()
         {
             Silent_Level lvl2 = new SampleLevel();
             this.LoadLevel(lvl2);
             this.SetCurrentLevel(lvl2);
+            this.inputManager = inputman;
+            lvl2.inputManager = this.inputManager;
         }
 
         public override void OnLoadGame()
         {
-            inputs.Add(Silent_Input.Keys.A);
-            inputman.Bind(inputs, getbinded);
-            this.inputManager = inputman;
+            
             
         }
 
@@ -59,8 +54,55 @@ namespace TESTING
         bool goR = true;
         bool goL = false;
 
+        public void goRight()
+        {
+            sampleEntity.Translate(new Vector3f(0.1f, 0, 0));
+        }
+        public void goLeft()
+        {
+            sampleEntity.Translate(new Vector3f(-0.1f, 0, 0));
+        }
+
+        public void goUp()
+        {
+            sampleEntity.Translate(new Vector3f(0, 0.1f, 0));
+        }
+
+        public void goDown()
+        {
+            sampleEntity.Translate(new Vector3f(0, -0.1f, 0));
+        }
+
+        public void goForward()
+        {
+            sampleEntity.Translate(new Vector3f(0, 0, -0.1f));
+        }
+
+        public void goBackward()
+        {
+            sampleEntity.Translate(new Vector3f(0, 0, 0.1f));
+        }
+
         public override void OnLoad()
         {
+            List<Silent_Input.Keys> r = new List<Silent_Input.Keys>();
+            List<Silent_Input.Keys> l = new List<Silent_Input.Keys>();
+            List<Silent_Input.Keys> u = new List<Silent_Input.Keys>();
+            List<Silent_Input.Keys> d = new List<Silent_Input.Keys>();
+            List<Silent_Input.Keys> f = new List<Silent_Input.Keys>();
+            List<Silent_Input.Keys> b = new List<Silent_Input.Keys>();
+            r.Add(Silent_Input.Keys.Right);
+            l.Add(Silent_Input.Keys.Left);
+            u.Add(Silent_Input.Keys.Space);
+            d.Add(Silent_Input.Keys.LControl);
+            f.Add(Silent_Input.Keys.Up);
+            b.Add(Silent_Input.Keys.Down);
+            inputManager.Bind(r, goRight);
+            inputManager.Bind(l, goLeft);
+            inputManager.Bind(u, goUp);
+            inputManager.Bind(d, goDown);
+            inputManager.Bind(f, goForward);
+            inputManager.Bind(b, goBackward);
             sampleEntity = new SampleEntity();
             this.AddEntity(sampleEntity);
 
@@ -77,8 +119,8 @@ namespace TESTING
 
         public override void OnUpdate()
         {
-            CycleLight(light);
-            Cycle();
+            //CycleLight(light);
+            //Cycle();
         }
 
         public void Cycle()
