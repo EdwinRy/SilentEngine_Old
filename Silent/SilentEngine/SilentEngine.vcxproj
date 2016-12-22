@@ -151,6 +151,8 @@
     <ClInclude Include="GameSystem\Game.h" />
     <ClInclude Include="GameSystem\Level.h" />
     <ClInclude Include="Graphics\RenderEngine\silent_GLRenderer.h" />
+    <ClInclude Include="Graphics\Shaders\ShaderProgram.h" />
+    <ClInclude Include="Maths\Matrix4.h" />
     <ClInclude Include="Maths\Vector3f.h" />
   </ItemGroup>
   <ItemGroup>

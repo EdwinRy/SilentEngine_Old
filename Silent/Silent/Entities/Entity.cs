@@ -43,6 +43,8 @@ namespace Silent.Entities
 
         private OBJLoader m_loader = new OBJLoader();
 
+        private Entity ChildOf = null;
+
         //The constructor takes in the model
         public Entity()
         {
@@ -73,7 +75,10 @@ namespace Silent.Entities
 
         public void OnUpdateEntity()
         {
-           
+           if(ChildOf != null)
+            {
+                //transformationMatrix = Matrix4.CreateTranslation(position.X,position.Y, position.Z);
+            }
             OnUpdate();
         }
 
@@ -116,11 +121,15 @@ namespace Silent.Entities
 
         public void Translate(Vector3f applyTranslation)
         {
-            
+            /*
             position.X += applyTranslation.X;
             position.Y += applyTranslation.Y;
-            position.Z += applyTranslation.Z;
-            transformationMatrix *= Matrix4.CreateTranslation(applyTranslation.X, applyTranslation.Y, applyTranslation.Z);
+            position.Z += applyTranslation.Z;*/
+
+            position += applyTranslation;
+
+
+            transformationMatrix = Matrix4.CreateTranslation(position.X, position.Y, position.Z);
         }
 
         public void Translate(float positionX, float positionY, float positionZ)
@@ -128,7 +137,7 @@ namespace Silent.Entities
             position.X += positionX;
             position.Y += positionY;
             position.Z += positionZ;
-            transformationMatrix *= Matrix4.CreateTranslation(positionX, positionY, positionZ);
+            transformationMatrix = Matrix4.CreateTranslation(position.X, position.Y, position.Z);
         }
 
         public void Rotate(Vector3f rotationAxis, float rotation)
@@ -147,6 +156,12 @@ namespace Silent.Entities
             this.rotationAxis.Z += rotationAxisZ;
             this.rotationAngle += rotation;
             transformationMatrix *= Matrix4.CreateFromAxisAngle(new Vector3(rotationAxisX, rotationAxisY, rotationAxisZ), rotation);
+        }
+
+        public void SetParent(Entity parentEntity)
+        {
+            this.ChildOf = parentEntity;
+            this.position += parentEntity.position;
         }
 
 

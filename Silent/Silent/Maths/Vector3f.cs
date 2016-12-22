@@ -19,5 +19,17 @@ namespace Silent.Maths
             Y = y;
             Z = z;
         }
+
+        public static Vector3f operator +(Vector3f v1, Vector3f v2)
+        {
+            return (new Vector3f(v1.X + v2.X, v1.Y + v2.Y, v1.Z + v2.Z));
+        }
+
+        public static Vector3f operator -(Vector3f v1, Vector3f v2)
+        {
+            return (new Vector3f(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z));
+        }
+
+
     }
 }

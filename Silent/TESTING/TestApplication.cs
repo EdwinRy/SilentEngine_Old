@@ -13,32 +13,48 @@ namespace TESTING
     {
         public static void Main()
         {
-            Game sampleGame = new SampleGame()
+            Silent_Game sampleGame = new SampleGame()
             {
                 windowWidth = 600,
                 windowHeight = 400
             };
-
-            Level lvl1 = new SampleLevel();
+           
+            Silent_Level lvl1 = new SampleLevel();
             Entity sampleEntity = new SampleEntity();           
             lvl1.SetLevelName("lvl1");
             lvl1.AddEntity(sampleEntity);
             sampleGame.LoadLevel(lvl1);
             sampleGame.SetCurrentLevel("lvl1");
-            sampleGame.windowBorder = Game.DisplayBorder.Resizable;
-
+            sampleGame.windowBorder = Silent_Game.DisplayBorder.Resizable;
             sampleGame.MainGameLoop();          
         }
+
+
     }
 
     //Implement Cameras
 
-    class SampleGame : Game
+    class SampleGame : Silent_Game
     {
+        public void getbinded()
+        {
+            Console.WriteLine("swag");
+        }
+
+        Silent_Input inputman = new Silent_Input();
+        List<Silent_Input.Keys> inputs = new List<Silent_Input.Keys>();
+
+        public override void OnLoadGame()
+        {
+            inputs.Add(Silent_Input.Keys.A);
+            inputman.Bind(inputs, getbinded);
+            this.inputManager = inputman;
+            
+        }
 
     }
 
-    class SampleLevel : Level
+    class SampleLevel : Silent_Level
     {
         Camera camera;
         Light light;
@@ -61,7 +77,6 @@ namespace TESTING
         {
             //light.Translate(0, 0, -0.25f);
             CycleLight(light);
-            Console.WriteLine(light.position.X+","+ light.position.Y + "," + light.position.Z);
             //currentCamera.Rotate(0, 0, 0, 0);
             //currentCamera.Translate(0, 0, 0.001f);
         }

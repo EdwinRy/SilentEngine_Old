@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Silent.GameSystem
 {
-    public class Level
+    public class Silent_Level
     {
         private string m_LevelName = null;
 
-        public Level(string name = "SampleText") { m_LevelName = name; }
+        public Silent_Level(string name = "SampleText") { m_LevelName = name; }
 
         public Camera currentCamera = new Camera();
 

@@ -1,5 +1,6 @@
 ﻿using OpenTK;
-using OpenTK.Graphics.OpenGL4;
+using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
 using Silent.Graphics;
 using Silent.Graphics.RenderEngine;
 using Silent.Graphics.Shaders;
@@ -9,10 +10,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
+
 namespace Silent.GameSystem
 {
 
-    public class Game //Use this class to extend your own classess with overriden virtual methods instead of calling this one directly
+    public class Silent_Game //Use this class to extend your own classess with overriden virtual methods instead of calling this one directly
     {
 
         //WINDOW PROPERTIES:
@@ -26,11 +30,18 @@ namespace Silent.GameSystem
 
         public enum GameAPI
         {
+            //Fully supported
             OpenGL,
+            //Not implemented
+            Vulkan,
+            //Not tested
             OpenGLES,
-            WebGL,
-            Vulkan
+            //Not implemented
+            WebGL
+            
         }
+
+        public Silent_Input inputManager = new Silent_Input();
 
         public DisplayBorder    windowBorder                    = DisplayBorder.Fixed;
 
@@ -49,7 +60,7 @@ namespace Silent.GameSystem
         private GameWindow      m_gameDisplay;
 
         //List of levels that have been loaded to the game
-        private List<Level>     levels = new List<Level>();
+        private List<Silent_Level>     levels = new List<Silent_Level>();
 
         //List of names Of the levels with index corresponding to the levels in levels list
         private List<string>    levelNames = new List<string>();
@@ -60,25 +71,26 @@ namespace Silent.GameSystem
         //For checks if the game is already running
         private bool m_gameRunning = false;
 
+        //Check if the first level was loaded
         private bool m_firstLevelLoaded = false;
 
         //Override functions enabling inserting additional code into the game loop
-        public virtual void OnLoad() { }
-        public virtual void OnUpdate() { }
-        public virtual void OnRender() { }
-        public virtual void OnClosing() { }
-        public virtual void OnClosed() { }
+        public virtual void OnLoadGame() { }
+        public virtual void OnUpdateGame() { }
+        public virtual void OnRenderGame() { }
+        public virtual void OnClosingGame() { }
+        public virtual void OnClosedGame() { }
 
-        public Game()
+        public Silent_Game()
         {
 
         }
 
         //Runs whenever the Game's loop is started
-        private void OnLoadGame(object sender, EventArgs e)
+        private void OnLoad(object sender, EventArgs e)
         {
 
-            foreach(Level level in levels)
+            foreach(Silent_Level level in levels)
             {
                 if (!m_firstLevelLoaded)
                 {
@@ -88,11 +100,11 @@ namespace Silent.GameSystem
             }
             GL.ClearColor(0.25f, 0f, 0.5f, 0f);
 
-            OnLoad();
+            OnLoadGame();
         }
 
         //Execution of operations such as physics and other non-graphics related calculations etc
-        private void OnUpdateGame(object sender, FrameEventArgs e)
+        private void OnUpdate(object sender, FrameEventArgs e)
         {
             if (!(m_currentLevel == null))
             {
@@ -100,11 +112,13 @@ namespace Silent.GameSystem
             }else{
                 Console.WriteLine("Current Level has to be declared");
             }
-            OnUpdate();
+
+            OnUpdateGame();
+            inputManager.Update();
         }
 
         //Drawing of the scene
-        private void OnRenderGame(object sender, FrameEventArgs e)
+        private void OnRender(object sender, FrameEventArgs e)
         {           
             //GL.Flush();
             if (!(m_currentLevel == null))
@@ -115,12 +129,12 @@ namespace Silent.GameSystem
             {
                 Console.WriteLine("Current level has to be declared");
             }
-            OnRender();
+            OnRenderGame();
             m_gameDisplay.SwapBuffers();
         }
 
         //Execute when the game is about to close
-        private void OnClosingGame(object sender, EventArgs e)
+        private void OnClosing(object sender, EventArgs e)
         {
             if (!(m_currentLevel == null))
             {
@@ -130,11 +144,11 @@ namespace Silent.GameSystem
             {
                 Console.WriteLine("Current level has to be declared");
             }
-            OnClosing();
+            OnClosingGame();
         }
 
         //Execute when the game has closed
-        private void OnClosedGame(object sender, EventArgs e)
+        private void OnClosed(object sender, EventArgs e)
         {
             if (!(m_currentLevel == null))
             {
@@ -144,11 +158,26 @@ namespace Silent.GameSystem
             {
                 Console.WriteLine("Current level has to be declared");
             }
-            OnClosed();
+            OnClosedGame();
+        }
+
+        private void KeyDown(object sender, KeyboardKeyEventArgs e)
+        {
+            inputManager.KeyDown(e.Key);
+        }
+
+        private void KeyUp(object sender, KeyboardKeyEventArgs e)
+        {
+            inputManager.KeyUp(e.Key);
+        }
+
+        private void KeyPress(object sender, KeyPressEventArgs e)
+        {
+            inputManager.KeyPress(e.KeyChar);
         }
 
         //Load a single level to the game
-        public void LoadLevel(Level levelToLoad)
+        public void LoadLevel(Silent_Level levelToLoad)
         {
             if(levelToLoad.GetLevelName() == null)
             {
@@ -161,10 +190,10 @@ namespace Silent.GameSystem
         }
 
         //Load multiple levels to the game at once
-        public void LoadLevels(Level[] levelsToLoad)
+        public void LoadLevels(Silent_Level[] levelsToLoad)
         {
 
-            foreach(Level level in levelsToLoad)
+            foreach(Silent_Level level in levelsToLoad)
             {
                 if (level.GetLevelName() == null)
                 {
@@ -197,12 +226,16 @@ namespace Silent.GameSystem
             if (UseGameAPI == GameAPI.OpenGL)
             {
                 m_gameDisplay = new GameWindow();
-                m_gameDisplay.Load += OnLoadGame;
-                m_gameDisplay.UpdateFrame += OnUpdateGame;
-                m_gameDisplay.RenderFrame += OnRenderGame;
-                m_gameDisplay.Closing += OnClosingGame;
-                m_gameDisplay.Closed += OnClosedGame;
-
+                m_gameDisplay.Load += OnLoad;
+                m_gameDisplay.UpdateFrame += OnUpdate;
+                m_gameDisplay.RenderFrame += OnRender;
+                m_gameDisplay.Closing += OnClosing;
+                m_gameDisplay.Closed += OnClosed;
+                if (inputManager != null) {
+                    m_gameDisplay.KeyDown += KeyDown;
+                    m_gameDisplay.KeyUp += KeyUp;
+                    m_gameDisplay.KeyPress += KeyPress;
+                }
                 if (!m_gameRunning)
                 {
                     if (windowBorder == DisplayBorder.Resizable)
@@ -243,9 +276,6 @@ namespace Silent.GameSystem
                     }
                 }
             }
-
-
         }
-
     }
 }
