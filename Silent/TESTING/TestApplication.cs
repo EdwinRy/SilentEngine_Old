@@ -19,20 +19,10 @@ namespace TESTING
                 windowHeight = 400
             };
            
-            Silent_Level lvl1 = new SampleLevel();
-            Entity sampleEntity = new SampleEntity();           
-            lvl1.SetLevelName("lvl1");
-            lvl1.AddEntity(sampleEntity);
-            sampleGame.LoadLevel(lvl1);
-            sampleGame.SetCurrentLevel("lvl1");
             sampleGame.windowBorder = Silent_Game.DisplayBorder.Resizable;
             sampleGame.MainGameLoop();          
         }
-
-
     }
-
-    //Implement Cameras
 
     class SampleGame : Silent_Game
     {
@@ -43,6 +33,13 @@ namespace TESTING
 
         Silent_Input inputman = new Silent_Input();
         List<Silent_Input.Keys> inputs = new List<Silent_Input.Keys>();
+
+        public override void OnPreloadGame()
+        {
+            Silent_Level lvl2 = new SampleLevel();
+            this.LoadLevel(lvl2);
+            this.SetCurrentLevel(lvl2);
+        }
 
         public override void OnLoadGame()
         {
@@ -56,12 +53,17 @@ namespace TESTING
 
     class SampleLevel : Silent_Level
     {
+        Entity sampleEntity;
         Camera camera;
         Light light;
         bool goR = true;
         bool goL = false;
+
         public override void OnLoad()
         {
+            sampleEntity = new SampleEntity();
+            this.AddEntity(sampleEntity);
+
             camera = new Camera();
             camera.SetCameraProjectionMatrix(shader, 600, 400);
             camera.SetCameraViewMatrix(shader);
@@ -75,10 +77,31 @@ namespace TESTING
 
         public override void OnUpdate()
         {
-            //light.Translate(0, 0, -0.25f);
             CycleLight(light);
-            //currentCamera.Rotate(0, 0, 0, 0);
-            //currentCamera.Translate(0, 0, 0.001f);
+            Cycle();
+        }
+
+        public void Cycle()
+        {
+            if (goR == true)
+            {
+                sampleEntity.Translate(new Vector3f(0.1f, 0, 0));
+
+                if (sampleEntity.position.X >= 10)
+                {
+                    goR = false;
+                    goL = true;
+                }
+            }
+            if (goL == true)
+            {
+                sampleEntity.Translate(new Vector3f(-0.1f, 0, 0));
+                if (sampleEntity.position.X <= -10)
+                {
+                    goL = false;
+                    goR = true;
+                }
+            }
         }
 
         public void CycleLight(Light light)
@@ -103,53 +126,14 @@ namespace TESTING
                 }
             }
         }
-
     }
 
     class SampleEntity : Entity
     {
-        bool goR = true;
-        bool goL = false;
-
         public override void OnLoad()
         {
             base.Translate(new Vector3f(0, 0, -20));
             base.Translate(new Vector3f(0, -10, 0));
-
         }
-
-        
-
-        public override void OnUpdate()
-        {
-            Cycle();
-            
-        }
-
-        public void Cycle()
-        {
-            if (goR == true)
-            {
-                base.Translate(new Vector3f(0.1f, 0, 0));
-
-                if (position.X >= 10)
-                {
-                    goR = false;
-                    goL = true;
-                }
-            }
-            if (goL == true)
-            {
-                base.Translate(new Vector3f(-0.1f, 0, 0));
-                if (position.X <= -10)
-                {
-                    goL = false;
-                    goR = true;
-                }
-            }
-        }
-
-        
     }
-
 }

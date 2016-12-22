@@ -13,9 +13,15 @@ namespace Silent.GameSystem
 {
     public class Silent_Level
     {
-        private string m_LevelName = null;
 
-        public Silent_Level(string name = "SampleText") { m_LevelName = name; }
+        private static int levelCount = 0;
+        public string LevelName = "SampleLevel"+levelCount.ToString();
+
+        public Silent_Level(string name = null) {
+            levelCount += 1;
+        }
+
+        public Silent_Input inputManager;
 
         public Camera currentCamera = new Camera();
 
@@ -129,16 +135,16 @@ namespace Silent.GameSystem
 
         public string GetLevelName()
         {
-            if (m_LevelName == null)
+            if (LevelName == null)
             {
                 Console.WriteLine("You have to set the level name first");
             }
-            return m_LevelName;
+            return LevelName;
         }
 
         public void SetLevelName(string newLevelName)
         {
-            m_LevelName = newLevelName;
+            LevelName = newLevelName;
         }
 
         public void AddEntity(Entity entity)

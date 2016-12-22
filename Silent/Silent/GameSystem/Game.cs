@@ -66,7 +66,7 @@ namespace Silent.GameSystem
         private List<string>    levelNames = new List<string>();
 
         //Current level in execution
-        private string m_currentLevel = null;
+        private Silent_Level m_currentLevel = null;
 
         //For checks if the game is already running
         private bool m_gameRunning = false;
@@ -75,6 +75,7 @@ namespace Silent.GameSystem
         private bool m_firstLevelLoaded = false;
 
         //Override functions enabling inserting additional code into the game loop
+        public virtual void OnPreloadGame() { }
         public virtual void OnLoadGame() { }
         public virtual void OnUpdateGame() { }
         public virtual void OnRenderGame() { }
@@ -89,6 +90,7 @@ namespace Silent.GameSystem
         //Runs whenever the Game's loop is started
         private void OnLoad(object sender, EventArgs e)
         {
+            OnPreloadGame();
 
             foreach(Silent_Level level in levels)
             {
@@ -108,7 +110,7 @@ namespace Silent.GameSystem
         {
             if (!(m_currentLevel == null))
             {
-                levels[levelNames.IndexOf(m_currentLevel)].OnUpdateLevel();
+                levels[levels.IndexOf(m_currentLevel)].OnUpdateLevel();
             }else{
                 Console.WriteLine("Current Level has to be declared");
             }
@@ -123,7 +125,7 @@ namespace Silent.GameSystem
             //GL.Flush();
             if (!(m_currentLevel == null))
             {
-                levels[levelNames.IndexOf(m_currentLevel)].OnRenderLevel();
+                levels[levels.IndexOf(m_currentLevel)].OnRenderLevel();
             }
             else
             {
@@ -138,7 +140,7 @@ namespace Silent.GameSystem
         {
             if (!(m_currentLevel == null))
             {
-                levels[levelNames.IndexOf(m_currentLevel)].OnClosingLevel();
+                levels[levels.IndexOf(m_currentLevel)].OnClosingLevel();
             }
             else
             {
@@ -152,7 +154,7 @@ namespace Silent.GameSystem
         {
             if (!(m_currentLevel == null))
             {
-                levels[levelNames.IndexOf(m_currentLevel)].OnClosedLevel();
+                levels[levels.IndexOf(m_currentLevel)].OnClosedLevel();
             }
             else
             {
@@ -206,18 +208,18 @@ namespace Silent.GameSystem
         }
 
         //Set the level currently in execution
-        public void SetCurrentLevel(string newLevel)
+        public void SetCurrentLevel(Silent_Level newLevel)
         {
             m_currentLevel = newLevel;
-            if (m_currentLevel != null) { levels[levelNames.IndexOf(m_currentLevel)].OnUnloadLevel(); }
-            if (m_firstLevelLoaded) { levels[levelNames.IndexOf(m_currentLevel)].OnLoadLevel(); }
+            if (m_currentLevel != null) { levels[levels.IndexOf(m_currentLevel)].OnUnloadLevel(); }
+            if (m_firstLevelLoaded) { levels[levels.IndexOf(m_currentLevel)].OnLoadLevel(); m_currentLevel.inputManager = this.inputManager; }
             
         }
 
         //Get the name of the current level running
-        public string GetCurrentLevel()
+        public string GetCurrentLevelName()
         {
-            return m_currentLevel;
+            return m_currentLevel.GetLevelName();
         }
 
         //The main loop
