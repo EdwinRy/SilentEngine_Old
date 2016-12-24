@@ -15,10 +15,10 @@ namespace TESTING
         {
             Silent_Game sampleGame = new SampleGame()
             {
-                windowWidth = 600,
-                windowHeight = 400
+                windowWidth = 1280,
+                windowHeight = 720
             };
-           
+
             sampleGame.windowBorder = Silent_Game.DisplayBorder.Resizable;
             sampleGame.MainGameLoop();          
         }
@@ -107,7 +107,7 @@ namespace TESTING
             this.AddEntity(sampleEntity);
 
             camera = new Camera();
-            camera.SetCameraProjectionMatrix(shader, 600, 400);
+            camera.SetCameraProjectionMatrix(shader, 1280, 720);
             camera.SetCameraViewMatrix(shader);
             currentCamera = camera;
 
@@ -176,6 +176,11 @@ namespace TESTING
         {
             base.Translate(new Vector3f(0, 0, -20));
             base.Translate(new Vector3f(0, -10, 0));
+        }
+
+        public override void OnUpdate()
+        {
+            //Rotate(this.position, 0.001f);
         }
     }
 }

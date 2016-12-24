@@ -83,6 +83,7 @@ namespace Silent.GameSystem
                     shader.StartShader();
                     shader.LoadLight(lights[0]);
                     shader.LoadToViewMatrix(currentCamera.view);
+                    shader.LoadEntityShiness(entity.shiness, entity.reflectivity);
                     renderer.Render(entity,shader);
                     entity.OnRenderEntity();
                     shader.StopShader();

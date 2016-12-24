@@ -101,7 +101,7 @@ namespace Silent.GameSystem
                 }
             }
             GL.ClearColor(0.25f, 0f, 0.5f, 0f);
-
+            GL.Viewport(new System.Drawing.Rectangle(0, 0, m_gameDisplay.Width, m_gameDisplay.Height));
             OnLoadGame();
         }
 
@@ -178,6 +178,11 @@ namespace Silent.GameSystem
             inputManager.KeyPress(e.KeyChar);
         }
 
+        private void OnResize(EventArgs e)
+        {
+
+        }
+
         //Load a single level to the game
         public void LoadLevel(Silent_Level levelToLoad)
         {
@@ -238,6 +243,7 @@ namespace Silent.GameSystem
                     m_gameDisplay.KeyUp += KeyUp;
                     m_gameDisplay.KeyPress += KeyPress;
                 }
+                
                 if (!m_gameRunning)
                 {
                     if (windowBorder == DisplayBorder.Resizable)

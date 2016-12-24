@@ -76,12 +76,9 @@
     <None Include="EngineAssets\dragon.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="EngineAssets\SampleCub.obj">
+    <Content Include="EngineAssets\SampleCube2.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="EngineAssets\SampleCube.obj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Graphics\Shaders\FragmentShader.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

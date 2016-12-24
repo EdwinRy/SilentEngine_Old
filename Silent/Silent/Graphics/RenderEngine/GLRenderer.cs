@@ -27,7 +27,6 @@ namespace Silent.Graphics.RenderEngine
 
         public void Render(Entity entity, StaticShader shader)
         {
-
             GL.BindVertexArray(entity.GetModel().getVertex().getVAOID());
 
             for(int i = 0; i < entity.GetModel().getVertex().getVAOLength(); i++)

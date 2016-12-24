@@ -16,6 +16,10 @@ namespace Silent.Entities
 
         public static int NumberOfEntities = 0;
 
+        public float shiness = 10;
+
+        public float reflectivity = 0;
+
         //Is Entity active
         public bool Active = true;
 
@@ -25,10 +29,10 @@ namespace Silent.Entities
         //Name of the entity
         public string EntityName = "SampleEntity"+NumberOfEntities.ToString();
 
-        public string modelPath = "EngineAssets/dragon.obj";
+        public string modelPath = "EngineAssets/SampleCube3.obj";
         
 
-        public string texturePath = "EngineAssets/Dragon_Blue.png";
+        public string texturePath = "EngineAssets/SampleTexture.png";
 
         public Vector3f position = new Vector3f(0,0,0);
 
@@ -49,6 +53,7 @@ namespace Silent.Entities
         public Entity()
         {
             NumberOfEntities += 1;
+          
             
         }
 
@@ -129,7 +134,7 @@ namespace Silent.Entities
             position += applyTranslation;
 
 
-            transformationMatrix = Matrix4.CreateTranslation(position.X, position.Y, position.Z);
+            transformationMatrix *= Matrix4.CreateTranslation(applyTranslation.X, applyTranslation.Y, applyTranslation.Z);
         }
 
         public void Translate(float positionX, float positionY, float positionZ)
@@ -137,7 +142,7 @@ namespace Silent.Entities
             position.X += positionX;
             position.Y += positionY;
             position.Z += positionZ;
-            transformationMatrix = Matrix4.CreateTranslation(position.X, position.Y, position.Z);
+            transformationMatrix *= Matrix4.CreateTranslation(positionX, positionY, positionZ);
         }
 
         public void Rotate(Vector3f rotationAxis, float rotation)

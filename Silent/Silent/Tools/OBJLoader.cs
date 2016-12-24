@@ -18,6 +18,7 @@ namespace Silent.Tools
         {
 
             string[] lines = System.IO.File.ReadAllLines(filePath);
+
             float[] vertices = null;
             float[] textures = null;
             float[] normals = null;
@@ -33,8 +34,6 @@ namespace Silent.Tools
             bool texturesNormals_initialized = false;
 
             GLModelLoader loader = new GLModelLoader();
-
-            
 
             foreach (string line in lines)
             {
@@ -118,8 +117,8 @@ namespace Silent.Tools
             foreach (Vector3d loop_vertex in temp_vertices)
             {
                 vertices[vertPointer++] = (float) loop_vertex.X;
-                vertices[vertPointer++] = (float)loop_vertex.Y;
-                vertices[vertPointer++] = (float)loop_vertex.Z;
+                vertices[vertPointer++] = (float) loop_vertex.Y;
+                vertices[vertPointer++] = (float) loop_vertex.Z;
             }
             for (int i = 0; i < indices.Length; i++)
             {

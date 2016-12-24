@@ -1,14 +1,13 @@
 #include "Game.h"
-#include "SDL.h"
 
-Silent::silent_Game::silent_Game()
+Silent::Silent_Game::Silent_Game()
 {
 	if (!SDL_Init(SDL_INIT_VIDEO)) {
 		this->GameInitializedProperly = false;
 	}
 }
 
-void Silent::silent_Game::MainLoop()
+void Silent::Silent_Game::MainLoop()
 {
 	this->GameWindow = SDL_CreateWindow(
 		WindowTitle,
@@ -50,27 +49,37 @@ void Silent::silent_Game::MainLoop()
 	OnClosed();
 }
 
-void Silent::silent_Game::OnLoad()
+void Silent::Silent_Game::OnLoad()
 {
 	OnLoadGame();
 }
 
-void Silent::silent_Game::OnUpdate()
+void Silent::Silent_Game::OnUpdate()
 {
+	
 	OnUpdateGame();
+	SDL_UpdateWindowSurface(GameWindow);
 }
 
-void Silent::silent_Game::OnRender()
+void Silent::Silent_Game::OnRender()
 {
 	OnRenderGame();
 }
 
-void Silent::silent_Game::OnClosing()
+void Silent::Silent_Game::OnClosing()
 {
 	OnClosingGame();
 }
 
-void Silent::silent_Game::OnClosed()
+void Silent::Silent_Game::OnClosed()
 {
 	OnClosedGame();
+}
+
+void Silent::Silent_Game::LoadLevel(Silent_Level & levelToLoad)
+{
+}
+
+void Silent::Silent_Game::SetCurrentLevel(Silent_Level & newCurrentLevel)
+{
 }

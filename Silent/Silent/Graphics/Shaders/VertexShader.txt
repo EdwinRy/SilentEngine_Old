@@ -7,6 +7,7 @@ in vec3 normals;
 out vec2 pass_textureCoords;
 out vec3 surfNorm;
 out vec3 lightVec;
+out vec3 VectorToCamera;
 
 uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;
@@ -22,7 +23,7 @@ void main(void){
 
 	surfNorm = -normals;
 	lightVec =  world.xyz - lightPosition;
-
+	VectorToCamera = (inverse(viewMatrix) * vec4(0.0,0.0,0.0,1.0)).xyz - world.xyz;
 	pass_textureCoords = textureCoords;
 	
 }

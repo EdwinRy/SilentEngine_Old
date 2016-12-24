@@ -1,15 +1,15 @@
 #pragma once
+#include <GL\glew.h>
 #include<iostream>
 #include "Level.h"
-#include<glew.h>
 #include"SDL.h"
 
 namespace Silent {
 
-	class silent_Game {
+	class Silent_Game {
 	public:
-
-		silent_Game();
+		
+		Silent_Game();
 
 		enum DisplayBorder {
 			Resizable = SDL_WINDOW_RESIZABLE,
@@ -50,21 +50,24 @@ namespace Silent {
 		
 		void MainLoop();
 
-	private:
-		silent_Level Levels[25];
-		silent_Level CurrentLevel;
-		
 		virtual void OnLoadGame() = 0;
 		virtual void OnUpdateGame() = 0;
 		virtual void OnRenderGame() = 0;
 		virtual void OnClosingGame() = 0;
 		virtual void OnClosedGame() = 0;
 
+	private:
+		Silent_Level Levels[25];
+		Silent_Level CurrentLevel;
+
 		void OnLoad();
 		void OnUpdate();
 		void OnRender();
 		void OnClosing();
 		void OnClosed();
+	public:
+		void LoadLevel(Silent_Level& levelToLoad);
+		void SetCurrentLevel(Silent_Level& newCurrentLevel);
 	};
 
 }

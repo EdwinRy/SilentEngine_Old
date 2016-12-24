@@ -19,6 +19,8 @@ namespace Silent.Graphics.Shaders
         private int viewMatrix;
         private int lightPosition;
         private int lightColour;
+        private int shiness;
+        private int reflectivity;
 
         public StaticShader() : base(M_VERTEXSHADER, M_FRAGMENTSHADER)
         {
@@ -38,8 +40,16 @@ namespace Silent.Graphics.Shaders
             viewMatrix = base.GetUniformLocation("viewMatrix");
             lightPosition = base.GetUniformLocation("lightPosition");
             lightColour = base.GetUniformLocation("lightColour");
+            shiness = base.GetUniformLocation("shiness");
+            reflectivity = base.GetUniformLocation("reflectivity");
         }
         
+        public void LoadEntityShiness(float shiness, float reflection)
+        {
+            base.LoadToFloat(this.shiness, shiness);
+            base.LoadToFloat(this.reflectivity, reflection);
+        }
+
         public void LoadToTransformationMatrix(Matrix4 matrix)
         {
             base.LoadToMatrix(transformationMatrix, matrix);
@@ -54,6 +64,7 @@ namespace Silent.Graphics.Shaders
         {
             base.LoadToMatrix(viewMatrix, matrix);
         }
+
 
         public void LoadLight(Light light)
         {
