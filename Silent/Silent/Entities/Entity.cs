@@ -29,7 +29,7 @@ namespace Silent.Entities
         //Name of the entity
         public string EntityName = "SampleEntity"+NumberOfEntities.ToString();
 
-        public string modelPath = "EngineAssets/SampleCube3.obj";
+        public string modelPath = "EngineAssets/dragon.obj";
         
 
         public string texturePath = "EngineAssets/SampleTexture.png";
