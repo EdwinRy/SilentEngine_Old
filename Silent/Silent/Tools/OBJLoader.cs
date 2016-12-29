@@ -13,7 +13,7 @@ namespace Silent.Tools
 {
     public class OBJLoader
     {
-
+        /*
         public Model loadObjModel(string filePath = "EngineAssets/dragon.obj", string texturePath = "EngineAssets/SampleTexture.png")
         {
 
@@ -41,12 +41,6 @@ namespace Silent.Tools
                 if (line.StartsWith("v "))
                 {
                     string[] currentLine = line.Split(' ');
-                    //Console.WriteLine("Split line:", currentLine[1]);
-
-                    foreach(string element in currentLine)
-                    {
-                        //Console.WriteLine(element);
-                    }
 
                     temp_vertices.Add(
                         new Vector3d(
@@ -61,10 +55,6 @@ namespace Silent.Tools
                 if (line.StartsWith("vt "))
                 {
                     string[] currentLine = line.Split(' ');
-                    foreach (string element in currentLine)
-                    {
-                        //Console.WriteLine(element);
-                    }
                     temp_textures.Add(
                         new Vector2d(
                             float.Parse(currentLine[1]),
@@ -76,10 +66,6 @@ namespace Silent.Tools
                 {
 
                     string[] currentLine = line.Split(' ');
-                    foreach (string element in currentLine)
-                    {
-                        //Console.WriteLine(element);
-                    }
                     temp_normals.Add(
                         new Vector3d(
                             float.Parse(currentLine[1]),
@@ -131,22 +117,9 @@ namespace Silent.Tools
             vertex = loader.load(vertices, indices, textures, normals);
             texture = loader.loadTexture(texturePath);
 
-            return new Model(vertex, texture);
+            //return new Model(vertex, texture);
 
 
-        }
-
-        public Model loadObjModel(float[] vertices, int[] indices, float[] textureCoords, float[] normals, string texturePath)
-        {
-            GLModelLoader loader = new GLModelLoader();
-
-            Vertex vertex;
-            Texture texture;
-
-            vertex = loader.load(vertices, indices, textureCoords, normals);
-            texture = loader.loadTexture(texturePath);
-
-            return new Model(vertex, texture);
         }
 
         private static void processVertices(string[] vertexData, List<int> temp_indices, List<Vector2d> temp_textures,
@@ -161,7 +134,7 @@ namespace Silent.Tools
             normalsArray[currentVertexPointer * 3] = (float) currentNorm.X;
             normalsArray[currentVertexPointer * 3 + 1] = (float) currentNorm.Y;
             normalsArray[currentVertexPointer * 3 + 2] = (float) currentNorm.Z;
-        }
+        }     */
 
-    }
+    } 
 }

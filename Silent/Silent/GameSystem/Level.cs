@@ -29,7 +29,8 @@ namespace Silent.GameSystem
         public List<Light> lights = new List<Light>();
 
         public StaticShader shader;
-        private GLRenderer renderer = new GLRenderer(); 
+        private GLRenderer renderer = new GLRenderer();
+        private GLModelLoader loader = new GLModelLoader();
 
 
         public virtual void OnLoad() { }
@@ -49,7 +50,8 @@ namespace Silent.GameSystem
             {
                 if (entity.Active)
                 {
-                    Console.WriteLine("Loading Entity: ", entity.EntityName);
+                    entity.EntityModel.ModelVertex = loader.load(entity.EntityModel.Vertices, entity.EntityModel.Indices, entity.EntityModel.TextureCoords, entity.EntityModel.Normals);
+                    entity.EntityModel.ModelTexture = loader.loadTexture(entity.EntityModel.ModelPath);
                     entity.OnLoadEntity();
                 }
             }

@@ -29,10 +29,10 @@ namespace Silent.Entities
         //Name of the entity
         public string EntityName = "SampleEntity"+NumberOfEntities.ToString();
 
-        public string modelPath = "EngineAssets/dragon.obj";
+        public string modelPath = "EngineAssets/SampleCube2.obj";
         
 
-        public string texturePath = "EngineAssets/SampleTexture.png";
+        public string texturePath;
 
         public Vector3f position = new Vector3f(0,0,0);
 
@@ -43,9 +43,11 @@ namespace Silent.Entities
         public float scale = 1;
 
         //Every entity has to have a model consisting of Vertex and Texture
-        private Model m_model;
+        public Model EntityModel;
 
-        private OBJLoader m_loader = new OBJLoader();
+        public Material EntityMaterial;
+
+        //private OBJLoader m_loader = new OBJLoader();
 
         private Entity ChildOf = null;
 
@@ -53,8 +55,7 @@ namespace Silent.Entities
         public Entity()
         {
             NumberOfEntities += 1;
-          
-            
+                      
         }
 
         //To be overriden by the entity instance
@@ -71,8 +72,10 @@ namespace Silent.Entities
         public void OnLoadEntity()
         {
             transformationMatrix *= MatrixMaths.CreateTransformationMatrix(position, rotationAxis.X, rotationAxis.Y, rotationAxis.Z, scale);
+            SilentModelFile.LoadModel(modelPath, out EntityMaterial, out EntityModel, out texturePath);
+            
 
-            m_model = m_loader.loadObjModel(modelPath, texturePath);
+            //m_model = m_loader.loadObjModel(modelPath, texturePath);
 
             OnLoad();
         }
@@ -111,12 +114,6 @@ namespace Silent.Entities
         {
             //TODO: Implement deletion of Entities
             OnDelete();
-        }
-
-        //The entity returns the model to enable rendering the model
-        public Model GetModel()
-        {
-            return m_model;
         }
 
         public void DeleteEntity(Entity entity)

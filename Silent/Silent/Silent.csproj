@@ -57,20 +57,24 @@
     <Compile Include="Entities\Camera.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Light.cs" />
+    <Compile Include="Entities\Material.cs" />
     <Compile Include="Entities\Model.cs" />
     <Compile Include="Entities\Texture.cs" />
     <Compile Include="GameSystem\Input.cs" />
     <Compile Include="Graphics\Shaders\ShaderProgram.cs" />
     <Compile Include="Graphics\Shaders\StaticShader.cs" />
+    <Compile Include="Maths\Vector2f.cs" />
     <Compile Include="Maths\Vector3f.cs" />
     <Compile Include="Tools\GLModelLoader.cs" />
     <Compile Include="Maths\MatrixMaths.cs" />
+    <Compile Include="Tools\OBJModelLoader.cs" />
     <Compile Include="Tools\OBJLoader.cs" />
     <Compile Include="Entities\Vertex.cs" />
     <Compile Include="GameSystem\Game.cs" />
     <Compile Include="GameSystem\Level.cs" />
     <Compile Include="Graphics\RenderEngine\GLRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\SilentModelFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="EngineAssets\dragon.obj">

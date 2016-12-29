@@ -27,9 +27,9 @@ namespace Silent.Graphics.RenderEngine
 
         public void Render(Entity entity, StaticShader shader)
         {
-            GL.BindVertexArray(entity.GetModel().getVertex().getVAOID());
+            GL.BindVertexArray(entity.EntityModel.ModelVertex.getVAOID());
 
-            for(int i = 0; i < entity.GetModel().getVertex().getVAOLength(); i++)
+            for(int i = 0; i < entity.EntityModel.ModelVertex.getVAOLength(); i++)
             {
                 GL.EnableVertexAttribArray(i);
             }
@@ -38,11 +38,11 @@ namespace Silent.Graphics.RenderEngine
 
             GL.ActiveTexture(TextureUnit.Texture0);
 
-            GL.BindTexture(TextureTarget.Texture2D, entity.GetModel().getTexture().getTextureID());
+            GL.BindTexture(TextureTarget.Texture2D, entity.EntityModel.ModelTexture.getTextureID());
 
-            GL.DrawElements(PrimitiveType.Triangles, entity.GetModel().getVertex().getVertexCount(), DrawElementsType.UnsignedInt, 0);
+            GL.DrawElements(PrimitiveType.Triangles, entity.EntityModel.ModelVertex.getVertexCount(), DrawElementsType.UnsignedInt, 0);
 
-            for (int i = 0; i < entity.GetModel().getVertex().getVAOLength(); i++)
+            for (int i = 0; i < entity.EntityModel.ModelVertex.getVAOLength(); i++)
             {
                 GL.DisableVertexAttribArray(i);
             }

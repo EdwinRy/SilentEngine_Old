@@ -11,14 +11,14 @@ namespace Silent.Entities
 
         //ID of the VAO used for rendering
         private int m_vaoID;
-
+                                                                                                             
         //The number of vertices needed for rendering
         private int m_vertexCount;
 
         //The number of elements in the VAO simplifying enabling/disabling elements in rendering
         private int m_vaoLength;
 
-        public Vertex(int vaoID,int vertexCount, int vaoLength)
+        public Vertex(int vaoID,int vertexCount, int vaoLength)                
         {
             m_vaoID         = vaoID;
             m_vertexCount   = vertexCount;

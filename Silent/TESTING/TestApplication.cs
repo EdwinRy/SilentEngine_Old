@@ -104,6 +104,7 @@ namespace TESTING
             inputManager.Bind(f, goForward);
             inputManager.Bind(b, goBackward);
             sampleEntity = new SampleEntity();
+
             this.AddEntity(sampleEntity);
 
             camera = new Camera();
