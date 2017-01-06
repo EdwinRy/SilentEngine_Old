@@ -94,6 +94,7 @@ namespace Silent.GameSystem
 
         }
 
+        /*
         private void ShowSplashScreen()
         {
             Bitmap bmp = new Bitmap(@"EngineAssets/Splash.png");
@@ -133,13 +134,13 @@ namespace Silent.GameSystem
                 glEnd();
             }
 
-        }
+        }  */
 
         //Runs whenever the Game's loop is started
         private void OnLoad(object sender, EventArgs e)
         {
             OnPreloadGame();
-            ShowSplashScreen();
+            //ShowSplashScreen();
             foreach(Silent_Level level in levels)
             {
                 if (!m_firstLevelLoaded)
