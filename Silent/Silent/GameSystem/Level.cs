@@ -1,4 +1,4 @@
-﻿using OpenTK;
+﻿using OpenTK.Graphics.OpenGL;
 using Silent.Entities;
 using Silent.Graphics.RenderEngine;
 using Silent.Graphics.Shaders;
@@ -46,6 +46,16 @@ namespace Silent.GameSystem
 
             shader = new StaticShader();
             OnLoad();
+
+            if (entities.Any())
+            {
+                LoadEntities();
+            }
+
+        }
+
+        public void LoadEntities()
+        {
             foreach (Entity entity in entities)
             {
                 if (entity.Active)
@@ -55,18 +65,25 @@ namespace Silent.GameSystem
                     entity.OnLoadEntity();
                 }
             }
+        }
 
+        public void LoadEntity(Entity entity)
+        {
+            entity.OnLoadEntity();
         }
 
         public void OnUpdateLevel()
         {
             OnUpdate();
 
-            foreach (Entity entity in entities)
-            {
-                if (entity.Active)
+            if(entities.Any())
+            { 
+                foreach (Entity entity in entities)
                 {
-                    entity.OnUpdateEntity();
+                    if (entity.Active)
+                    {
+                        entity.OnUpdateEntity();
+                    }
                 }
             }
             
@@ -77,20 +94,28 @@ namespace Silent.GameSystem
             OnRender();
 
             //TODO: fix the way entities are added
-            foreach (Entity entity in entities)
+
+            if (entities.Any())
             {
-                if (entity.Visible)
+                foreach (Entity entity in entities)
                 {
-                    renderer.PrepareToRender();
-                    shader.StartShader();
-                    shader.LoadLight(lights[0]);
-                    shader.LoadToViewMatrix(currentCamera.view);
-                    shader.LoadEntityShiness(entity.shiness, entity.reflectivity);
-                    renderer.Render(entity,shader);
-                    entity.OnRenderEntity();
-                    shader.StopShader();
+                    if (entity.Visible)
+                    {
+                        renderer.PrepareToRender();
+                        shader.StartShader();
+                        shader.LoadLight(lights[0]);
+                        shader.LoadToViewMatrix(currentCamera.view);
+                        shader.LoadEntityShiness(entity.shiness, entity.reflectivity);
+                        renderer.Render(entity, shader);
+                        entity.OnRenderEntity();
+                        shader.StopShader();
+                    }
                 }
             }
+            else
+            {
+                renderer.PrepareToRender();
+            }             
 
         }
 

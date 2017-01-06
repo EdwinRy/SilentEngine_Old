@@ -77,6 +77,7 @@
     <Compile Include="Tools\SilentModelFile.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EngineAssets\Splash.PNG" />
     <None Include="EngineAssets\dragon.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

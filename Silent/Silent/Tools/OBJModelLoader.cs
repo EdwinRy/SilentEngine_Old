@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Silent.Maths;
+using Silent.Entities;
 
 namespace Silent_MaterialEditor
 {
     public static class OBJModelLoader
     {
 
-        public static void Load(string path, out float[] ArrayOfVertices, out float[] ArrayOfNormals, out float[] ArrayOfTextures, out int[] ArrayOfIndices)
+        public static void Load(string path,out Model model, out float[] ArrayOfVertices, out float[] ArrayOfNormals, out float[] ArrayOfTextures, out int[] ArrayOfIndices)
         {
             StreamReader file = new StreamReader(path);
 
@@ -92,6 +93,10 @@ namespace Silent_MaterialEditor
             {
                 ArrayOfIndices[i] = indices[i];
             }
+
+            model = new Model(path);
+            model.Vertices = ArrayOfVertices;
+            model.TextureCoords = ArrayOfTextures;
 
         }
 

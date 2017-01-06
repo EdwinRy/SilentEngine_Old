@@ -6,6 +6,9 @@ using Silent.Graphics.RenderEngine;
 using Silent.Graphics.Shaders;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,7 +72,11 @@ namespace Silent.GameSystem
         private Silent_Level m_currentLevel = null;
 
         //For checks if the game is already running
-        private bool m_gameRunning = false;
+        public bool gameRunning = true;
+
+        Stopwatch sw = new Stopwatch();
+
+        public static double Framerate = 0;
 
         //Check if the first level was loaded
         private bool m_firstLevelLoaded = false;
@@ -87,11 +94,52 @@ namespace Silent.GameSystem
 
         }
 
+        private void ShowSplashScreen()
+        {
+            Bitmap bmp = new Bitmap(@"EngineAssets/Splash.png");
+
+            GL.Enable(EnableCap.Texture2D);
+            int textureID = GL.GenTexture();
+
+            GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
+
+            GL.BindTexture(TextureTarget.Texture2D, textureID);
+
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+
+            BitmapData data = bmp.LockBits(new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
+                ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
+                OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+
+            bmp.UnlockBits(data);
+
+            while (true)
+            {
+                GL.Begin(PrimitiveType.Quads);
+
+                GL.TexCoord2(0.0f, 0.0f);
+                GL.Vertex2(0.0f, 0.0f);
+                GL.TexCoord2(1.0f, 0.0f);
+                glVertex2f(m_pos.x + m_size.x, m_pos.y);
+                GL.Vertex2(1.0f, 0.0f);
+                glTexCoord2f(1.0f, 1.0f);
+                glVertex2f(m_pos.x + m_size.x, m_pos.y + m_size.y);
+                glTexCoord2f(0.0f, 1.0f);
+                glVertex2f(m_pos.x, m_pos.y + m_size.y);
+
+                glEnd();
+            }
+
+        }
+
         //Runs whenever the Game's loop is started
         private void OnLoad(object sender, EventArgs e)
         {
             OnPreloadGame();
-
+            ShowSplashScreen();
             foreach(Silent_Level level in levels)
             {
                 if (!m_firstLevelLoaded)
@@ -115,13 +163,17 @@ namespace Silent.GameSystem
                 Console.WriteLine("Current Level has to be declared");
             }
 
+            if (!gameRunning)
+                m_gameDisplay.Close();
+
             OnUpdateGame();
             inputManager.Update();
         }
 
         //Drawing of the scene
         private void OnRender(object sender, FrameEventArgs e)
-        {           
+        {
+            sw.Start();
             //GL.Flush();
             if (!(m_currentLevel == null))
             {
@@ -133,6 +185,11 @@ namespace Silent.GameSystem
             }
             OnRenderGame();
             m_gameDisplay.SwapBuffers();
+
+            sw.Stop();
+
+            Framerate = 1000 / sw.Elapsed.TotalMilliseconds;
+            sw.Reset();
         }
 
         //Execute when the game is about to close
@@ -238,13 +295,14 @@ namespace Silent.GameSystem
                 m_gameDisplay.RenderFrame += OnRender;
                 m_gameDisplay.Closing += OnClosing;
                 m_gameDisplay.Closed += OnClosed;
+                m_gameDisplay.VSync = OpenTK.VSyncMode.Adaptive;
                 if (inputManager != null) {
                     m_gameDisplay.KeyDown += KeyDown;
                     m_gameDisplay.KeyUp += KeyUp;
                     m_gameDisplay.KeyPress += KeyPress;
                 }
                 
-                if (!m_gameRunning)
+                if (gameRunning)
                 {
                     if (windowBorder == DisplayBorder.Resizable)
                         m_gameDisplay.WindowBorder = WindowBorder.Resizable;

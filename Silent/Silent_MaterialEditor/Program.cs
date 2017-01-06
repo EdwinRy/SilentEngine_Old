@@ -11,7 +11,13 @@ namespace Silent_MaterialEditor
     {
         static void Main(string[] args)
         {
-            Silent_Game app = new Application();
+            Silent_Game app = new EditorApplication()
+            {
+                windowWidth = 600,
+                windowHeight = 400
+            };
+            app.windowBorder = Silent_Game.DisplayBorder.Resizable;
+            app.MainGameLoop();
         }
     }
 }
