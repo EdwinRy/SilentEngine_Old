@@ -66,7 +66,7 @@ namespace Silent.GameSystem
                 }
                 else
                 {
-                    OBJModelLoader.Load(entity.modelPath, out entity.EntityModel/*, out entity.EntityMaterial*/);
+                    OBJLoader.Load(entity.modelPath, out entity.EntityModel/*, out entity.EntityMaterial*/);
                     entity.OnLoadEntity();
                     entity.EntityMaterial = new Material();
                     entity.EntityModel.ModelVertex = loader.load(entity.EntityModel.Vertices, entity.EntityModel.Indices, entity.EntityModel.TextureCoords, entity.EntityModel.Normals);

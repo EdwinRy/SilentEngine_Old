@@ -31,7 +31,7 @@ namespace Silent.Entities
         //Name of the entity
         public string EntityName = "SampleEntity"+NumberOfEntities.ToString();
 
-        public string modelPath = "EngineAssets/SampleCube2.obj";
+        public string modelPath = "EngineAssets/untitled.obj";
 
         public Vector3f position = new Vector3f(0,0,0);
 
