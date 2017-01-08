@@ -1,4 +1,5 @@
-﻿using Silent.Entities;
+﻿ 
+using Silent.Entities;
 using Silent.Tools;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,13 @@ namespace Silent.Tools
 {
     public class OBJLoader
     {
-        /*
-        public Model loadObjModel(string filePath = "EngineAssets/dragon.obj", string texturePath = "EngineAssets/SampleTexture.png")
+        
+        public static void Load(
+            string filePath,
+            out Model model,
+            //out Material material,
+            string texturePath = "EngineAssets/SampleTexture.png"
+            )
         {
 
             string[] lines = System.IO.File.ReadAllLines(filePath);
@@ -106,18 +112,19 @@ namespace Silent.Tools
                 vertices[vertPointer++] = (float) loop_vertex.Y;
                 vertices[vertPointer++] = (float) loop_vertex.Z;
             }
+
             for (int i = 0; i < indices.Length; i++)
             {
                 indices[i] = temp_indices[i];
             }
 
-            Vertex vertex;
-            Texture texture;
-
-            vertex = loader.load(vertices, indices, textures, normals);
-            texture = loader.loadTexture(texturePath);
-
-            //return new Model(vertex, texture);
+            model = new Model()
+            {
+                Vertices = vertices,
+                Indices = indices,
+                TextureCoords = textures,
+                Normals = normals
+            };
 
 
         }
@@ -127,14 +134,16 @@ namespace Silent.Tools
         {
             int currentVertexPointer = int.Parse(vertexData[0]) - 1;
             temp_indices.Add(currentVertexPointer);
+
             Vector2d currentTex = temp_textures[int.Parse(vertexData[1]) - 1];
             textureArray[currentVertexPointer * 2] = (float)currentTex.X;
             textureArray[currentVertexPointer * 2 + 1] = 1 - (float) currentTex.Y;
+
             Vector3d currentNorm = temp_normals[int.Parse(vertexData[2]) - 1];
             normalsArray[currentVertexPointer * 3] = (float) currentNorm.X;
             normalsArray[currentVertexPointer * 3 + 1] = (float) currentNorm.Y;
             normalsArray[currentVertexPointer * 3 + 2] = (float) currentNorm.Z;
-        }     */
+        }     
 
     } 
 }

@@ -63,6 +63,7 @@ namespace Silent.Graphics.Shaders
         public void LoadToViewMatrix(Matrix4 matrix)
         {
             base.LoadToMatrix(viewMatrix, matrix);
+            
         }
 
 

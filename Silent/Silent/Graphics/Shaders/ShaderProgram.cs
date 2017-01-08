@@ -4,7 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL;
+//using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK;
 
 namespace Silent.Graphics.Shaders
@@ -55,6 +56,7 @@ namespace Silent.Graphics.Shaders
         protected void BindAttribute(int attribute, string variableName)
         {
             GL.BindAttribLocation(m_shaderID, attribute, variableName);
+
         }
 
         public void StartShader()

@@ -20,6 +20,8 @@ namespace Silent.Entities
 
         public float reflectivity = 0;
 
+        public bool customFileType = false;
+
         //Is Entity active
         public bool Active = true;
 
@@ -30,9 +32,6 @@ namespace Silent.Entities
         public string EntityName = "SampleEntity"+NumberOfEntities.ToString();
 
         public string modelPath = "EngineAssets/SampleCube2.obj";
-        
-
-        public string texturePath;
 
         public Vector3f position = new Vector3f(0,0,0);
 
@@ -71,13 +70,18 @@ namespace Silent.Entities
         //Call when the level is loading the entity
         public void OnLoadEntity()
         {
+            OnLoad();
             transformationMatrix *= MatrixMaths.CreateTransformationMatrix(position, rotationAxis.X, rotationAxis.Y, rotationAxis.Z, scale);
-            SilentModelFile.LoadModel(modelPath, out EntityMaterial, out EntityModel, out texturePath);
+
+            if (customFileType)
+            {
+                SilentModelFile.LoadModel(modelPath, out EntityMaterial, out EntityModel);
+            }
             
 
             //m_model = m_loader.loadObjModel(modelPath, texturePath);
 
-            OnLoad();
+            
         }
 
 
@@ -109,18 +113,20 @@ namespace Silent.Entities
             OnClosed();
         }
 
-
+        //Call when it's time to delete the entity
         public void OnDeleteEntity()
         {
             //TODO: Implement deletion of Entities
             OnDelete();
         }
 
+        //Delete the entity by choice
         public void DeleteEntity(Entity entity)
         {
             entity.OnDeleteEntity();
         }
 
+        //Translate the entity in 3D space
         public void Translate(Vector3f applyTranslation)
         {
             /*
@@ -134,6 +140,7 @@ namespace Silent.Entities
             transformationMatrix *= Matrix4.CreateTranslation(applyTranslation.X, applyTranslation.Y, applyTranslation.Z);
         }
 
+        //Translate the entity in 3D space
         public void Translate(float positionX, float positionY, float positionZ)
         {
             position.X += positionX;
@@ -142,6 +149,7 @@ namespace Silent.Entities
             transformationMatrix *= Matrix4.CreateTranslation(positionX, positionY, positionZ);
         }
 
+        //Rotate the entity in 3D space
         public void Rotate(Vector3f rotationAxis, float rotation)
         {
             this.rotationAxis.X += rotationAxis.X;
@@ -151,6 +159,7 @@ namespace Silent.Entities
             transformationMatrix *= Matrix4.CreateFromAxisAngle(new Vector3(rotationAxis.X, rotationAxis.Y, rotationAxis.Z), rotation);
         }
 
+        //Rotate the entity in 3D space
         public void Rotate(float rotationAxisX, float rotationAxisY, float rotationAxisZ, float rotation)
         {
             this.rotationAxis.X += rotationAxisX;
@@ -160,12 +169,13 @@ namespace Silent.Entities
             transformationMatrix *= Matrix4.CreateFromAxisAngle(new Vector3(rotationAxisX, rotationAxisY, rotationAxisZ), rotation);
         }
 
+        /*
         public void SetParent(Entity parentEntity)
         {
             this.ChildOf = parentEntity;
             this.position += parentEntity.position;
         }
-
+        */
 
     }
 }

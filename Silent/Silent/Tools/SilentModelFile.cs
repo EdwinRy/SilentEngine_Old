@@ -15,8 +15,7 @@ namespace Silent.Tools
         public static void LoadModel(
             string filePath,
             out Material material,
-            out Model model,
-            out string texturePath
+            out Model model
             )
         {
             string[] modelFile = File.ReadAllLines(filePath);
@@ -56,10 +55,9 @@ namespace Silent.Tools
                 Indices[i] = int.Parse(ind[i]);
             }
 
-            texturePath = modelFile[6];
-
             material = new Material();
             model = new Model(filePath);
+            material.TexturePath = modelFile[6];
             material.MaterialShiness = ModelShiness;
             material.MaterialReflectivity = ModelReflectivity;
 

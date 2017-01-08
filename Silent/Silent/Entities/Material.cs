@@ -10,7 +10,7 @@ namespace Silent.Entities
     {
         public float MaterialShiness = 10;
         public float MaterialReflectivity = 0;
-        public string TexturePath;
+        public string TexturePath = "EngineAssets/SampleTexture.png";
 
     }
 }

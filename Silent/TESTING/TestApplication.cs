@@ -27,14 +27,15 @@ namespace TESTING
     class SampleGame : Silent_Game
     {
 
-        Silent_Input inputman = new Silent_Input(); 
+        Silent_Input input_manager = new Silent_Input();
+        Silent_Level lvl2;
 
         public override void OnPreloadGame()
         {
-            Silent_Level lvl2 = new SampleLevel();
+            lvl2 = new SampleLevel();
             this.LoadLevel(lvl2);
             this.SetCurrentLevel(lvl2);
-            this.inputManager = inputman;
+            this.inputManager = input_manager;
             lvl2.inputManager = this.inputManager;
         }
 
@@ -104,6 +105,8 @@ namespace TESTING
             inputManager.Bind(f, goForward);
             inputManager.Bind(b, goBackward);
             sampleEntity = new SampleEntity();
+
+            sampleEntity.customFileType = false;
 
             this.AddEntity(sampleEntity);
 
@@ -175,6 +178,7 @@ namespace TESTING
     {
         public override void OnLoad()
         {
+            customFileType = false;
             base.Translate(new Vector3f(0, 0, -20));
             base.Translate(new Vector3f(0, -10, 0));
         }

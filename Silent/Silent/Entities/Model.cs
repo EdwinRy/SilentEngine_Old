@@ -21,9 +21,10 @@ namespace Silent.Entities
         public int[] Indices;
 
         //The constructor takes in Vertex and Texture
-        public Model(string modelPath)
+        public Model(string modelPath = null)
         {
-            this.ModelPath = modelPath; 
+            if(modelPath!=null)
+                this.ModelPath = modelPath; 
         }
 
     }

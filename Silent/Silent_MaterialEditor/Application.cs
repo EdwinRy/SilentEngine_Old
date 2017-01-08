@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
+using Silent.Tools;
 
 namespace Silent_MaterialEditor
 {
+
     public class EditorApplication  : Silent_Game
     {
         Level level;
@@ -25,23 +27,43 @@ namespace Silent_MaterialEditor
 
         public override void OnUpdateGame()
         {
-            if (!level.console.ConsoleRunning)
+            if (!EditorManager.ConsoleRunning)
                 this.gameRunning = false;
         }
 
     }                     
 
-    class Level : Silent_Level
+    public class Level : Silent_Level
     {
-
+        OpenFileDialog fileChoose;
         public EditorManager console;
+        Thread consoleThread;
+
+        public void AddUniversalEntity()
+        {
+            
+            fileChoose = new OpenFileDialog();
+
+            //consoleThread.Suspend();
+            fileChoose.ShowDialog();
+            //consoleThread.Resume();
+
+            UniversalEntity tempEntity = new UniversalEntity();
+
+            OBJModelLoader.Load(
+                fileChoose.FileName,
+                out tempEntity.EntityModel
+                );
+
+            EditorManager.entity = tempEntity;
+        }
 
         public override void OnLoad()
         {
             console = new EditorManager();
-            Thread consoleThread = new Thread(new ThreadStart(console.MainLoop));
+            consoleThread = new Thread(new ThreadStart(console.MainLoop));
 
-            console.level = this;
+            EditorManager.level = this;
             consoleThread.Name = "Console";
             consoleThread.Start();
         }
@@ -49,27 +71,28 @@ namespace Silent_MaterialEditor
         public override void OnUpdate()
         {
 
-            Console.WriteLine("r");
-
-            if (!console.ConsoleRunning)
+            if (!EditorManager.ConsoleRunning)
             {
                 System.Environment.Exit(0);  
                 
             }
+
+            if(EditorManager.entity != null)
+            {
+                Console.WriteLine("not null");
+            }
         }
     }
     
-    class EditorManager
+    public class EditorManager
     {
 
-        public Silent_Level level;
-        public UniversalEntity entity;
-        public bool ConsoleRunning = true;
+        public static Level level;
+        public static UniversalEntity entity;
+        public static bool ConsoleRunning = true;
 
         public void MainLoop()
         {
-
-            
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -110,7 +133,7 @@ namespace Silent_MaterialEditor
         }
 
 
-        public void ImportIntoScene()
+        public void ImportIntoScene(UniversalEntity entity)
         {
             //string model = 
 
@@ -139,7 +162,7 @@ namespace Silent_MaterialEditor
 
     } 
 
-    class UniversalEntity :  Entity
+    public class UniversalEntity :  Entity
     {
 
     }

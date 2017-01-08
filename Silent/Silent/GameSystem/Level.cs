@@ -32,7 +32,6 @@ namespace Silent.GameSystem
         private GLRenderer renderer = new GLRenderer();
         private GLModelLoader loader = new GLModelLoader();
 
-
         public virtual void OnLoad() { }
         public virtual void OnUpdate() { }
         public virtual void OnRender() { }
@@ -58,12 +57,22 @@ namespace Silent.GameSystem
         {
             foreach (Entity entity in entities)
             {
-                if (entity.Active)
+
+                if (entity.customFileType)
                 {
+                    entity.OnLoadEntity();
                     entity.EntityModel.ModelVertex = loader.load(entity.EntityModel.Vertices, entity.EntityModel.Indices, entity.EntityModel.TextureCoords, entity.EntityModel.Normals);
                     entity.EntityModel.ModelTexture = loader.loadTexture(entity.EntityModel.ModelPath);
-                    entity.OnLoadEntity();
                 }
+                else
+                {
+                    OBJModelLoader.Load(entity.modelPath, out entity.EntityModel/*, out entity.EntityMaterial*/);
+                    entity.OnLoadEntity();
+                    entity.EntityMaterial = new Material();
+                    entity.EntityModel.ModelVertex = loader.load(entity.EntityModel.Vertices, entity.EntityModel.Indices, entity.EntityModel.TextureCoords, entity.EntityModel.Normals);
+                    entity.EntityModel.ModelTexture = loader.loadTexture(entity.EntityMaterial.TexturePath);
+                }
+
             }
         }
 

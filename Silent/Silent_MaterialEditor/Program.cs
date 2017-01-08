@@ -9,8 +9,11 @@ namespace Silent_MaterialEditor
 {
     class Program
     {
+        [STAThread]
+
         static void Main(string[] args)
         {
+            
             Silent_Game app = new EditorApplication()
             {
                 windowWidth = 600,
