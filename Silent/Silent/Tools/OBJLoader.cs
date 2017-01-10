@@ -17,7 +17,7 @@ namespace Silent.Tools
         
         public static void Load(
             string filePath,
-            out Model model,
+            out Silent_Model model,
             //out Material material,
             string texturePath = "EngineAssets/SampleTexture.png"
             )
@@ -95,9 +95,9 @@ namespace Silent.Tools
                     string[] vertex2 = currentLine[2].Split('/');
                     string[] vertex3 = currentLine[3].Split('/');
 
-                    processVertices(vertex1, temp_indices, temp_textures, temp_normals, textures, normals);
-                    processVertices(vertex2, temp_indices, temp_textures, temp_normals, textures, normals);
-                    processVertices(vertex3, temp_indices, temp_textures, temp_normals, textures, normals);
+                    ProcessVertices(vertex1, temp_indices, temp_textures, temp_normals, textures, normals);
+                    ProcessVertices(vertex2, temp_indices, temp_textures, temp_normals, textures, normals);
+                    ProcessVertices(vertex3, temp_indices, temp_textures, temp_normals, textures, normals);
                 }
             }
 
@@ -118,7 +118,7 @@ namespace Silent.Tools
                 indices[i] = temp_indices[i];
             }
 
-            model = new Model()
+            model = new Silent_Model()
             {
                 Vertices = vertices,
                 Indices = indices,
@@ -129,7 +129,7 @@ namespace Silent.Tools
 
         }
 
-        private static void processVertices(string[] vertexData, List<int> temp_indices, List<Vector2d> temp_textures,
+        private static void ProcessVertices(string[] vertexData, List<int> temp_indices, List<Vector2d> temp_textures,
             List<Vector3d> temp_normals, float[] textureArray, float[] normalsArray)
         {
             int currentVertexPointer = int.Parse(vertexData[0]) - 1;

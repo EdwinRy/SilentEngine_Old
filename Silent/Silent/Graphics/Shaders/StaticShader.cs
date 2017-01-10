@@ -67,10 +67,10 @@ namespace Silent.Graphics.Shaders
         }
 
 
-        public void LoadLight(Light light)
+        public void LoadLight(Silent_Light light)
         {
-            base.LoadToVector3(lightPosition, new Vector3(light.position.X, light.position.Y, light.position.Z));
-            base.LoadToVector3(lightColour, new Vector3(light.colour.X, light.colour.Y, light.colour.Z));
+            base.LoadToVector3(lightPosition, new Vector3(light.LightPosition.X, light.LightPosition.Y, light.LightPosition.Z));
+            base.LoadToVector3(lightColour, new Vector3(light.LightColour.X, light.LightColour.Y, light.LightColour.Z));
         }
     }
 }

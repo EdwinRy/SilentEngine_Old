@@ -1,47 +1,19 @@
 ﻿using Silent.Entities;
 using Silent.GameSystem;
+using Silent.Maths;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Silent.Maths;
 
 namespace TESTING
 {
-
-    class SampleGame
+    class Level1  : Silent_Level
     {
-        public static void Main(string[] args)
-        {
-            GameManager game = new GameManager();
-
-            game.MainGameLoop();
-        }
-    }
-
-    /*
-    class TestApplication
-    {
-        public static void Main()
-        {
-            Silent_Game sampleGame = new SampleGame()
-            {
-                windowWidth = 1280,
-                windowHeight = 720
-            };
-
-            sampleGame.windowBorder = Silent_Game.DisplayBorder.Resizable;
-            sampleGame.MainGameLoop();          
-        }
-    }
-
-
-    class SampleLevel : Silent_Level
-    {
-        Entity sampleEntity;
+        Terrain sampleEntity;
         Camera camera;
-        Light light;
+        Silent_Light light;
         bool goR = true;
         bool goL = false;
 
@@ -53,22 +25,18 @@ namespace TESTING
         {
             sampleEntity.Translate(new Vector3f(-0.1f, 0, 0));
         }
-
         public void goUp()
         {
             sampleEntity.Translate(new Vector3f(0, 0.1f, 0));
         }
-
         public void goDown()
         {
             sampleEntity.Translate(new Vector3f(0, -0.1f, 0));
         }
-
         public void goForward()
         {
             sampleEntity.Translate(new Vector3f(0, 0, -0.1f));
         }
-
         public void goBackward()
         {
             sampleEntity.Translate(new Vector3f(0, 0, 0.1f));
@@ -94,9 +62,9 @@ namespace TESTING
             inputManager.Bind(d, goDown);
             inputManager.Bind(f, goForward);
             inputManager.Bind(b, goBackward);
-            sampleEntity = new SampleEntity();
+            sampleEntity = new Terrain();
 
-            sampleEntity.customFileType = false;
+            sampleEntity.EntityUsesCustomFileType = false;
 
             this.AddEntity(sampleEntity);
 
@@ -105,10 +73,10 @@ namespace TESTING
             camera.SetCameraViewMatrix(shader);
             currentCamera = camera;
 
-            light = new Light();
+            light = new Silent_Light();
             light.Translate(0, 0, -20);
             AddLight(light);
-            
+
         }
 
         public override void OnUpdate()
@@ -123,7 +91,7 @@ namespace TESTING
             {
                 sampleEntity.Translate(new Vector3f(0.1f, 0, 0));
 
-                if (sampleEntity.position.X >= 10)
+                if (sampleEntity.EntityPosition.X >= 10)
                 {
                     goR = false;
                     goL = true;
@@ -132,7 +100,7 @@ namespace TESTING
             if (goL == true)
             {
                 sampleEntity.Translate(new Vector3f(-0.1f, 0, 0));
-                if (sampleEntity.position.X <= -10)
+                if (sampleEntity.EntityPosition.X <= -10)
                 {
                     goL = false;
                     goR = true;
@@ -140,14 +108,14 @@ namespace TESTING
             }
         }
 
-        public void CycleLight(Light light)
+        public void CycleLight(Silent_Light light)
         {
             if (goR == true)
             {
                 light.Translate(new Vector3f(0, 0, -0.25f));
-                if (light.position.Z <= -200)
+                if (light.LightPosition.Z <= -200)
                 {
-                    
+
                     goR = false;
                     goL = true;
                 }
@@ -155,7 +123,7 @@ namespace TESTING
             if (goL == true)
             {
                 light.Translate(new Vector3f(0, 0, 0.25f));
-                if (light.position.Z >= 0)
+                if (light.LightPosition.Z >= 0)
                 {
                     goL = false;
                     goR = true;
@@ -163,20 +131,4 @@ namespace TESTING
             }
         }
     }
-
-    class SampleEntity : Entity
-    {
-        public override void OnLoad()
-        {
-            customFileType = false;
-            base.Translate(new Vector3f(0, 0, -20));
-            base.Translate(new Vector3f(0, -10, 0));
-        }
-
-        public override void OnUpdate()
-        {
-            //Rotate(this.position, 0.001f);
-        }
-    } */
-
 }

@@ -25,8 +25,8 @@ namespace Silent.GameSystem
 
         public Camera currentCamera = new Camera();
 
-        public List<Entity> entities = new List<Entity>();
-        public List<Light> lights = new List<Light>();
+        public List<Silent_Entity> entities = new List<Silent_Entity>();
+        public List<Silent_Light> lights = new List<Silent_Light>();
 
         public StaticShader shader;
         private GLRenderer renderer = new GLRenderer();
@@ -55,28 +55,29 @@ namespace Silent.GameSystem
 
         public void LoadEntities()
         {
-            foreach (Entity entity in entities)
+            foreach (Silent_Entity entity in entities)
             {
 
-                if (entity.customFileType)
+                if (entity.EntityUsesCustomFileType)
                 {
+                    SilentModelFile.LoadModel(entity.EntityModelPath, out entity.EntityMaterial, out entity.EntityModel);
                     entity.OnLoadEntity();
-                    entity.EntityModel.ModelVertex = loader.load(entity.EntityModel.Vertices, entity.EntityModel.Indices, entity.EntityModel.TextureCoords, entity.EntityModel.Normals);
-                    entity.EntityModel.ModelTexture = loader.loadTexture(entity.EntityModel.ModelPath);
+                    entity.EntityModel.ModelVertex = loader.Load(entity.EntityModel.Vertices, entity.EntityModel.Indices, entity.EntityModel.TextureCoords, entity.EntityModel.Normals);
+                    entity.EntityModel.ModelTexture = loader.LoadTexture(entity.EntityModel.ModelPath);
                 }
                 else
                 {
-                    OBJLoader.Load(entity.modelPath, out entity.EntityModel/*, out entity.EntityMaterial*/);
+                    OBJLoader.Load(entity.EntityModelPath, out entity.EntityModel/*, out entity.EntityMaterial*/);
+                    entity.EntityMaterial = new Silent_Material();
                     entity.OnLoadEntity();
-                    entity.EntityMaterial = new Material();
-                    entity.EntityModel.ModelVertex = loader.load(entity.EntityModel.Vertices, entity.EntityModel.Indices, entity.EntityModel.TextureCoords, entity.EntityModel.Normals);
-                    entity.EntityModel.ModelTexture = loader.loadTexture(entity.EntityMaterial.TexturePath);
+                    entity.EntityModel.ModelVertex = loader.Load(entity.EntityModel.Vertices, entity.EntityModel.Indices, entity.EntityModel.TextureCoords, entity.EntityModel.Normals);
+                    entity.EntityModel.ModelTexture = loader.LoadTexture(entity.EntityMaterial.TexturePath);
                 }
 
             }
         }
 
-        public void LoadEntity(Entity entity)
+        public void LoadEntity(Silent_Entity entity)
         {
             entity.OnLoadEntity();
         }
@@ -87,7 +88,7 @@ namespace Silent.GameSystem
 
             if(entities.Any())
             { 
-                foreach (Entity entity in entities)
+                foreach (Silent_Entity entity in entities)
                 {
                     if (entity.Active)
                     {
@@ -106,7 +107,7 @@ namespace Silent.GameSystem
 
             if (entities.Any())
             {
-                foreach (Entity entity in entities)
+                foreach (Silent_Entity entity in entities)
                 {
                     if (entity.Visible)
                     {
@@ -114,7 +115,7 @@ namespace Silent.GameSystem
                         shader.StartShader();
                         shader.LoadLight(lights[0]);
                         shader.LoadToViewMatrix(currentCamera.view);
-                        shader.LoadEntityShiness(entity.shiness, entity.reflectivity);
+                        shader.LoadEntityShiness(entity.EntityMaterial.MaterialShiness, entity.EntityMaterial.MaterialReflectivity);
                         renderer.Render(entity, shader);
                         entity.OnRenderEntity();
                         shader.StopShader();
@@ -132,7 +133,7 @@ namespace Silent.GameSystem
         {
             OnClosing();
 
-            foreach (Entity entity in entities)
+            foreach (Silent_Entity entity in entities)
             {
                 if (entity.Active)
                 {
@@ -146,7 +147,7 @@ namespace Silent.GameSystem
         {
             OnClosed();
 
-            foreach (Entity entity in entities)
+            foreach (Silent_Entity entity in entities)
             {
                 if (entity.Active)
                 {
@@ -160,7 +161,7 @@ namespace Silent.GameSystem
         {
             OnUnload();
 
-            foreach (Entity entity in entities)
+            foreach (Silent_Entity entity in entities)
             {
                 if (entity.Active)
                 {
@@ -184,12 +185,12 @@ namespace Silent.GameSystem
             LevelName = newLevelName;
         }
 
-        public void AddEntity(Entity entity)
+        public void AddEntity(Silent_Entity entity)
         {
             entities.Add(entity);
         }
 
-        public void AddLight(Light light)
+        public void AddLight(Silent_Light light)
         {
             lights.Add(light);
         }

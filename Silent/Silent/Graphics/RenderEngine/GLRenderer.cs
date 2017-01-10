@@ -25,24 +25,24 @@ namespace Silent.Graphics.RenderEngine
         }
         
 
-        public void Render(Entity entity, StaticShader shader)
+        public void Render(Silent_Entity entity, StaticShader shader)
         {
-            GL.BindVertexArray(entity.EntityModel.ModelVertex.getVAOID());
+            GL.BindVertexArray(entity.EntityModel.ModelVertex.GetVAOID());
 
-            for(int i = 0; i < entity.EntityModel.ModelVertex.getVAOLength(); i++)
+            for(int i = 0; i < entity.EntityModel.ModelVertex.GetVAOLength(); i++)
             {
                 GL.EnableVertexAttribArray(i);
             }
 
-            shader.LoadToTransformationMatrix(entity.transformationMatrix);
+            shader.LoadToTransformationMatrix(entity.EntityTransformationMatrix);
 
             GL.ActiveTexture(TextureUnit.Texture0);
 
-            GL.BindTexture(TextureTarget.Texture2D, entity.EntityModel.ModelTexture.getTextureID());
+            GL.BindTexture(TextureTarget.Texture2D, entity.EntityModel.ModelTexture.GetTextureID());
 
-            GL.DrawElements(PrimitiveType.Triangles, entity.EntityModel.ModelVertex.getVertexCount(), DrawElementsType.UnsignedInt, 0);
+            GL.DrawElements(PrimitiveType.Triangles, entity.EntityModel.ModelVertex.GetVertexCount(), DrawElementsType.UnsignedInt, 0);
 
-            for (int i = 0; i < entity.EntityModel.ModelVertex.getVAOLength(); i++)
+            for (int i = 0; i < entity.EntityModel.ModelVertex.GetVAOLength(); i++)
             {
                 GL.DisableVertexAttribArray(i);
             }

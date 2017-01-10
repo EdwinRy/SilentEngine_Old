@@ -26,19 +26,19 @@ namespace Silent.Entities
         }
 
         //Return VAO ID for rendering
-        public int getVAOID()
+        public int GetVAOID()
         {
             return m_vaoID;
         }
 
         //Return the number of vertices for rendering
-        public int getVertexCount()
+        public int GetVertexCount()
         {
             return m_vertexCount;
         }
 
         //Return the number of VAO attributes
-        public int getVAOLength()
+        public int GetVAOLength()
         {
             return m_vaoLength;
         }

@@ -20,7 +20,7 @@ namespace Silent.Entities
         }
 
         //Return texture for rendering
-        public int getTextureID()
+        public int GetTextureID()
         {
             return m_textureID;
         }

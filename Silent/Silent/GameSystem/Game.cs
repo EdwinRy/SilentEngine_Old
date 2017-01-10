@@ -1,20 +1,15 @@
 ﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
-using Silent.Graphics;
+using Silent.Entities;
 using Silent.Graphics.RenderEngine;
 using Silent.Graphics.Shaders;
+using Silent.Tools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-
 
 namespace Silent.GameSystem
 {
@@ -23,7 +18,6 @@ namespace Silent.GameSystem
     {
 
         //WINDOW PROPERTIES:
-
         public enum DisplayBorder
         {
             Resizable,
@@ -44,18 +38,28 @@ namespace Silent.GameSystem
             
         }
 
+        //Used to execute functions or methods when keyboard state matches bindings
         public Silent_Input inputManager = new Silent_Input();
 
+        //Set the default window border type to be fixed so the window shows but can't be resized
         public DisplayBorder    windowBorder                    = DisplayBorder.Fixed;
 
+        //Set the default window width to 600px
         public int              windowWidth                    = 600;
+        //Set the default window height to 400px
         public int              windowHeight                   = 400;
 
+        //Set the logic update frequency
         public int              windowUpdateFrameRate           = 60;
+        //Set the render frequency
         public int              windowRenderFrameRate           = 60;
+        //Set the default title of the window
         public string           windowTitle                     = "Silent Game Engine";
+        //Try to update as many times a second as defined by windowUpdateFrameRate
         public bool             usePresetWindowUpdateFrequency  = false;
+        //Try to update as many times a second as defined by windowUpdateFrameRate
         public bool             usePresetWindowRenderFrequency  = false;
+        //Use OpenGL by default
         public GameAPI          UseGameAPI                      = GameAPI.OpenGL;
 
 
@@ -74,9 +78,11 @@ namespace Silent.GameSystem
         //For checks if the game is already running
         public bool gameRunning = true;
 
+        //Timer used to determine the framerate
         Stopwatch sw = new Stopwatch();
-
-        public static double Framerate = 0;
+        
+        //Frequency of rendering (how many frames are rendered per second)
+        public static double RenderFramerate = 0;
 
         //Check if the first level was loaded
         private bool m_firstLevelLoaded = false;
@@ -94,53 +100,65 @@ namespace Silent.GameSystem
 
         }
 
-        /*
+
         private void ShowSplashScreen()
         {
-            Bitmap bmp = new Bitmap(@"EngineAssets/Splash.png");
+            GLModelLoader loader = new GLModelLoader();
 
-            GL.Enable(EnableCap.Texture2D);
-            int textureID = GL.GenTexture();
+            //float[] SplashVertices = { -1, 0, 1, 1, 0, 1, -1, 0, -1, 1, 0, -1 };
+            //float[] SplashTextureCoordinates = { 0.0001f, 0.9999f, 0.9999f, 0.9999f, 0.0001f, 0.0001000166f, 0.9999f, 0.0001000166f };
+            //float[] SplashNormals = { 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0 };
+            //int[] SplashIndices = { 1, 2, 0, 1, 3, 2 };
 
-            GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
 
-            GL.BindTexture(TextureTarget.Texture2D, textureID);
+            
+            Silent_Entity SplashQuad = new Silent_Entity();
+            SplashQuad.EntityModel = new Silent_Model();
+            //SplashQuad.EntityModel.Vertices = SplashVertices;
+            //SplashQuad.EntityModel.TextureCoords = SplashTextureCoordinates;
+            //SplashQuad.EntityModel.Normals = SplashNormals;
+            //SplashQuad.EntityModel.Indices = SplashIndices;
 
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+            SplashQuad.EntityMaterial = new Silent_Material();
+            SplashQuad.EntityMaterial.TexturePath = "EngineAssets/SplashScreen.png";
 
-            BitmapData data = bmp.LockBits(new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
-                ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
-                OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
-
-            bmp.UnlockBits(data);
-
-            while (true)
+            SplashQuad.EntityModel.ModelTexture = loader.LoadTexture("EngineAssets/SplashScreen.png");
+            //SplashQuad.EntityModel.ModelVertex = loader.Load(
+              //   SplashQuad.EntityModel.Vertices,
+              //   SplashQuad.EntityModel.Indices,
+              //   SplashQuad.EntityModel.TextureCoords,
+              //   SplashQuad.EntityModel.Normals
+              //  );
+            
+            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.ClearColor(Color.Black);
+            GL.BindTexture(TextureTarget.Texture2D, SplashQuad.EntityModel.ModelTexture.GetTextureID());
+            GL.Begin(PrimitiveType.Quads);
+            GL.TexCoord2(0, 1);
+            GL.Vertex2(-1, -1); //Bottom Left
+            GL.TexCoord2(0, 0);
+            GL.Vertex2(-1, 1); //Top Left
+            GL.TexCoord2(1, 0);
+            GL.Vertex2(1, 1); //Top Right
+            GL.TexCoord2(1, 1);
+            GL.Vertex2(1, -1); //Bottom Right
+            GL.End();
+            m_gameDisplay.SwapBuffers();
+            sw.Start();
+            while (sw.Elapsed.TotalSeconds < 2)
             {
-                GL.Begin(PrimitiveType.Quads);
-
-                GL.TexCoord2(0.0f, 0.0f);
-                GL.Vertex2(0.0f, 0.0f);
-                GL.TexCoord2(1.0f, 0.0f);
-                glVertex2f(m_pos.x + m_size.x, m_pos.y);
-                GL.Vertex2(1.0f, 0.0f);
-                glTexCoord2f(1.0f, 1.0f);
-                glVertex2f(m_pos.x + m_size.x, m_pos.y + m_size.y);
-                glTexCoord2f(0.0f, 1.0f);
-                glVertex2f(m_pos.x, m_pos.y + m_size.y);
-
-                glEnd();
+                
             }
+            sw.Stop();
 
-        }  */
+        }  
 
         //Runs whenever the Game's loop is started
         private void OnLoad(object sender, EventArgs e)
         {
+            ShowSplashScreen();
             OnPreloadGame();
-            //ShowSplashScreen();
+            
             foreach(Silent_Level level in levels)
             {
                 if (!m_firstLevelLoaded)
@@ -149,6 +167,7 @@ namespace Silent.GameSystem
                     m_firstLevelLoaded = true;
                 }
             }
+            
             GL.ClearColor(0.25f, 0f, 0.5f, 0f);
             GL.Viewport(new System.Drawing.Rectangle(0, 0, m_gameDisplay.Width, m_gameDisplay.Height));
             OnLoadGame();
@@ -189,7 +208,7 @@ namespace Silent.GameSystem
 
             sw.Stop();
 
-            Framerate = 1000 / sw.Elapsed.TotalMilliseconds;
+            RenderFramerate = 1000 / sw.Elapsed.TotalMilliseconds;
             sw.Reset();
         }
 

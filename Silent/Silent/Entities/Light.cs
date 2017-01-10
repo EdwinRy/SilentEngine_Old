@@ -8,35 +8,38 @@ using System.Threading.Tasks;
 
 namespace Silent.Entities
 {
-    public class Light
+    public class Silent_Light
     {
-        public Vector3f position = new Vector3f();
-        public Vector3f colour = new Vector3f(1,1,1);
+        //Position of the light in 3D space
+        public Vector3f LightPosition = new Vector3f();
 
+        //Colour of the light in RGB format
+        public Vector3f LightColour = new Vector3f(1,1,1);
+
+        //Translating light in 3D space
         public void Translate(Vector3f translation)
         {
-            position.X += translation.X;
-            position.Y += translation.Y;
-            position.Z += translation.Z;
+            LightPosition = translation;
         }
 
         public void Translate(float translationX, float translationY, float translationZ)
         {
-            position.X += translationX;
-            position.Y += translationY;
-            position.Z += translationZ;
+            LightPosition.X += translationX;
+            LightPosition.Y += translationY;
+            LightPosition.Z += translationZ;
         }
 
+        //Change the colour of the light
         public void SetColour(Vector3f Colour)
         {
-            colour = Colour;
+            LightColour = Colour;
         }
 
         public void SetColour(int ColourR, int ColourG, int ColourB)
         {
-            colour.X = ColourR;
-            colour.Y = ColourG;
-            colour.Z = ColourB;
+            LightColour.X = ColourR;
+            LightColour.Y = ColourG;
+            LightColour.Z = ColourB;
         }
     }
 }

@@ -10,19 +10,18 @@ using System.Threading.Tasks;
 
 namespace Silent.Entities
 {
-    public class Entity
+    public class Silent_Entity
     {
-        public Matrix4 transformationMatrix = Matrix4.Identity;   
+        //Matrix defining the object's position in 3D space
+        public Matrix4 EntityTransformationMatrix = Matrix4.Identity;   
 
+        //Number of entities in the game
         public static int NumberOfEntities = 0;
 
-        public float shiness = 10;
+        //Whether the entity is loaded using custom .silent file
+        public bool EntityUsesCustomFileType = false;
 
-        public float reflectivity = 0;
-
-        public bool customFileType = false;
-
-        //Is Entity active
+        //Is Entity active in terms of logic updates
         public bool Active = true;
 
         //Is entity visible
@@ -31,97 +30,105 @@ namespace Silent.Entities
         //Name of the entity
         public string EntityName = "SampleEntity"+NumberOfEntities.ToString();
 
-        public string modelPath = "EngineAssets/untitled.obj";
+        //Path to the model
+        public string EntityModelPath = "EngineAssets/untitled.obj";
 
-        public Vector3f position = new Vector3f(0,0,0);
+        //Position in 3D space
+        public Vector3f EntityPosition = new Vector3f(0,0,0);
 
-        public Vector3f rotationAxis = new Vector3f(0,0,0);
+        //Axis of rotation (mostly uses its position)
+        public Vector3f EntityRotationAxis = new Vector3f(0,0,0);
 
-        public float rotationAngle = 0;
+        //Angle at which the entity is rotated
+        public float EntityRotationAngle = 0;
 
-        public float scale = 1;
+        //The scale of the entity
+        public float EntityScale = 1;
 
         //Every entity has to have a model consisting of Vertex and Texture
-        public Model EntityModel;
+        public Silent_Model EntityModel;
 
-        public Material EntityMaterial;
+        //Entity's material - included in the custom model file type (has to be defined otherwise)
+        public Silent_Material EntityMaterial;
 
         //private OBJLoader m_loader = new OBJLoader();
 
-        private Entity ChildOf = null;
+        private List<Silent_Entity> EntityParentOf = new List<Silent_Entity>();
 
         //The constructor takes in the model
-        public Entity()
+        public Silent_Entity()
         {
             NumberOfEntities += 1;
                       
         }
 
         //To be overriden by the entity instance
-        public virtual void OnLoad() { }
-        public virtual void OnUpdate() { }
-        public virtual void OnRender() { }
-        public virtual void OnClosing() { }
-        public virtual void OnClosed() { }
-        public virtual void OnDelete() { }
+        public virtual void OnLoadEntity() { } //Called once to load an entity
+        public virtual void OnUpdateEntity() { } //Called whenever it's time to update logic
+        public virtual void OnRenderEntity() { } //Called whenever it's time to render the entity
+        public virtual void OnClosingEntity() { } //Called when it's time to close the level
+        public virtual void OnClosedEntity() { } //Called after the game closed
+        public virtual void OnDeleteEntity() { } //Called when entity is being deleted
         //-------------------------------------
 
 
         //Call when the level is loading the entity
-        public void OnLoadEntity()
+        public void OnLoad()
         {
-            OnLoad();
-            transformationMatrix *= MatrixMaths.CreateTransformationMatrix(position, rotationAxis.X, rotationAxis.Y, rotationAxis.Z, scale);
+            //Call developer defined method
+            OnLoadEntity();
+            //Define entity position in 3D space
+            EntityTransformationMatrix *= MatrixMaths.CreateTransformationMatrix(
+                EntityPosition,
+                EntityRotationAxis.X,
+                EntityRotationAxis.Y,
+                EntityRotationAxis.Z,
+                EntityScale
+                );
+        }
 
-            if (customFileType)
+        //Call when it's time to update entities' logic
+        public void OnUpdate()
+        {
+           if(EntityParentOf.Any())
             {
-                SilentModelFile.LoadModel(modelPath, out EntityMaterial, out EntityModel);
+                foreach(Silent_Entity entity in EntityParentOf)
+                {
+
+                }
             }
-            
-
-            //m_model = m_loader.loadObjModel(modelPath, texturePath);
-
-            
+            OnUpdateEntity();
         }
 
-
-        public void OnUpdateEntity()
+        //Call when it's time to render entities
+        public void OnRender()
         {
-           if(ChildOf != null)
-            {
-                //transformationMatrix = Matrix4.CreateTranslation(position.X,position.Y, position.Z);
-            }
-            OnUpdate();
+            OnRenderEntity();
         }
 
-        public void OnRenderEntity()
-        {
-            OnRender();
-        }
-
-        //Call as teh application is closing
-        public void OnClosingEntity()
+        //Call as the application is closing
+        public void OnClosing()
         {
 
-            OnClosing();
+            OnClosingEntity();
         }
 
         //Call after the application has closed
-        public void OnClosedEntity()
+        public void OnClosed()
         {
 
-            OnClosed();
+            OnClosedEntity();
         }
 
         //Call when it's time to delete the entity
-        public void OnDeleteEntity()
+        public void OnDelete()
         {
             //TODO: Implement deletion of Entities
-            OnDelete();
+            OnDeleteEntity();
         }
 
         //Delete the entity by choice
-        public void DeleteEntity(Entity entity)
+        public void DeleteEntity(Silent_Entity entity)
         {
             entity.OnDeleteEntity();
         }
@@ -134,48 +141,93 @@ namespace Silent.Entities
             position.Y += applyTranslation.Y;
             position.Z += applyTranslation.Z;*/
 
-            position += applyTranslation;
+            EntityPosition += applyTranslation;
 
+            //Apply translation to the translation matrix of the entity
+            EntityTransformationMatrix *= Matrix4.CreateTranslation(applyTranslation.X, applyTranslation.Y, applyTranslation.Z);
 
-            transformationMatrix *= Matrix4.CreateTranslation(applyTranslation.X, applyTranslation.Y, applyTranslation.Z);
+            if (EntityParentOf.Any())
+            {
+                foreach(Silent_Entity entity in EntityParentOf)
+                {
+                    entity.Translate(applyTranslation);
+                }
+            }
         }
 
         //Translate the entity in 3D space
         public void Translate(float positionX, float positionY, float positionZ)
         {
-            position.X += positionX;
-            position.Y += positionY;
-            position.Z += positionZ;
-            transformationMatrix *= Matrix4.CreateTranslation(positionX, positionY, positionZ);
+            EntityPosition.X += positionX;
+            EntityPosition.Y += positionY;
+            EntityPosition.Z += positionZ;
+            EntityTransformationMatrix *= Matrix4.CreateTranslation(positionX, positionY, positionZ);
+
+            if (EntityParentOf.Any())
+            {
+                foreach (Silent_Entity entity in EntityParentOf)
+                {
+                    entity.Translate(positionX,positionY,positionZ);
+                }
+            }
         }
 
         //Rotate the entity in 3D space
         public void Rotate(Vector3f rotationAxis, float rotation)
         {
-            this.rotationAxis.X += rotationAxis.X;
-            this.rotationAxis.Y += rotationAxis.Y;
-            this.rotationAxis.Z += rotationAxis.Z;
-            this.rotationAngle += rotation;
-            transformationMatrix *= Matrix4.CreateFromAxisAngle(new Vector3(rotationAxis.X, rotationAxis.Y, rotationAxis.Z), rotation);
+            /*
+            this.EntityRotationAxis.X += rotationAxis.X;
+            this.EntityRotationAxis.Y += rotationAxis.Y;
+            this.EntityRotationAxis.Z += rotationAxis.Z;
+            */
+
+            EntityRotationAxis += rotationAxis;
+
+            this.EntityRotationAngle += rotation;
+
+            EntityTransformationMatrix *= Matrix4.CreateFromAxisAngle(new Vector3(rotationAxis.X, rotationAxis.Y, rotationAxis.Z), rotation);
+
+            if (EntityParentOf.Any())
+            {
+                foreach (Silent_Entity entity in EntityParentOf)
+                {
+                    entity.Rotate(rotationAxis, rotation);
+                }
+            }
         }
 
         //Rotate the entity in 3D space
         public void Rotate(float rotationAxisX, float rotationAxisY, float rotationAxisZ, float rotation)
         {
-            this.rotationAxis.X += rotationAxisX;
-            this.rotationAxis.Y += rotationAxisY;
-            this.rotationAxis.Z += rotationAxisZ;
-            this.rotationAngle += rotation;
-            transformationMatrix *= Matrix4.CreateFromAxisAngle(new Vector3(rotationAxisX, rotationAxisY, rotationAxisZ), rotation);
+            this.EntityRotationAxis.X += rotationAxisX;
+            this.EntityRotationAxis.Y += rotationAxisY;
+            this.EntityRotationAxis.Z += rotationAxisZ;
+
+            this.EntityRotationAngle += rotation;
+
+            EntityTransformationMatrix *= Matrix4.CreateFromAxisAngle(new Vector3(rotationAxisX, rotationAxisY, rotationAxisZ), rotation);
+
+            if (EntityParentOf.Any())
+            {
+                foreach (Silent_Entity entity in EntityParentOf)
+                {
+                    entity.Rotate(rotationAxisX,rotationAxisY,rotationAxisZ, rotation);
+                }
+            }
         }
 
-        /*
-        public void SetParent(Entity parentEntity)
+        //Set an entity to be the child of this entity
+        public void SetParentTo(Silent_Entity ChildEntity)
         {
-            this.ChildOf = parentEntity;
-            this.position += parentEntity.position;
+            EntityParentOf.Add(ChildEntity);
         }
-        */
+
+        //Set this entity to be the child of the parameter
+        public void SetChildTo(Silent_Entity ParentEntity)
+        {
+            ParentEntity.SetParentTo(this);
+        }
+        
 
     }
 }

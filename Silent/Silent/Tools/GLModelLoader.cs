@@ -28,7 +28,7 @@ namespace Silent.Tools
             vaoLength = 0;
         }
 
-        public Texture loadTexture(string texturePath)
+        public Texture LoadTexture(string texturePath)
         {
             Bitmap bmp = new Bitmap(texturePath);
             int texID = GL.GenTexture();
@@ -56,23 +56,23 @@ namespace Silent.Tools
             return new Texture(texID);
         }
 
-        public Vertex load(float[] vertex_data, int[] indices, float[] texture_data, float[] normals)
+        public Vertex Load(float[] vertex_data, int[] indices, float[] texture_data, float[] normals)
         {
-            int vao = createVAO();
+            int vao = CreateVAO();
                                                                              
-            bindIndicesBuffer(indices);
+            BindIndicesBuffer(indices);
 
-            storeDataInVBO(3, vertex_data);
-            storeDataInVBO(2, texture_data);
-            storeDataInVBO(3, normals);
+            StoreDataInVBO(3, vertex_data);
+            StoreDataInVBO(2, texture_data);
+            StoreDataInVBO(3, normals);
 
 
-            unbindVAO();
+            UnbindVAO();
             return new Vertex(vao, indices.Length , vaoLength); 
 
         }
 
-        private int createVAO()
+        private int CreateVAO()
         {
 
             //generate a new vao
@@ -89,17 +89,17 @@ namespace Silent.Tools
 
         }
 
-        private void unbindVAO()
+        private void UnbindVAO()
         {
 
             //Binds to null
             GL.BindVertexArray(0);
         }
 
-        private void storeDataInVBO(int dataSize, float[] data)
+        private void StoreDataInVBO(int dataSize, float[] data)
         {
             //create new vbo
-            int vbo = createVBO();
+            int vbo = CreateVBO();
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
@@ -114,10 +114,10 @@ namespace Silent.Tools
             //Increase the size of the VAO (how many elements are in the VAO)
             vaoLength += 1;
 
-            unbindVBO();
+            UnbindVBO();
         }
 
-        private int createVBO()
+        private int CreateVBO()
         {
             int vboID = GL.GenBuffer();
             vbos.Add(vboID);
@@ -125,12 +125,12 @@ namespace Silent.Tools
 
         }
 
-        private void unbindVBO()
+        private void UnbindVBO()
         {
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
         }
 
-        private void bindIndicesBuffer(int[] indices)
+        private void BindIndicesBuffer(int[] indices)
         {
             //generate new VBO
             int vboID = GL.GenBuffer();
@@ -145,7 +145,7 @@ namespace Silent.Tools
 
         }
 
-        public void cleanUp()
+        public void CleanUp()
         {
             foreach (int vbo in vbos)
             {
