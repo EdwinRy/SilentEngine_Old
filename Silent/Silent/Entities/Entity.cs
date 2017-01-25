@@ -13,7 +13,10 @@ namespace Silent.Entities
     public class Silent_Entity
     {
         //Matrix defining the object's position in 3D space
-        public Matrix4 EntityTransformationMatrix = Matrix4.Identity;   
+        public Matrix4 EntityTransformationMatrix = Matrix4.Identity;
+
+        //May be set to false if the data will be changed etc
+        public bool CanBePlacedInRenderingBatch = true;
 
         //Number of entities in the game
         public static int NumberOfEntities = 0;
@@ -50,6 +53,9 @@ namespace Silent.Entities
 
         //Entity's material - included in the custom model file type (has to be defined otherwise)
         public Silent_Material EntityMaterial;
+
+        public bool CopyParentLocation = true;
+        public bool CopyParentRotation = true;
 
         //private OBJLoader m_loader = new OBJLoader();
 
@@ -150,7 +156,8 @@ namespace Silent.Entities
             {
                 foreach(Silent_Entity entity in EntityParentOf)
                 {
-                    entity.Translate(applyTranslation);
+                    if(entity.CopyParentLocation)
+                        entity.Translate(applyTranslation);
                 }
             }
         }
@@ -167,7 +174,8 @@ namespace Silent.Entities
             {
                 foreach (Silent_Entity entity in EntityParentOf)
                 {
-                    entity.Translate(positionX,positionY,positionZ);
+                    if(entity.CopyParentLocation)
+                        entity.Translate(positionX,positionY,positionZ);
                 }
             }
         }
@@ -191,7 +199,8 @@ namespace Silent.Entities
             {
                 foreach (Silent_Entity entity in EntityParentOf)
                 {
-                    entity.Rotate(rotationAxis, rotation);
+                    if (entity.CopyParentRotation)
+                        entity.Rotate(rotationAxis.X, rotationAxis.Y, rotationAxis.Z, rotation);
                 }
             }
         }
@@ -211,7 +220,8 @@ namespace Silent.Entities
             {
                 foreach (Silent_Entity entity in EntityParentOf)
                 {
-                    entity.Rotate(rotationAxisX,rotationAxisY,rotationAxisZ, rotation);
+                    if(entity.CopyParentRotation)
+                        entity.Rotate(rotationAxisX,rotationAxisY,rotationAxisZ, rotation);
                 }
             }
         }

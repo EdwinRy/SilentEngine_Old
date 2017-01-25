@@ -65,6 +65,8 @@
     <Compile Include="Graphics\Shaders\StaticShader.cs" />
     <Compile Include="Maths\Vector2f.cs" />
     <Compile Include="Maths\Vector3f.cs" />
+    <Compile Include="Maths\Vector4f.cs" />
+    <Compile Include="Tools\CLoader.cs" />
     <Compile Include="Tools\GLModelLoader.cs" />
     <Compile Include="Maths\MatrixMaths.cs" />
     <Compile Include="Tools\OBJLoader.cs" />
@@ -106,6 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Component\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

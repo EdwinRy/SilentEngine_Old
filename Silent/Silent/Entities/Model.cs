@@ -33,5 +33,26 @@ namespace Silent.Entities
                 this.ModelPath = modelPath; 
         }
 
+        public static bool operator ==(Silent_Model m1, Silent_Model m2)
+        {
+
+            if (Object.ReferenceEquals(m1, null))
+            {
+                if (Object.ReferenceEquals(m2, null))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return m1.Equals(m2);
+        }
+
+        public static bool operator !=(Silent_Model m1, Silent_Model m2)
+        {
+            return !(m1 == m2);
+        }
+
     }
 }

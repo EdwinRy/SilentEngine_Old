@@ -11,8 +11,8 @@ namespace Silent.Graphics.Shaders
     public class StaticShader : ShaderProgram
     {
 
-        private const string M_VERTEXSHADER = "Graphics/Shaders/VertexShader.txt";
-        private const string M_FRAGMENTSHADER = "Graphics/Shaders/FragmentShader.txt";
+        public static string VertexShader = "Graphics/Shaders/VertexShader.txt";
+        public static string FragmentShader = "Graphics/Shaders/FragmentShader.txt";
 
         private int transformationMatrix;
         private int projectionMatrix;
@@ -22,7 +22,7 @@ namespace Silent.Graphics.Shaders
         private int shiness;
         private int reflectivity;
 
-        public StaticShader() : base(M_VERTEXSHADER, M_FRAGMENTSHADER)
+        public StaticShader() : base(VertexShader, FragmentShader)
         {
             ;
         }
