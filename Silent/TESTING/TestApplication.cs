@@ -14,10 +14,71 @@ namespace TESTING
     {
         public static void Main(string[] args)
         {
-            GameManager game = new GameManager();
+            Game game = new Game();
+            Lvl level = new Lvl();
+            game.LoadLevel(level);
+            game.SetCurrentLevel(level);
 
-            game.MainGameLoop();
+            game.MainGameLoop();  
         }
+    }
+
+    class Game : Silent_Game
+    {
+        public float r = 1;
+        public float g = 0;
+        public float b = 0;
+
+        public string currentFlow = "rg";
+
+        public override void OnUpdateGame()
+        {
+            if(currentFlow == "rg")
+            {
+                r -= 0.005f;
+                g += 0.005f;
+                SetBackgroundColour(r, g, b, 1);
+                if(g >= 1)
+                {
+                    g = 1;
+                    currentFlow = ("gb");
+                }
+            }
+
+            if(currentFlow == "gb")
+            {
+                g -= 0.005f;
+                b += 0.005f;
+                SetBackgroundColour(r, g, b, 1);
+                if (b >= 1)
+                {
+                    b = 1;
+                    currentFlow = ("br");
+                }
+            }
+
+            if (currentFlow == "br")
+            {
+                b -= 0.005f;
+                r += 0.005f;
+                SetBackgroundColour(r, g, b, 1);
+                if (r >= 1)
+                {
+                    r = 1;
+                    currentFlow = ("rg");
+                }
+            }
+        }
+    }
+
+    class Lvl : Silent_Level
+    {
+
+    }
+
+    class Entity : Silent_Entity
+    {
+
     }
 
     /*

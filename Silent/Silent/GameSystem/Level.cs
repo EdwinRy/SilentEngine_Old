@@ -58,21 +58,11 @@ namespace Silent.GameSystem
             foreach (Silent_Entity entity in entities)
             {
 
-                if (entity.EntityUsesCustomFileType)
-                {
-                    SilentModelFile.LoadModel(entity.EntityModelPath, out entity.EntityMaterial, out entity.EntityModel);
-                    entity.OnLoadEntity();
-                    entity.EntityModel.ModelVertex = loader.Load(entity.EntityModel.Vertices, entity.EntityModel.Indices, entity.EntityModel.TextureCoords, entity.EntityModel.Normals);
-                    entity.EntityModel.ModelTexture = loader.LoadTexture(entity.EntityModel.ModelPath);
-                }
-                else
-                {
                     OBJLoader.Load(entity.EntityModelPath, out entity.EntityModel/*, out entity.EntityMaterial*/);
                     entity.EntityMaterial = new Silent_Material();
                     entity.OnLoadEntity();
                     entity.EntityModel.ModelVertex = loader.Load(entity.EntityModel.Vertices, entity.EntityModel.Indices, entity.EntityModel.TextureCoords, entity.EntityModel.Normals);
                     entity.EntityModel.ModelTexture = loader.LoadTexture(entity.EntityMaterial.TexturePath);
-                }
 
             }
         }
@@ -115,7 +105,7 @@ namespace Silent.GameSystem
                         shader.StartShader();
                         shader.LoadLight(lights[0]);
                         shader.LoadToViewMatrix(currentCamera.view);
-                        shader.LoadEntityShiness(entity.EntityMaterial.MaterialShiness, entity.EntityMaterial.MaterialReflectivity);
+                        //shader.LoadEntityShiness(entity.EntityMaterial.MaterialShiness, entity.EntityMaterial.MaterialReflectivity);
                         renderer.Render(entity, shader);
                         entity.OnRenderEntity();
                         shader.StopShader();

@@ -15,7 +15,22 @@ namespace Silent.Graphics.Shaders
         private int m_vertexShaderID;
         private int m_fragmentShaderID;
 
+        /*
         public ShaderProgram(string vertexShaderFile = "Graphics/Shaders/VertexShader.txt", string fragmentShaderFile = "Graphics/Shaders/FragmentShader.txt")
+        {
+            m_vertexShaderID = LoadShader(vertexShaderFile, ShaderType.VertexShader);
+            m_fragmentShaderID = LoadShader(fragmentShaderFile, ShaderType.FragmentShader);
+            m_shaderID = GL.CreateProgram();
+            GL.AttachShader(m_shaderID, m_vertexShaderID);
+            GL.AttachShader(m_shaderID, m_fragmentShaderID);
+            BindAttributes();
+            GL.LinkProgram(m_shaderID);
+            GL.ValidateProgram(m_shaderID);
+            GetAllUniformLocations();
+        }
+          */
+
+        public void CreateShader(string vertexShaderFile, string fragmentShaderFile)
         {
             m_vertexShaderID = LoadShader(vertexShaderFile, ShaderType.VertexShader);
             m_fragmentShaderID = LoadShader(fragmentShaderFile, ShaderType.FragmentShader);
@@ -36,6 +51,11 @@ namespace Silent.Graphics.Shaders
         public void LoadToVector3(int location, Vector3 value)
         {
             GL.Uniform3(location, value);
+        }
+
+        public void LoadToVector4(int location, Vector4 value)
+        {
+            GL.Uniform4(location, value);
         }
 
         public void LoadToMatrix(int location, Matrix4 value)

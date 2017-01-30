@@ -101,38 +101,29 @@ namespace Silent.GameSystem
         }
 
 
+        public void SetBackgroundColour(Color colour)
+        {
+            GL.ClearColor(colour);
+        }
+
+        public void SetBackgroundColour(float red, float green, float blue, float alpha)
+        {
+            GL.ClearColor(red,green,blue,alpha);
+        }
+
         private void ShowSplashScreen()
         {
-            GLModelLoader loader = new GLModelLoader();
-
-            //float[] SplashVertices = { -1, 0, 1, 1, 0, 1, -1, 0, -1, 1, 0, -1 };
-            //float[] SplashTextureCoordinates = { 0.0001f, 0.9999f, 0.9999f, 0.9999f, 0.0001f, 0.0001000166f, 0.9999f, 0.0001000166f };
-            //float[] SplashNormals = { 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0 };
-            //int[] SplashIndices = { 1, 2, 0, 1, 3, 2 };
-
-
-            
+            GLModelLoader loader = new GLModelLoader();     
             Silent_Entity SplashQuad = new Silent_Entity();
             SplashQuad.EntityModel = new Silent_Model();
-            //SplashQuad.EntityModel.Vertices = SplashVertices;
-            //SplashQuad.EntityModel.TextureCoords = SplashTextureCoordinates;
-            //SplashQuad.EntityModel.Normals = SplashNormals;
-            //SplashQuad.EntityModel.Indices = SplashIndices;
-
             SplashQuad.EntityMaterial = new Silent_Material();
             SplashQuad.EntityMaterial.TexturePath = "EngineAssets/SplashScreen.png";
-
             SplashQuad.EntityModel.ModelTexture = loader.LoadTexture("EngineAssets/SplashScreen.png");
-            //SplashQuad.EntityModel.ModelVertex = loader.Load(
-              //   SplashQuad.EntityModel.Vertices,
-              //   SplashQuad.EntityModel.Indices,
-              //   SplashQuad.EntityModel.TextureCoords,
-              //   SplashQuad.EntityModel.Normals
-              //  );
-            
+                        
             GL.Clear(ClearBufferMask.ColorBufferBit);
             GL.ClearColor(Color.Black);
             GL.BindTexture(TextureTarget.Texture2D, SplashQuad.EntityModel.ModelTexture.GetTextureID());
+
             GL.Begin(PrimitiveType.Quads);
             GL.TexCoord2(0, 1);
             GL.Vertex2(-1, -1); //Bottom Left
@@ -156,7 +147,9 @@ namespace Silent.GameSystem
         //Runs whenever the Game's loop is started
         private void OnLoad(object sender, EventArgs e)
         {
+            m_gameDisplay.CursorVisible = false;
             ShowSplashScreen();
+            m_gameDisplay.CursorVisible = true;
             OnPreloadGame();
             
             foreach(Silent_Level level in levels)

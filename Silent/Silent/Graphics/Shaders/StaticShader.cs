@@ -11,9 +11,6 @@ namespace Silent.Graphics.Shaders
     public class StaticShader : ShaderProgram
     {
 
-        public static string VertexShader = "Graphics/Shaders/VertexShader.txt";
-        public static string FragmentShader = "Graphics/Shaders/FragmentShader.txt";
-
         private int transformationMatrix;
         private int projectionMatrix;
         private int viewMatrix;
@@ -22,9 +19,9 @@ namespace Silent.Graphics.Shaders
         private int shiness;
         private int reflectivity;
 
-        public StaticShader() : base(VertexShader, FragmentShader)
+        public StaticShader(string VertexShaderPath, string FragmentShaderPath)
         {
-            ;
+            CreateShader(VertexShaderPath, FragmentShaderPath);
         }
         protected override void BindAttributes()
         {
