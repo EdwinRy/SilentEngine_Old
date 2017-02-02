@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Silent.Graphics.Shaders
 {
-    public class StaticShader : ShaderProgram
+    public class Shader : ShaderProgram
     {
 
         private int transformationMatrix;
@@ -19,7 +19,7 @@ namespace Silent.Graphics.Shaders
         private int shiness;
         private int reflectivity;
 
-        public StaticShader(string VertexShaderPath, string FragmentShaderPath)
+        public Shader(string VertexShaderPath, string FragmentShaderPath)
         {
             CreateShader(VertexShaderPath, FragmentShaderPath);
         }

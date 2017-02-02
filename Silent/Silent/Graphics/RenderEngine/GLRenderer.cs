@@ -25,7 +25,7 @@ namespace Silent.Graphics.RenderEngine
         }
         
 
-        public void Render(Silent_Entity entity, StaticShader shader)
+        public void Render(Silent_Entity entity, Shader shader)
         {
             GL.BindVertexArray(entity.EntityModel.ModelVertex.GetVAOID());
 

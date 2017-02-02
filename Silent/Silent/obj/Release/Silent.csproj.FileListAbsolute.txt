@@ -1,0 +1,14 @@
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Release\EngineAssets\SampleCube2.obj
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Release\EngineAssets\Dragon_Blue.png
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Release\EngineAssets\SampleTexture.png
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Release\EngineAssets\dragon.obj
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Release\Graphics\Shaders\FragmentShader.txt
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Release\Graphics\Shaders\VertexShader.txt
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Release\Silent.dll
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Release\Silent.pdb
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Release\OpenTK.dll
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Release\SDL2-CS.dll
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Release\OpenTK.xml
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Release\SDL2-CS.xml
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\obj\Release\Silent.dll
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\obj\Release\Silent.pdb

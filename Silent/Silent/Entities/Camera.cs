@@ -11,11 +11,12 @@ namespace Silent.Entities
         public static int cameraCount = 0;
 
         //Name of the camera if not changed it will be named Camera *number of cameras*
-        public string cameraName = "Camera"+cameraCount;
+        public string cameraName;
 
         public Camera()
         {
             //Constructor increases number of cameras
+            cameraName = "Camera" + cameraCount;
             cameraCount += 1;
         }
 
@@ -24,8 +25,8 @@ namespace Silent.Entities
         public Vector3f position = new Vector3f(); //Positon in the 3D space
         public Vector3f rotationAxis = new Vector3f();  //Axis of rotation
         public float rotationAngle = 0; //Rotation angle
-        public float yaw;
-        public float roll;
+        public float yaw = 0;
+        public float roll = 0;
         //------------------------------------------------
 
         //Projection Matrix
@@ -36,7 +37,7 @@ namespace Silent.Entities
         //------------------------------------------------
 
         //Set the projection of the camera
-        public void SetCameraProjectionMatrix(StaticShader shader, int windowWidth, int windowHeight)
+        public void SetCameraProjectionMatrix(Shader shader, int windowWidth, int windowHeight)
         {
             //Set the projection matrix to a new created 4*4 projection matrix
             projection = Matrix4.CreatePerspectiveFieldOfView(
@@ -55,7 +56,7 @@ namespace Silent.Entities
         }
        
         //Set the position of the camera in 3D space 
-        public void SetCameraViewMatrix(StaticShader shader)
+        public void SetCameraViewMatrix(Shader shader)
         {
             //Enable shader features
             shader.StartShader();

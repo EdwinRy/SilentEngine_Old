@@ -1,0 +1,8 @@
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\Silent.dll
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\Silent.pdb
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\OpenTK.dll
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\OpenTK.xml
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\obj\Debug\SilentCS.csprojResolveAssemblyReference.cache
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\obj\Debug\Silent.g.resources
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\obj\Debug\Silent.dll
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\obj\Debug\Silent.pdb

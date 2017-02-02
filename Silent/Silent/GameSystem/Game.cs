@@ -64,13 +64,10 @@ namespace Silent.GameSystem
 
 
         //The display the Game is using
-        private GameWindow      m_gameDisplay;
+        private GameWindow m_gameDisplay;
 
         //List of levels that have been loaded to the game
-        private List<Silent_Level>     levels = new List<Silent_Level>();
-
-        //List of names Of the levels with index corresponding to the levels in levels list
-        private List<string>    levelNames = new List<string>();
+        private List<Silent_Level> levels = new List<Silent_Level>();
 
         //Current level in execution
         private Silent_Level m_currentLevel = null;
@@ -82,7 +79,9 @@ namespace Silent.GameSystem
         Stopwatch sw = new Stopwatch();
         
         //Frequency of rendering (how many frames are rendered per second)
-        public static double RenderFramerate = 0;
+        public static double RenderFrequency = 0;
+
+        public static double UpdateFrequency = 0;
 
         //Check if the first level was loaded
         private bool m_firstLevelLoaded = false;
@@ -111,7 +110,7 @@ namespace Silent.GameSystem
             GL.ClearColor(red,green,blue,alpha);
         }
 
-        private void ShowSplashScreen()
+        /*private void ShowSplashScreen()
         {
             GLModelLoader loader = new GLModelLoader();     
             Silent_Entity SplashQuad = new Silent_Entity();
@@ -142,13 +141,13 @@ namespace Silent.GameSystem
             }
             sw.Stop();
 
-        }  
+        }*/  
 
         //Runs whenever the Game's loop is started
         private void OnLoad(object sender, EventArgs e)
         {
             m_gameDisplay.CursorVisible = false;
-            ShowSplashScreen();
+            //ShowSplashScreen();
             m_gameDisplay.CursorVisible = true;
             OnPreloadGame();
             

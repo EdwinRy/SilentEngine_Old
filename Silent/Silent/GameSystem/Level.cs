@@ -17,20 +17,17 @@ namespace Silent.GameSystem
         private static int levelCount = 0;
         public string LevelName = "SampleLevel"+levelCount.ToString();
 
-        public Silent_Level(string name = null) {
+        public Silent_Level() {
             levelCount += 1;
         }
-
-        public Silent_Input inputManager;
 
         public Camera currentCamera = new Camera();
 
         public List<Silent_Entity> entities = new List<Silent_Entity>();
         public List<Silent_Light> lights = new List<Silent_Light>();
 
-        public StaticShader shader;
+        public Shader environmentalShader;
         private GLRenderer renderer = new GLRenderer();
-        private GLModelLoader loader = new GLModelLoader();
 
         public virtual void OnLoad() { }
         public virtual void OnUpdate() { }
@@ -43,7 +40,6 @@ namespace Silent.GameSystem
         public void OnLoadLevel()
         {
 
-            shader = new StaticShader();
             OnLoad();
 
             if (entities.Any())
@@ -57,12 +53,8 @@ namespace Silent.GameSystem
         {
             foreach (Silent_Entity entity in entities)
             {
-
-                    OBJLoader.Load(entity.EntityModelPath, out entity.EntityModel/*, out entity.EntityMaterial*/);
-                    entity.EntityMaterial = new Silent_Material();
-                    entity.OnLoadEntity();
-                    entity.EntityModel.ModelVertex = loader.Load(entity.EntityModel.Vertices, entity.EntityModel.Indices, entity.EntityModel.TextureCoords, entity.EntityModel.Normals);
-                    entity.EntityModel.ModelTexture = loader.LoadTexture(entity.EntityMaterial.TexturePath);
+                entity.OnLoadEntity();
+                entity.EntityModel = loader.LoadModel(entity.EntityModelPath);
 
             }
         }
@@ -102,13 +94,13 @@ namespace Silent.GameSystem
                     if (entity.Visible)
                     {
                         renderer.PrepareToRender();
-                        shader.StartShader();
-                        shader.LoadLight(lights[0]);
-                        shader.LoadToViewMatrix(currentCamera.view);
+                        environmentalShader.StartShader();
+                        environmentalShader.LoadLight(lights[0]);
+                        environmentalShader.LoadToViewMatrix(currentCamera.view);
                         //shader.LoadEntityShiness(entity.EntityMaterial.MaterialShiness, entity.EntityMaterial.MaterialReflectivity);
-                        renderer.Render(entity, shader);
+                        renderer.Render(entity, environmentalShader);
                         entity.OnRenderEntity();
-                        shader.StopShader();
+                        environmentalShader.StopShader();
                     }
                 }
             }
