@@ -13,12 +13,12 @@ namespace Silent.Entities
         public string TexturePath;
 
         //vec3 Colour and value
-        public Vector4f Emission;
-        public Vector4f Ambient;
-        public Vector4f Diffuse;
-        public Vector4f Specular;
+        public Vector4f Emission = new Vector4f();
+        public Vector4f Ambient = new Vector4f();
+        public Vector4f Diffuse = new Vector4f();
+        public Vector4f Specular = new Vector4f();
 
-        public float Shiness;
-        public float IndexOfRefraxion;
+        public float Shiness = 0;
+        public float IndexOfRefraxion = 0;
     }
 }

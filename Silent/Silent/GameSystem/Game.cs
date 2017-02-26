@@ -42,26 +42,28 @@ namespace Silent.GameSystem
         public Silent_Input inputManager = new Silent_Input();
 
         //Set the default window border type to be fixed so the window shows but can't be resized
-        public DisplayBorder    windowBorder                    = DisplayBorder.Fixed;
+        public DisplayBorder windowBorder = DisplayBorder.Fixed;
 
         //Set the default window width to 600px
-        public int              windowWidth                    = 600;
+        public int windowWidth = 600;
         //Set the default window height to 400px
-        public int              windowHeight                   = 400;
+        public int windowHeight = 400;
 
         //Set the logic update frequency
-        public int              windowUpdateFrameRate           = 60;
+        public int windowUpdateFrameRate = 60;
         //Set the render frequency
-        public int              windowRenderFrameRate           = 60;
-        //Set the default title of the window
-        public string           windowTitle                     = "Silent Game Engine";
-        //Try to update as many times a second as defined by windowUpdateFrameRate
-        public bool             usePresetWindowUpdateFrequency  = false;
-        //Try to update as many times a second as defined by windowUpdateFrameRate
-        public bool             usePresetWindowRenderFrequency  = false;
-        //Use OpenGL by default
-        public GameAPI          UseGameAPI                      = GameAPI.OpenGL;
+        public int windowRenderFrameRate = 60;
 
+        //Set the default title of the window
+        public string windowTitle = "Silent Game Engine";
+
+        //Try to update as many times a second as defined by windowUpdateFrameRate
+        public bool usePresetWindowUpdateFrequency = false;
+        //Try to update as many times a second as defined by windowUpdateFrameRate
+        public bool usePresetWindowRenderFrequency = false;
+
+        //Use OpenGL by default
+        public GameAPI UseGameAPI = GameAPI.OpenGL;
 
         //The display the Game is using
         private GameWindow m_gameDisplay;
@@ -146,9 +148,9 @@ namespace Silent.GameSystem
         //Runs whenever the Game's loop is started
         private void OnLoad(object sender, EventArgs e)
         {
-            m_gameDisplay.CursorVisible = false;
+            //m_gameDisplay.CursorVisible = false;
             //ShowSplashScreen();
-            m_gameDisplay.CursorVisible = true;
+            //m_gameDisplay.CursorVisible = true;
             OnPreloadGame();
             
             foreach(Silent_Level level in levels)
@@ -171,7 +173,9 @@ namespace Silent.GameSystem
             if (!(m_currentLevel == null))
             {
                 levels[levels.IndexOf(m_currentLevel)].OnUpdateLevel();
-            }else{
+            }
+            else
+            {
                 Console.WriteLine("Current Level has to be declared");
             }
 
@@ -200,7 +204,7 @@ namespace Silent.GameSystem
 
             sw.Stop();
 
-            RenderFramerate = 1000 / sw.Elapsed.TotalMilliseconds;
+            RenderFrequency = 1000 / sw.Elapsed.TotalMilliseconds;
             sw.Reset();
         }
 
@@ -247,11 +251,6 @@ namespace Silent.GameSystem
             inputManager.KeyPress(e.KeyChar);
         }
 
-        private void OnResize(EventArgs e)
-        {
-
-        }
-
         //Load a single level to the game
         public void LoadLevel(Silent_Level levelToLoad)
         {
@@ -261,7 +260,7 @@ namespace Silent.GameSystem
             }
 
             levels.Add(levelToLoad);
-            levelNames.Add(levelToLoad.GetLevelName());
+            //levelNames.Add(levelToLoad.GetLevelName());
 
         }
 
@@ -277,7 +276,7 @@ namespace Silent.GameSystem
                 }
 
                 levels.Add(level);
-                levelNames.Add(level.GetLevelName());
+                //levelNames.Add(level.GetLevelName());
             }
         }
 
@@ -286,7 +285,7 @@ namespace Silent.GameSystem
         {
             m_currentLevel = newLevel;
             if (m_currentLevel != null) { levels[levels.IndexOf(m_currentLevel)].OnUnloadLevel(); }
-            if (m_firstLevelLoaded) { levels[levels.IndexOf(m_currentLevel)].OnLoadLevel(); m_currentLevel.inputManager = this.inputManager; }
+            if (m_firstLevelLoaded) { levels[levels.IndexOf(m_currentLevel)].OnLoadLevel(); }
             
         }
 
@@ -328,8 +327,6 @@ namespace Silent.GameSystem
                     m_gameDisplay.Width = windowWidth;
                     m_gameDisplay.Height = windowHeight;
                     m_gameDisplay.Title = windowTitle;
-
-
 
                     if (usePresetWindowUpdateFrequency)
                     {

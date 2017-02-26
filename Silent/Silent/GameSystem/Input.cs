@@ -72,7 +72,7 @@ namespace Silent.GameSystem
 
         public void Update()
         {
-            foreach(List<Keys> keys in KeyBinds.Keys)
+            foreach (List<Keys> keys in KeyBinds.Keys)
             {
                 if(m_keysPressed.SequenceEqual(keys)) { KeyBinds[keys].Invoke(); }
             }           

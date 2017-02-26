@@ -12,7 +12,7 @@ namespace Silent.Tools
     public static class OBJModelLoader
     {
 
-        public static void Load(string path,out Silent_Model model/*, out float[] ArrayOfVertices, out float[] ArrayOfNormals, out float[] ArrayOfTextures, out int[] ArrayOfIndices*/)
+        public static void Load(string path,out Silent_Model model)
         {
             StreamReader file = new StreamReader(path);
 

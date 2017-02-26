@@ -1,6 +1,3 @@
-C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\EngineAssets\Dragon_Blue.png
-C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\EngineAssets\SampleTexture.png
-C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\EngineAssets\dragon.obj
 C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\Graphics\Shaders\FragmentShader.txt
 C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\Graphics\Shaders\VertexShader.txt
 C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\Silent.dll
@@ -12,6 +9,4 @@ C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\obj\Debug\Silent.dll
 C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\obj\Debug\Silent.pdb
 C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\SDL2-CS.dll
 C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\SDL2-CS.xml
-C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\EngineAssets\SplashScreen.png
-C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\EngineAssets\untitled.obj
 C:\Users\Edwin\Source\Repos\SilentEngine\Silent\Silent\bin\Debug\SDL2-CS.dll.config

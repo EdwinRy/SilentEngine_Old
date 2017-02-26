@@ -54,7 +54,7 @@ namespace Silent.GameSystem
             foreach (Silent_Entity entity in entities)
             {
                 entity.OnLoadEntity();
-                entity.EntityModel = loader.LoadModel(entity.EntityModelPath);
+                ModelLoader.LoadModel(entity.EntityModelPath,out entity.EntityModel,out entity.EntityMaterial);
 
             }
         }
