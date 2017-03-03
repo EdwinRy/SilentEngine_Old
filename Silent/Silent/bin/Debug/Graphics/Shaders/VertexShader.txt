@@ -5,25 +5,15 @@ in vec2 textureCoords;
 in vec3 normals;
 
 out vec2 pass_textureCoords;
-//out vec3 surfNorm;
-//out vec3 lightVec;
-//out vec3 VectorToCamera;
 
 uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
-uniform vec3 lightPosition;
-
 
 void main(void){
-	
+
 	vec4 world = transformationMatrix * vec4(position,1.0);
-
 	gl_Position = projectionMatrix * viewMatrix * world;
-
-	//surfNorm = -normals;
-	//lightVec =  world.xyz - lightPosition;
-	VectorToCamera = (inverse(viewMatrix) * vec4(0.0,0.0,0.0,1.0)).xyz - world.xyz;
+	//VectorToCamera = (inverse(viewMatrix) * vec4(0.0,0.0,0.0,1.0)).xyz - world.xyz;
 	pass_textureCoords = textureCoords;
-	
 }

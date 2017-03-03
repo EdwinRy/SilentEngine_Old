@@ -94,6 +94,10 @@
     <Folder Include="Component\" />
     <Folder Include="SampleShaders\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Graphics\Shaders\_frag.txt" />
+    <Content Include="Graphics\Shaders\_vert.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

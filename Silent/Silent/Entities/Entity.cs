@@ -33,6 +33,9 @@ namespace Silent.Entities
         //Name of the entity
         public string EntityName = "SampleEntity"+NumberOfEntities.ToString();
 
+        //Defines the path to the texture the model is using
+        public string EntityTexturePath;
+
         //Path to the model
         public string EntityModelPath;
 

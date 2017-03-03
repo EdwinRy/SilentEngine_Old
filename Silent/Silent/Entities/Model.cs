@@ -10,8 +10,8 @@ namespace Silent.Entities
     {
 
         //Every model has to consist of a vertex and a texture
-        public Vertex ModelVertex;
-        public Texture ModelTexture;
+        public Silent_Vertex ModelVertex;
+        public Silent_Texture ModelTexture;
 
         //Path to the model
         public string ModelPath;

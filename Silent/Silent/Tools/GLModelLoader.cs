@@ -28,7 +28,7 @@ namespace Silent.Tools
             vaoLength = 0;
         }
 
-        public Texture LoadTexture(string texturePath)
+        public Silent_Texture LoadTexture(string texturePath)
         {
             Bitmap bmp = new Bitmap(texturePath);
             int texID = GL.GenTexture();
@@ -53,10 +53,10 @@ namespace Silent.Tools
 
             bmp.UnlockBits(data);
 
-            return new Texture(texID);
+            return new Silent_Texture(texID);
         }
 
-        public Vertex Load(float[] vertex_data, int[] indices, float[] texture_data, float[] normals)
+        public Silent_Vertex Load(float[] vertex_data, int[] indices, float[] texture_data, float[] normals)
         {
             int vao = CreateVAO();
                                                                              
@@ -68,7 +68,7 @@ namespace Silent.Tools
 
 
             UnbindVAO();
-            return new Vertex(vao, indices.Length , vaoLength); 
+            return new Silent_Vertex(vao, indices.Length , vaoLength); 
 
         }
 

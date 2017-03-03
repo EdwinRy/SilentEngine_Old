@@ -14,6 +14,9 @@ namespace Silent.GameSystem
     public class Silent_Level
     {
 
+        public int ScreenWidth;
+        public int ScreenHeight;
+
         private static int levelCount = 0;
         public string LevelName = "SampleLevel"+levelCount.ToString();
 
@@ -21,7 +24,7 @@ namespace Silent.GameSystem
             levelCount += 1;
         }
 
-        public Camera currentCamera = new Camera();
+        public Silent_Camera currentCamera = new Silent_Camera();
 
         public List<Silent_Entity> entities = new List<Silent_Entity>();
         public List<Silent_Light> lights = new List<Silent_Light>();
@@ -41,7 +44,9 @@ namespace Silent.GameSystem
         {
 
             OnLoad();
-
+            environmentalShader = new Shader("Graphics/Shaders/VertexShader.txt", "Graphics/Shaders/FragmentShader.txt");
+            currentCamera.SetCameraProjectionMatrix(environmentalShader, ScreenWidth, ScreenHeight);
+            currentCamera.SetCameraViewMatrix(environmentalShader);
             if (entities.Any())
             {
                 LoadEntities();
@@ -51,10 +56,18 @@ namespace Silent.GameSystem
 
         public void LoadEntities()
         {
+
             foreach (Silent_Entity entity in entities)
             {
                 entity.OnLoadEntity();
-                ModelLoader.LoadModel(entity.EntityModelPath,out entity.EntityModel,out entity.EntityMaterial);
+
+                ModelLoader.LoadModel(
+                    entity.EntityModelPath,
+                    entity.EntityTexturePath,
+                    out entity.EntityModel,
+                    out entity.EntityMaterial);
+
+                
 
             }
         }
@@ -95,7 +108,8 @@ namespace Silent.GameSystem
                     {
                         renderer.PrepareToRender();
                         environmentalShader.StartShader();
-                        environmentalShader.LoadLight(lights[0]);
+                        //environmentalShader.LoadLight(lights[0]);
+                        environmentalShader.LoadToTransformationMatrix(entity.EntityTransformationMatrix);
                         environmentalShader.LoadToViewMatrix(currentCamera.view);
                         //shader.LoadEntityShiness(entity.EntityMaterial.MaterialShiness, entity.EntityMaterial.MaterialReflectivity);
                         renderer.Render(entity, environmentalShader);

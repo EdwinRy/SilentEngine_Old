@@ -74,6 +74,17 @@ namespace TESTING
     class Lvl : Silent_Level
     {
 
+        Entity entity = new Entity();
+        public override void OnLoad()
+        {
+            Silent_Camera camera = new Silent_Camera();
+            currentCamera = camera;
+            entity.EntityModelPath = "Assets/dragon.obj";
+            entity.EntityTexturePath = "Assets/Dragon_Blue.png";
+            entity.Translate(0, -2, -10);
+            this.AddEntity(entity);
+        }
+
     }
 
     class Entity : Silent_Entity

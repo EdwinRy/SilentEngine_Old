@@ -12,22 +12,21 @@ namespace Silent.Tools
 {
     public class ModelLoader
     {
-        public static void LoadModel(string ModelPath, out Silent_Model model, out Silent_Material material)
-        {
 
+        public static void LoadModel(string ModelPath, string TexturePath, out Silent_Model model, out Silent_Material material)
+        {
             model = new Silent_Model();
             material = new Silent_Material();
 
-            if (ModelPath.EndsWith(".dae")) LoadC(ModelPath,out model,out material);
-            if (ModelPath.EndsWith(".obj")) LoadC(ModelPath, out model, out material);
-
-
-
+            if (ModelPath.EndsWith(".dae")) LoadC(ModelPath, TexturePath, out model,out material);
+            if (ModelPath.EndsWith(".obj")) LoadOBJ(ModelPath, TexturePath, out model, out material);
 
         }
 
-        private static void LoadC(string ModelPath, out Silent_Model model, out Silent_Material material)
+        private static void LoadC(string ModelPath, string TexturePath, out Silent_Model model, out Silent_Material material)
         {
+            GLModelLoader GLLoader = new GLModelLoader();
+
             XmlDocument modelDoc = new XmlDocument();
             modelDoc.Load(ModelPath);
 
@@ -50,7 +49,7 @@ namespace Silent.Tools
             //Get the texture coordinates of the model
             SetProperty(
                 modelDoc.SelectSingleNode("COLLADA/library_geometries/geometry/mesh/source[@id='Cube-mesh-map-0-array']/float_array").InnerText.Split(' '),
-                out model.Normals
+                out model.TextureCoords
                 );
 
             //Get the indices
@@ -59,10 +58,15 @@ namespace Silent.Tools
                 modelDoc.SelectSingleNode("COLLADA/library_geometries/geometry/mesh/polylist/p").InnerText.Split(' '),
                 out model.Indices
                 );
+
+            model.ModelVertex = GLLoader.Load(model.Vertices, model.Indices, model.TextureCoords, model.Normals);
+            model.ModelTexture = GLLoader.LoadTexture(TexturePath);
+
         }
 
-        private static void LoadOBJ(string ModelPath, out Silent_Model model, out Silent_Material material)
+        private static void LoadOBJ(string ModelPath, string TexturePath, out Silent_Model model, out Silent_Material material)
         {
+            GLModelLoader GLLoader = new GLModelLoader();
             StreamReader file = new StreamReader(ModelPath);
             material = new Silent_Material();
             string CurrentLine;
@@ -150,6 +154,10 @@ namespace Silent.Tools
             model.TextureCoords = ArrayOfTextures;
             model.Normals = ArrayOfNormals;
             model.Indices = ArrayOfIndices;
+
+            model.ModelVertex = GLLoader.Load(model.Vertices, model.Indices, model.TextureCoords, model.Normals);
+            model.ModelTexture = GLLoader.LoadTexture(TexturePath);
+
         }
 
         private static void ProcessFace(

@@ -5,7 +5,7 @@ using System;
 
 namespace Silent.Entities
 {
-    public class Camera
+    public class Silent_Camera
     {
         //The amount of cameras in the game
         public static int cameraCount = 0;
@@ -13,7 +13,7 @@ namespace Silent.Entities
         //Name of the camera if not changed it will be named Camera *number of cameras*
         public string cameraName;
 
-        public Camera()
+        public Silent_Camera()
         {
             //Constructor increases number of cameras
             cameraName = "Camera" + cameraCount;

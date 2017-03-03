@@ -148,9 +148,6 @@ namespace Silent.GameSystem
         //Runs whenever the Game's loop is started
         private void OnLoad(object sender, EventArgs e)
         {
-            //m_gameDisplay.CursorVisible = false;
-            //ShowSplashScreen();
-            //m_gameDisplay.CursorVisible = true;
             OnPreloadGame();
             
             foreach(Silent_Level level in levels)
@@ -159,6 +156,10 @@ namespace Silent.GameSystem
                 {
                     level.OnLoadLevel();
                     m_firstLevelLoaded = true;
+                }
+                else
+                {
+
                 }
             }
             
@@ -189,8 +190,8 @@ namespace Silent.GameSystem
         //Drawing of the scene
         private void OnRender(object sender, FrameEventArgs e)
         {
-            sw.Start();
-            //GL.Flush();
+            //sw.Start();
+            GL.Flush();
             if (!(m_currentLevel == null))
             {
                 levels[levels.IndexOf(m_currentLevel)].OnRenderLevel();
@@ -202,10 +203,10 @@ namespace Silent.GameSystem
             OnRenderGame();
             m_gameDisplay.SwapBuffers();
 
-            sw.Stop();
+            //sw.Stop();
 
-            RenderFrequency = 1000 / sw.Elapsed.TotalMilliseconds;
-            sw.Reset();
+            //RenderFrequency = 1000 / sw.Elapsed.TotalMilliseconds;
+            //sw.Reset();
         }
 
         //Execute when the game is about to close
@@ -283,6 +284,8 @@ namespace Silent.GameSystem
         //Set the level currently in execution
         public void SetCurrentLevel(Silent_Level newLevel)
         {
+            newLevel.ScreenWidth = windowWidth;
+            newLevel.ScreenHeight = windowHeight;
             m_currentLevel = newLevel;
             if (m_currentLevel != null) { levels[levels.IndexOf(m_currentLevel)].OnUnloadLevel(); }
             if (m_firstLevelLoaded) { levels[levels.IndexOf(m_currentLevel)].OnLoadLevel(); }

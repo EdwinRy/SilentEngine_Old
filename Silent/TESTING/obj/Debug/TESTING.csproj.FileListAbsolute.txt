@@ -11,3 +11,5 @@ C:\Users\Edwin\Source\Repos\SilentEngine\Silent\TESTING\obj\Debug\TESTING.csproj
 C:\Users\Edwin\Source\Repos\SilentEngine\Silent\TESTING\obj\Debug\TESTING.exe
 C:\Users\Edwin\Source\Repos\SilentEngine\Silent\TESTING\obj\Debug\TESTING.pdb
 C:\Users\Edwin\Source\Repos\SilentEngine\Silent\TESTING\bin\Debug\Assets\TerrainTexture.jpg
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\TESTING\bin\Debug\Assets\Dragon_Blue.png
+C:\Users\Edwin\Source\Repos\SilentEngine\Silent\TESTING\bin\Debug\Assets\dragon.obj

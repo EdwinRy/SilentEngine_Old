@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Silent.Entities
 {
-    public class Texture
+    public class Silent_Texture
     {
 
         //ID of the texture needed for rendering
@@ -14,7 +14,7 @@ namespace Silent.Entities
 
 
         //constructor takes in the texture ID
-        public Texture(int textureID)
+        public Silent_Texture(int textureID)
         {
             m_textureID = textureID;
         }

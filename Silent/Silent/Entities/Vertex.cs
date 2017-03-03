@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Silent.Entities
 {
-    public class Vertex
+    public class Silent_Vertex
     {
 
         //ID of the VAO used for rendering
@@ -18,7 +18,7 @@ namespace Silent.Entities
         //The number of elements in the VAO simplifying enabling/disabling elements in rendering
         private int m_vaoLength;
 
-        public Vertex(int vaoID,int vertexCount, int vaoLength)                
+        public Silent_Vertex(int vaoID,int vertexCount, int vaoLength)                
         {
             m_vaoID         = vaoID;
             m_vertexCount   = vertexCount;
